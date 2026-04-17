@@ -12,19 +12,23 @@
 	<?php
 	$heroes = array( 'hero1', 'hero2', 'hero3' );
 	$fallbacks = array( 'hero1' => 'hero-1.jpg', 'hero2' => 'hero-2.jpg', 'hero3' => 'hero-3.jpg' );
+	$alts      = array( 'hero1' => __( 'Next-generation electric vehicle battery pack', 'voltcore' ), 'hero2' => __( 'Home energy storage unit on a modern wall', 'voltcore' ), 'hero3' => __( 'Utility-scale grid battery installation at dusk', 'voltcore' ) );
 
 	foreach ( $heroes as $i => $h ) :
 		$img      = voltcore_image( 'voltcore_' . $h . '_image', $fallbacks[ $h ] );
+		$alt      = $alts[ $h ];
 		$title    = voltcore_text( 'voltcore_' . $h . '_title', '' );
 		$subtitle = voltcore_text( 'voltcore_' . $h . '_subtitle', '' );
 		$btn1_l   = voltcore_text( 'voltcore_' . $h . '_btn1_label', '' );
 		$btn1_u   = voltcore_text( 'voltcore_' . $h . '_btn1_url', '#' );
 		$btn2_l   = voltcore_text( 'voltcore_' . $h . '_btn2_label', '' );
 		$btn2_u   = voltcore_text( 'voltcore_' . $h . '_btn2_url', '#' );
+		$HeadingTag = ( $i === 0 ) ? 'h1' : 'h2';
 	?>
-	<section class="hero" style="background-image:url('<?php echo esc_url( $img ); ?>');" data-snap>
+	<section class="hero" style="background-image:url('<?php echo esc_url( $img ); ?>');" data-snap aria-label="<?php echo esc_attr( $title ); ?>">
+		<img class="single-hero__seo-img" src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $alt ); ?>" width="2000" height="1200" loading="<?php echo $i === 0 ? 'eager' : 'lazy'; ?>" <?php echo $i === 0 ? 'fetchpriority="high"' : ''; ?>>
 		<div class="hero__inner">
-			<h1 class="hero__title" data-fade><?php echo esc_html( $title ); ?></h1>
+			<<?php echo $HeadingTag; ?> class="hero__title" data-fade><?php echo esc_html( $title ); ?></<?php echo $HeadingTag; ?>>
 			<p class="hero__subtitle" data-fade data-fade-delay="120"><?php echo esc_html( $subtitle ); ?></p>
 			<div class="hero__actions" data-fade data-fade-delay="220">
 				<?php if ( $btn1_l ) : ?>

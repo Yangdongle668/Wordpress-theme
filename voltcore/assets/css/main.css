@@ -749,3 +749,18 @@ p { margin: 0 0 1em; }
 
 /* ---------- 24. Misc ---------- */
 .muted { color: var(--vc-muted); }
+
+/* ---------- 25. Breadcrumbs ---------- */
+.breadcrumbs { margin: 0 0 12px; font-size: 13px; color: var(--vc-muted); }
+.breadcrumbs__list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0; justify-content: center; }
+.page-header--image .breadcrumbs, .single-hero .breadcrumbs { color: rgba(255,255,255,.85); margin-bottom: 14px; justify-content: flex-start; }
+.page-header--image .breadcrumbs__list, .single-hero .breadcrumbs__list { justify-content: flex-start; }
+.breadcrumbs__item { display: inline-flex; align-items: center; }
+.breadcrumbs__item a { color: inherit; text-decoration: none; }
+.breadcrumbs__item a:hover { color: var(--vc-accent); }
+.breadcrumbs__sep { margin: 0 8px; opacity: .5; }
+.breadcrumbs__item.is-current { color: var(--vc-ink); }
+.page-header--image .breadcrumbs__item.is-current, .single-hero .breadcrumbs__item.is-current { color: #fff; }
+
+/* SEO-only <img> placed inside CSS-background sections — invisible but crawlable. */
+.single-hero__seo-img { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; clip: rect(0 0 0 0); overflow: hidden; }

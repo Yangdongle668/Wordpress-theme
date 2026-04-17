@@ -50,6 +50,16 @@ function voltcore_pagination() {
 }
 
 /**
+ * Compute a rough reading-time string for article content (English-friendly).
+ */
+function voltcore_reading_time( $content, $wpm = 220 ) {
+	$words = str_word_count( wp_strip_all_tags( strip_shortcodes( $content ) ) );
+	$minutes = max( 1, (int) ceil( $words / $wpm ) );
+	/* translators: %d: minutes */
+	return sprintf( _n( '%d min read', '%d min read', $minutes, 'voltcore' ), $minutes );
+}
+
+/**
  * Render a split of comma-separated custom-field values as a key spec block.
  * Used by product cards. Expects format: "Range|640 km,Charge|15 min,Cells|4680".
  */

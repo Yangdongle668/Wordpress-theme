@@ -13,7 +13,8 @@ $hero_sub   = voltcore_text( 'voltcore_hero1_subtitle', 'The most energy-dense b
 ?>
 <div class="home home--story" data-home="story">
 
-	<section class="hero hero--full" style="background-image:url('<?php echo esc_url( $hero_img ); ?>');">
+	<section class="hero hero--full" style="background-image:url('<?php echo esc_url( $hero_img ); ?>');" aria-label="<?php echo esc_attr( $hero_title ); ?>">
+		<img class="single-hero__seo-img" src="<?php echo esc_url( $hero_img ); ?>" alt="<?php esc_attr_e( 'Inside the VoltCore battery engineering lab', 'voltcore' ); ?>" width="2000" height="1200" loading="eager" fetchpriority="high">
 		<div class="hero__inner hero__inner--center">
 			<p class="eyebrow" data-fade><?php esc_html_e( 'Our Story', 'voltcore' ); ?></p>
 			<h1 class="hero__title" data-fade data-fade-delay="100"><?php echo esc_html( $hero_title ); ?></h1>
@@ -31,7 +32,9 @@ $hero_sub   = voltcore_text( 'voltcore_hero1_subtitle', 'The most energy-dense b
 	?>
 	<section class="split<?php echo esc_attr( $flip ); ?>">
 		<div class="split__media" data-fade>
-			<div class="split__image" style="background-image:url('<?php echo esc_url( $img ); ?>');"></div>
+			<figure class="split__image" style="background-image:url('<?php echo esc_url( $img ); ?>');" role="img" aria-label="<?php echo esc_attr( $title ); ?>">
+				<img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $title ); ?>" width="1400" height="1050" loading="lazy" decoding="async" class="screen-reader-text">
+			</figure>
 		</div>
 		<div class="split__body" data-fade data-fade-delay="150">
 			<span class="eyebrow">0<?php echo esc_html( $i ); ?> / 02</span>

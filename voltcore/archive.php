@@ -5,10 +5,21 @@
  * @package VoltCore
  */
 
-get_header(); ?>
+get_header();
+
+if ( function_exists( 'voltcore_elementor_location' ) && voltcore_elementor_location( 'archive' ) ) {
+	get_footer();
+	return;
+}
+if ( function_exists( 'voltcore_tmpl_render' ) && voltcore_tmpl_render( 'archive' ) ) {
+	get_footer();
+	return;
+}
+?>
 
 <section class="page-header page-header--light">
 	<div class="page-header__inner">
+		<?php voltcore_breadcrumbs(); ?>
 		<h1 class="page-header__title">
 			<?php the_archive_title(); ?>
 		</h1>

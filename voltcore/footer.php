@@ -7,7 +7,17 @@
 ?>
 </main><!-- #main -->
 
-<footer class="site-footer">
+<?php
+$vc_footer_rendered = false;
+if ( function_exists( 'voltcore_elementor_location' ) && voltcore_elementor_location( 'footer' ) ) {
+	$vc_footer_rendered = true;
+}
+if ( ! $vc_footer_rendered && function_exists( 'voltcore_tmpl_render' ) ) {
+	$vc_footer_rendered = voltcore_tmpl_render( 'footer' );
+}
+
+if ( ! $vc_footer_rendered ) : ?>
+<footer class="site-footer" role="contentinfo" itemscope itemtype="https://schema.org/WPFooter">
 	<div class="site-footer__widgets">
 		<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
 			<div class="site-footer__col">
@@ -41,6 +51,7 @@
 		?>
 	</div>
 </footer>
+<?php endif; // end default footer ?>
 
 <?php wp_footer(); ?>
 </body>

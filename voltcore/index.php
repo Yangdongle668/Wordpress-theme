@@ -9,6 +9,7 @@ get_header(); ?>
 
 <section class="page-header page-header--light">
 	<div class="page-header__inner">
+		<?php voltcore_breadcrumbs(); ?>
 		<h1 class="page-header__title">
 			<?php
 			if ( is_home() && ! is_front_page() ) {

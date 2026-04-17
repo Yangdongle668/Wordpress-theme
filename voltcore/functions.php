@@ -162,6 +162,12 @@ function voltcore_customizer_inline_css() {
  */
 require VOLTCORE_DIR . '/inc/customizer.php';
 require VOLTCORE_DIR . '/inc/template-tags.php';
+require VOLTCORE_DIR . '/inc/seo.php';
+require VOLTCORE_DIR . '/inc/sample-posts.php';
+require VOLTCORE_DIR . '/inc/install.php';
+require VOLTCORE_DIR . '/inc/elementor.php';
+require VOLTCORE_DIR . '/inc/admin.php';
+require VOLTCORE_DIR . '/inc/theme-builder.php';
 
 /**
  * Pingback header for single posts.

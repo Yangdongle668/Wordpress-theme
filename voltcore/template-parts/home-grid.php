@@ -16,7 +16,8 @@ $btn2_u   = voltcore_text( 'voltcore_hero1_btn2_url', '#' );
 ?>
 <div class="home home--grid" data-home="grid">
 
-	<section class="hero hero--short" data-parallax style="background-image:url('<?php echo esc_url( $img ); ?>');">
+	<section class="hero hero--short" data-parallax style="background-image:url('<?php echo esc_url( $img ); ?>');" aria-label="<?php echo esc_attr( $title ); ?>">
+		<img class="single-hero__seo-img" src="<?php echo esc_url( $img ); ?>" alt="<?php esc_attr_e( 'Next-generation electric vehicle battery pack', 'voltcore' ); ?>" width="2000" height="1200" loading="eager" fetchpriority="high">
 		<div class="hero__inner hero__inner--left">
 			<h1 class="hero__title" data-fade><?php echo esc_html( $title ); ?></h1>
 			<p class="hero__subtitle" data-fade data-fade-delay="120"><?php echo esc_html( $subtitle ); ?></p>
@@ -46,8 +47,10 @@ $btn2_u   = voltcore_text( 'voltcore_hero1_btn2_url', '#' );
 				$desc  = voltcore_text( 'voltcore_product_' . $i . '_desc', '' );
 				$url   = voltcore_text( 'voltcore_product_' . $i . '_url', '#' );
 			?>
-			<a class="product-card" href="<?php echo esc_url( $url ); ?>" data-fade data-fade-delay="<?php echo esc_attr( $i * 80 ); ?>">
-				<div class="product-card__media" style="background-image:url('<?php echo esc_url( $img ); ?>');"></div>
+			<a class="product-card" href="<?php echo esc_url( $url ); ?>" data-fade data-fade-delay="<?php echo esc_attr( $i * 80 ); ?>" aria-label="<?php echo esc_attr( $title ); ?>">
+				<div class="product-card__media" style="background-image:url('<?php echo esc_url( $img ); ?>');" role="img" aria-label="<?php echo esc_attr( $title ); ?>">
+					<img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $title . ' — ' . wp_strip_all_tags( $desc ) ); ?>" width="1200" height="900" loading="lazy" decoding="async" class="screen-reader-text">
+				</div>
 				<div class="product-card__body">
 					<h3 class="product-card__title"><?php echo esc_html( $title ); ?></h3>
 					<p class="product-card__desc"><?php echo esc_html( $desc ); ?></p>
