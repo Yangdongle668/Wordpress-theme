@@ -2,45 +2,54 @@
 /**
  * VoltCore — Elementor widgets loader.
  *
- * Registers a set of drag-and-drop widgets under the "VoltCore" category
- * so users can compose tesla.com-style sections inside the Elementor
- * editor. Each widget is a pure PHP class and ships with sensible
- * defaults so dropping one on a page looks polished immediately.
+ * Registers the full VoltCore widget set under the "VoltCore" category.
+ * Each widget is a pure PHP class and ships with sensible defaults so
+ * dropping it on a page looks polished immediately.
  *
- * Widgets:
- *   - VoltCore_Hero
- *   - VoltCore_Feature_Card
- *   - VoltCore_Stat
- *   - VoltCore_Split
- *   - VoltCore_CTA
- *   - VoltCore_Post_Grid
+ * Content widgets (Phase 0): Hero, Feature Card, Stat, Split, CTA,
+ * Post Grid.
  *
- * All widgets reuse VoltCore CSS classes so they inherit the same
- * typography, buttons and animations as the rest of the theme.
+ * Chrome widgets (Phase 1): Navbar, Footer, Stats Row, Icon Box,
+ * Logo Cloud, Marquee.
+ *
+ * Page-specific composite widgets (Phase 2 — to come): Contact
+ * Grid, Careers Hero, Press Kit, Press List, Legal Hero, Legal
+ * TOC, Team Grid, Timeline, FAQ, Product Hero, Product Specs,
+ * Breadcrumbs.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-/**
- * Register our widgets once Elementor is ready.
- */
 function voltcore_register_elementor_widgets( $widgets_manager ) {
 	$dir = VOLTCORE_DIR . '/inc/elementor-widgets/';
 
-	require_once $dir . 'widget-hero.php';
-	require_once $dir . 'widget-feature-card.php';
-	require_once $dir . 'widget-stat.php';
-	require_once $dir . 'widget-split.php';
-	require_once $dir . 'widget-cta.php';
-	require_once $dir . 'widget-post-grid.php';
+	$files = array(
+		// Phase 0 (shipping)
+		'widget-hero.php'         => 'VoltCore_Hero',
+		'widget-feature-card.php' => 'VoltCore_Feature_Card',
+		'widget-stat.php'         => 'VoltCore_Stat',
+		'widget-split.php'        => 'VoltCore_Split',
+		'widget-cta.php'          => 'VoltCore_CTA',
+		'widget-post-grid.php'    => 'VoltCore_Post_Grid',
 
-	$widgets_manager->register( new \VoltCore_Hero() );
-	$widgets_manager->register( new \VoltCore_Feature_Card() );
-	$widgets_manager->register( new \VoltCore_Stat() );
-	$widgets_manager->register( new \VoltCore_Split() );
-	$widgets_manager->register( new \VoltCore_CTA() );
-	$widgets_manager->register( new \VoltCore_Post_Grid() );
+		// Phase 1 (chrome)
+		'widget-navbar.php'       => 'VoltCore_Navbar',
+		'widget-footer.php'       => 'VoltCore_Footer',
+		'widget-stats-row.php'    => 'VoltCore_Stats_Row',
+		'widget-icon-box.php'     => 'VoltCore_Icon_Box',
+		'widget-logo-cloud.php'   => 'VoltCore_Logo_Cloud',
+		'widget-marquee.php'      => 'VoltCore_Marquee',
+	);
+
+	foreach ( $files as $file => $class ) {
+		$path = $dir . $file;
+		if ( file_exists( $path ) ) {
+			require_once $path;
+			$fqcn = '\\' . $class;
+			if ( class_exists( $fqcn ) ) {
+				$widgets_manager->register( new $fqcn() );
+			}
+		}
+	}
 }
 add_action( 'elementor/widgets/register', 'voltcore_register_elementor_widgets' );

@@ -1249,6 +1249,139 @@ body.page-blank .site-main { padding: 0; }
 .legal-content .entry-content a { color: var(--vc-ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .legal-content .entry-content a:hover { color: var(--vc-accent); }
 
+/* ================================================================
+ *  Phase-1 Elementor chrome widgets
+ * ================================================================ */
+
+/* -------- Navbar (VoltCore_Navbar) -------- */
+.vc-nav {
+	position: fixed;
+	top: 0; left: 0; right: 0;
+	z-index: 90;
+	display: flex; align-items: center;
+	transition: background .35s var(--vc-ease), backdrop-filter .35s var(--vc-ease), color .35s var(--vc-ease);
+	color: #fff;
+	padding: 0 24px;
+	height: 56px;
+}
+.vc-nav::after {
+	content: "";
+	position: absolute; inset: 0;
+	background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
+	pointer-events: none;
+	transition: opacity .3s var(--vc-ease);
+}
+.vc-nav.is-solid { background: rgba(255,255,255,.92); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); color: var(--vc-ink); }
+.vc-nav.is-solid::after { opacity: 0; }
+.vc-nav__inner { position: relative; width: 100%; max-width: 1800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; z-index: 1; }
+.vc-nav__logo { flex: 0 0 auto; }
+.vc-nav__logo a { color: inherit; display: inline-flex; align-items: center; }
+.vc-nav__logo img { max-height: 20px; width: auto; display: block; }
+.vc-nav__logo .site-title { font-weight: 600; letter-spacing: .12em; font-size: 14px; text-transform: uppercase; }
+.vc-nav__menu-wrap { flex: 1 1 auto; display: flex; justify-content: center; }
+.vc-nav__menu { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+.vc-nav__menu a {
+	display: inline-block;
+	padding: 6px 12px;
+	border-radius: var(--vc-radius);
+	font-size: 13px; font-weight: 500;
+	color: inherit;
+	transition: background .18s var(--vc-ease);
+}
+.vc-nav__menu a:hover { background: rgba(255,255,255,.10); }
+.vc-nav.is-solid .vc-nav__menu a:hover { background: rgba(0,0,0,.05); }
+.vc-nav__menu .sub-menu { display: none; }
+.vc-nav__right { display: flex; align-items: center; gap: 4px; }
+.vc-nav__cta {
+	padding: 6px 12px;
+	border-radius: var(--vc-radius);
+	font-size: 13px; font-weight: 500;
+	color: inherit;
+	transition: background .18s var(--vc-ease);
+}
+.vc-nav__cta:hover { background: rgba(255,255,255,.10); color: inherit; }
+.vc-nav.is-solid .vc-nav__cta:hover { background: rgba(0,0,0,.05); }
+.vc-nav__toggle { display: none; width: 40px; height: 40px; border: 0; background: transparent; cursor: pointer; color: inherit; }
+.vc-nav__toggle span { display: block; width: 22px; height: 2px; background: currentColor; margin: 4px auto; transition: transform .3s var(--vc-ease), opacity .2s var(--vc-ease); }
+.vc-nav__toggle.is-open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.vc-nav__toggle.is-open span:nth-child(2) { opacity: 0; }
+.vc-nav__toggle.is-open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+@media (max-width: 900px) {
+	.vc-nav__menu-wrap, .vc-nav__cta { display: none; }
+	.vc-nav__toggle { display: inline-block; }
+}
+.vc-nav__drawer {
+	position: fixed; top: 56px; left: 0; right: 0; bottom: 0;
+	background: #fff; color: var(--vc-ink);
+	z-index: 85;
+	padding: 32px 24px;
+	transform: translateY(-8px);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .25s var(--vc-ease), transform .25s var(--vc-ease);
+}
+.vc-nav__drawer.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.vc-nav__drawer[hidden] { display: block; }
+.vc-nav__drawer-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+.vc-nav__drawer-menu li a { display: block; padding: 14px 6px; font-size: 18px; border-bottom: 1px solid var(--vc-line); color: inherit; }
+
+/* -------- Footer widget (VoltCore_Footer) -------- */
+.vc-footer { padding: 64px 48px 32px; border-top: 1px solid var(--vc-line); font-size: 13px; color: var(--vc-ink-soft); }
+.vc-footer__widgets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; max-width: 1440px; margin: 0 auto 48px; }
+@media (max-width: 900px) { .vc-footer__widgets { grid-template-columns: repeat(2, 1fr); gap: 32px; } .vc-footer { padding: 48px 20px 28px; } }
+@media (max-width: 520px) { .vc-footer__widgets { grid-template-columns: 1fr; gap: 24px; } }
+.vc-footer__col h4 { font-size: 12px !important; font-weight: 600 !important; letter-spacing: .12em !important; text-transform: uppercase !important; margin: 0 0 18px !important; color: var(--vc-ink) !important; }
+.vc-footer__col ul { list-style: none; padding: 0; margin: 0; }
+.vc-footer__col li { padding: 5px 0; font-size: 13px; line-height: 1.5; }
+.vc-footer__col a { color: var(--vc-muted); text-decoration: none; transition: color .15s var(--vc-ease); }
+.vc-footer__col a:hover { color: var(--vc-ink); }
+.vc-footer__bottom { max-width: 1440px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--vc-line); color: var(--vc-muted); flex-wrap: wrap; gap: 16px; font-size: 12px; }
+
+/* -------- Icon Box (VoltCore_Icon_Box) -------- */
+.vc-icon-box { padding: 20px 0; }
+.vc-icon-box__icon { color: var(--vc-accent); font-size: 32px; line-height: 1; margin-bottom: 16px; display: inline-block; }
+.vc-icon-box__icon svg { width: 1em; height: 1em; }
+.vc-icon-box__title { font-size: clamp(1.15rem, 1.6vw, 1.35rem); font-weight: 500; letter-spacing: -0.01em; margin: 0 0 8px; color: var(--vc-ink); }
+.vc-icon-box__text { color: var(--vc-muted); margin: 0 0 12px; line-height: 1.6; }
+.vc-icon-box__link { font-weight: 500; color: var(--vc-accent); font-size: 14px; }
+.vc-icon-box__link:hover { opacity: .8; color: var(--vc-accent); }
+
+/* -------- Logo Cloud (VoltCore_Logo_Cloud) -------- */
+.vc-logos { padding: 40px 0; text-align: center; }
+.vc-logos__eyebrow { margin: 0 0 24px; }
+.vc-logos__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px; align-items: center; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 900px) { .vc-logos__grid { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+@media (max-width: 480px) { .vc-logos__grid { grid-template-columns: repeat(2, 1fr); } }
+.vc-logos__item { display: flex; align-items: center; justify-content: center; height: 48px; opacity: .7; transition: opacity .2s var(--vc-ease), filter .25s var(--vc-ease); }
+.vc-logos.is-grayscale .vc-logos__item { filter: grayscale(100%); }
+.vc-logos__item:hover { opacity: 1; filter: none; }
+.vc-logos__item img { max-height: 40px; max-width: 140px; object-fit: contain; }
+.vc-logos__placeholder { display: inline-block; padding: 6px 14px; border: 1px dashed var(--vc-line); color: var(--vc-muted); font-size: 12px; letter-spacing: .05em; border-radius: 6px; }
+
+/* -------- Marquee (VoltCore_Marquee) -------- */
+.vc-marquee { overflow: hidden; padding: 18px 0; background: #000; color: #fff; }
+.vc-marquee__track {
+	display: inline-flex; align-items: center;
+	white-space: nowrap;
+	animation: vc-marquee 40s linear infinite;
+	font-size: clamp(1.25rem, 2vw, 1.75rem);
+	font-weight: 500;
+	letter-spacing: -0.01em;
+}
+.vc-marquee:hover .vc-marquee__track { animation-play-state: paused; }
+.vc-marquee__item { padding: 0 28px; }
+.vc-marquee__sep { padding: 0 8px; color: var(--vc-accent); }
+@keyframes vc-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .vc-marquee__track { animation: none; transform: none; } }
+
+/* -------- Stats Row (VoltCore_Stats_Row) -------- */
+.vc-stats-row { padding: 60px 0; }
+.vc-stats-row__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; max-width: 1440px; margin: 0 auto; }
+@media (max-width: 900px) { .vc-stats-row__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .vc-stats-row__grid { grid-template-columns: 1fr; } }
+.vc-stats-row.stats--dark .stat__value { color: #fff; }
+.vc-stats-row.stats--dark .stat__label { color: rgba(255,255,255,.7); }
+
 /* ---------- 27. Elementor widget helpers ---------- */
 .stat--elementor { padding: 20px 0; }
 .stat--elementor.stat--light .stat__value { color: var(--vc-ink); }

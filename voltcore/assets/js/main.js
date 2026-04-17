@@ -23,6 +23,54 @@
 		bindCounters();
 		bindScrollHints();
 		bindLegalToc();
+		bindVoltcoreNav();
+	}
+
+	/* --------------------------------------------------------------------
+	 * VoltCore Navbar widget: transparent → solid on scroll, drawer toggle.
+	 * Mirrors the behaviour of the classic header but scoped to the
+	 * Elementor-built .vc-nav element so it works wherever editors drop
+	 * the widget.
+	 * -------------------------------------------------------------------- */
+	function bindVoltcoreNav() {
+		qsa("[data-vc-nav]").forEach(nav => {
+			const mode = nav.getAttribute("data-mode") || "transparent";
+			const hasHero = !!qs(".hero, .about-hero, .careers-hero, .product-hero, .single-hero, .page-header--image, .elementor-section-full_width");
+
+			function update() {
+				if (mode === "solid") { nav.classList.add("is-solid"); return; }
+				if (mode === "transparent-always") { nav.classList.remove("is-solid"); return; }
+				if (!hasHero || window.scrollY > 20) {
+					nav.classList.add("is-solid");
+				} else {
+					nav.classList.remove("is-solid");
+				}
+			}
+			update();
+			window.addEventListener("scroll", update, { passive: true });
+			window.addEventListener("resize", update, { passive: true });
+		});
+
+		qsa("[data-vc-nav-toggle]").forEach(btn => {
+			btn.addEventListener("click", () => {
+				const drawer = qs("[data-vc-nav-drawer]");
+				if (!drawer) return;
+				drawer.hidden = false;
+				const open = drawer.classList.toggle("is-open");
+				btn.classList.toggle("is-open", open);
+				btn.setAttribute("aria-expanded", open ? "true" : "false");
+				document.body.style.overflow = open ? "hidden" : "";
+			});
+		});
+		qsa("[data-vc-nav-drawer] a").forEach(a => {
+			a.addEventListener("click", () => {
+				const drawer = qs("[data-vc-nav-drawer]");
+				const btn = qs("[data-vc-nav-toggle]");
+				if (drawer) drawer.classList.remove("is-open");
+				if (btn) { btn.classList.remove("is-open"); btn.setAttribute("aria-expanded", "false"); }
+				document.body.style.overflow = "";
+			});
+		});
 	}
 
 	/* --------------------------------------------------------------------
