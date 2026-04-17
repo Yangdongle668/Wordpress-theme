@@ -841,6 +841,129 @@ body.page-blank .site-main { padding: 0; }
 .voltcore-elementor .container--prose { max-width: none; padding: 0; }
 .voltcore-elementor main.site-main { padding-top: 0; }
 
+/* ---------- Product archive & single ---------- */
+
+/* Archive hero */
+.products-hero {
+	padding: calc(var(--vc-header-h) + 72px) 24px 48px;
+	background: var(--vc-surface);
+	text-align: center;
+}
+.products-hero__inner { max-width: 900px; margin: 0 auto; }
+.products-hero__title { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 500; letter-spacing: -0.02em; margin: 4px 0 14px; }
+.products-hero__desc  { color: var(--vc-muted); font-size: 1.0625rem; max-width: 640px; margin: 0 auto; }
+.products-hero .breadcrumbs { justify-content: center; margin-bottom: 6px; }
+.products-hero .breadcrumbs__list { justify-content: center; }
+
+/* Taxonomy pill filter */
+.product-filter {
+	position: sticky;
+	top: var(--vc-header-h);
+	background: rgba(255,255,255,.9);
+	backdrop-filter: saturate(180%) blur(12px);
+	-webkit-backdrop-filter: saturate(180%) blur(12px);
+	border-bottom: 1px solid var(--vc-line);
+	z-index: 40;
+	padding: 12px 24px;
+}
+.product-filter__inner {
+	max-width: 1440px; margin: 0 auto;
+	display: flex; gap: 6px; flex-wrap: wrap;
+	justify-content: center;
+}
+.product-filter__pill {
+	padding: 8px 18px;
+	border-radius: var(--vc-radius);
+	font-size: 13px; font-weight: 500;
+	color: var(--vc-ink-soft);
+	background: transparent;
+	transition: background .18s var(--vc-ease), color .18s var(--vc-ease);
+}
+.product-filter__pill:hover { background: rgba(0,0,0,.05); color: var(--vc-ink); }
+.product-filter__pill.is-active { background: var(--vc-ink); color: #fff; }
+.product-filter__pill.is-active:hover { background: #000; color: #fff; }
+
+/* Archive grid — taller cards for products */
+.product-grid--archive {
+	padding: 0 48px;
+}
+@media (max-width: 768px) { .product-grid--archive { padding: 0 20px; } }
+
+.product-card--tall { display: flex; flex-direction: column; background: #fff; border-radius: var(--vc-radius-card); overflow: hidden; box-shadow: var(--vc-shadow); }
+.product-card--tall .product-card__media { aspect-ratio: 4 / 3; }
+.product-card--tall .product-card__body  { padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.product-card__price { font-size: 15px; font-weight: 500; color: var(--vc-ink); letter-spacing: -0.01em; }
+.product-card--tall .product-card__meta {
+	margin-top: auto; display: flex; justify-content: space-between; align-items: center;
+	padding-top: 12px; border-top: 1px solid var(--vc-line);
+	font-size: 13px; color: var(--vc-muted);
+}
+.product-card--tall .product-card__arrow {
+	position: static; color: var(--vc-accent); font-size: 1.25rem; transition: transform .2s var(--vc-ease);
+}
+.product-card--tall:hover .product-card__arrow { transform: translateX(4px); }
+
+/* Single product hero */
+.product-hero {
+	padding: calc(var(--vc-header-h) + 120px) 24px 120px;
+	background-size: cover; background-position: center;
+	color: #fff;
+	position: relative;
+	min-height: 70vh;
+	display: flex; align-items: center; justify-content: center;
+}
+.product-hero::before {
+	content: ""; position: absolute; inset: 0;
+	background: linear-gradient(to bottom, rgba(0,0,0,.2) 0%, rgba(0,0,0,.05) 40%, rgba(0,0,0,.55) 100%);
+}
+.product-hero__inner {
+	position: relative;
+	max-width: 900px; margin: 0 auto;
+	text-align: center;
+}
+.product-hero__title {
+	color: #fff; margin: 6px 0 12px;
+	font-size: clamp(2.75rem, 6vw, 5rem);
+	font-weight: 500; letter-spacing: -0.02em;
+}
+.product-hero__subtitle { color: rgba(255,255,255,.92); font-size: 1.125rem; margin: 0 auto 32px; max-width: 620px; }
+.product-hero__meta { display: flex; gap: 20px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.product-hero__price { font-size: 16px; font-weight: 500; color: #fff; opacity: .95; }
+.product-hero .breadcrumbs { color: rgba(255,255,255,.8); justify-content: center; margin-bottom: 14px; }
+.product-hero .breadcrumbs__list { justify-content: center; }
+.product-hero .breadcrumbs__item.is-current { color: #fff; }
+
+/* Product specs strip */
+.product-specs {
+	padding: 56px 48px;
+	background: var(--vc-white);
+	border-bottom: 1px solid var(--vc-line);
+}
+.product-specs .spec-list {
+	max-width: 1080px; margin: 0 auto;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 32px;
+}
+.product-specs .spec-value { font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 300; letter-spacing: -0.02em; }
+@media (max-width: 768px) { .product-specs { padding: 40px 20px; } }
+
+/* Body content (Elementor-owned, gentle vertical rhythm) */
+.product-body { padding: 80px 24px; }
+.product-body .entry-content {
+	max-width: 780px; margin: 0 auto; font-size: 1.0625rem; line-height: 1.75;
+}
+/* When an Elementor-built product renders, let Elementor's full-width
+   sections break out of the 780 column. */
+.product-body .entry-content > .elementor,
+.product-body .entry-content > .wp-block-cover,
+.product-body .entry-content > .alignfull,
+.product-body .entry-content > .alignwide {
+	max-width: none;
+	margin-left: calc(50% - 50vw);
+	margin-right: calc(50% - 50vw);
+	width: 100vw;
+}
+
 /* ---------- 27. Elementor widget helpers ---------- */
 .stat--elementor { padding: 20px 0; }
 .stat--elementor.stat--light .stat__value { color: var(--vc-ink); }

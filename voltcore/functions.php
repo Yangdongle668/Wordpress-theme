@@ -163,6 +163,7 @@ function voltcore_customizer_inline_css() {
 require VOLTCORE_DIR . '/inc/customizer.php';
 require VOLTCORE_DIR . '/inc/template-tags.php';
 require VOLTCORE_DIR . '/inc/seo.php';
+require VOLTCORE_DIR . '/inc/products.php';
 require VOLTCORE_DIR . '/inc/sample-posts.php';
 require VOLTCORE_DIR . '/inc/install.php';
 require VOLTCORE_DIR . '/inc/elementor.php';

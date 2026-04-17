@@ -32,6 +32,7 @@ function voltcore_after_switch_theme() {
 	$pages  = voltcore_install_pages();
 	$cats   = voltcore_install_categories();
 	voltcore_install_posts( $cats );
+	voltcore_install_products();
 	voltcore_install_reading( $pages );
 	voltcore_install_menu( $pages );
 	voltcore_install_footer_widgets();
@@ -233,6 +234,121 @@ function voltcore_attach_local_image( $src_file, $parent_post_id, $alt ) {
 }
 
 /* ============================================================
+ * Sample products (CPT: vc_product)
+ * ============================================================ */
+
+function voltcore_install_products() {
+	if ( ! post_type_exists( 'vc_product' ) ) {
+		// CPT registered on 'init' — make sure it's ready.
+		voltcore_products_register();
+	}
+
+	// Categories first.
+	$cats = array(
+		'cells'   => __( 'Cells', 'voltcore' ),
+		'packs'   => __( 'Packs', 'voltcore' ),
+		'systems' => __( 'Systems', 'voltcore' ),
+	);
+	$cat_ids = array();
+	foreach ( $cats as $slug => $name ) {
+		$term = get_term_by( 'slug', $slug, 'vc_product_cat' );
+		if ( $term ) {
+			$cat_ids[ $slug ] = $term->term_id;
+		} else {
+			$res = wp_insert_term( $name, 'vc_product_cat', array( 'slug' => $slug ) );
+			if ( ! is_wp_error( $res ) ) {
+				$cat_ids[ $slug ] = $res['term_id'];
+			}
+		}
+	}
+
+	$products = array(
+		array(
+			'slug'     => 'cell-4680',
+			'title'    => 'Cell 4680',
+			'cat'      => 'cells',
+			'subtitle' => 'Next-generation cylindrical cell with tabless current collector.',
+			'price'    => 'From $0.072 / Wh',
+			'specs'    => 'Capacity|99 Wh, Chemistry|NMC, Form factor|46 × 80 mm, Fast charge|15 min',
+			'cta_l'    => 'Request samples',
+			'cta_u'    => '/contact/',
+			'image'    => 'product-1.jpg',
+			'image_alt'=> 'VoltCore 4680 cylindrical cell',
+			'content'  => <<<HTML
+<!-- wp:paragraph --><p>The 4680 is the cell we built the last three years around. 5× the energy of a 2170, 6× the power, 16% more pack range — and crucially, a tabless current collector that turns the entire electrode edge into the busbar. Less heat, faster charge, longer life.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>What changed</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li>Tabless architecture — 70% fewer interconnects per pack.</li><li>Dry-coated electrode — no NMP solvent, shorter factory.</li><li>Silicon-blended anode — closer to 280 Wh/kg at pack level.</li><li>Structural cell — the pack is part of the vehicle frame.</li></ul><!-- /wp:list -->
+HTML,
+		),
+		array(
+			'slug'     => 'pack-p500',
+			'title'    => 'Pack P-500',
+			'cat'      => 'packs',
+			'subtitle' => 'Automotive-grade pack for heavy electric vehicles.',
+			'price'    => 'Fleet pricing on request',
+			'specs'    => 'Capacity|500 kWh, Peak power|350 kW, Cooling|Liquid, Cells|4680',
+			'cta_l'    => 'Talk to sales',
+			'cta_u'    => '/contact/',
+			'image'    => 'product-2.jpg',
+			'image_alt'=> 'VoltCore P-500 automotive battery pack',
+			'content'  => <<<HTML
+<!-- wp:paragraph --><p>A cell-to-pack design with no modules, liquid cooling down to the cell, and structural adhesive replacing the traditional housing. Lighter, stiffer, and with better thermal behaviour than the module-based pack it replaces.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>Built for the fleet</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Drop-in BMS, CAN and Ethernet OTA updates, and field-proven across 400 million km of on-road data.</p><!-- /wp:paragraph -->
+HTML,
+		),
+		array(
+			'slug'     => 'grid-node',
+			'title'    => 'Grid Node',
+			'cat'      => 'systems',
+			'subtitle' => 'Utility-scale storage. One container. 3.9 MWh.',
+			'price'    => 'Quoted per project',
+			'specs'    => 'Capacity|3.9 MWh, Inverter|Grid-forming, Cooling|Liquid, Install|14 weeks',
+			'cta_l'    => 'Request quote',
+			'cta_u'    => '/contact/',
+			'image'    => 'product-3.jpg',
+			'image_alt'=> 'VoltCore Grid Node utility battery container',
+			'content'  => <<<HTML
+<!-- wp:paragraph --><p>Grid Node is a modular, 20-foot container of lithium iron phosphate storage with a grid-forming inverter built in. Designed for four-hour discharge, black-start capable, and commissioned in weeks, not years.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>One rack, one decision</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Plug-and-play integration with major utility SCADA systems. Average deployment for a 100 MWh site is 14 weeks from contract signature.</p><!-- /wp:paragraph -->
+HTML,
+		),
+	);
+
+	foreach ( $products as $p ) {
+		$existing = get_page_by_path( $p['slug'], OBJECT, 'vc_product' );
+		if ( $existing ) continue;
+
+		$pid = wp_insert_post( array(
+			'post_type'    => 'vc_product',
+			'post_status'  => 'publish',
+			'post_title'   => $p['title'],
+			'post_name'    => $p['slug'],
+			'post_content' => $p['content'],
+			'post_excerpt' => $p['subtitle'],
+		) );
+		if ( ! $pid || is_wp_error( $pid ) ) continue;
+
+		update_post_meta( $pid, '_vc_product_subtitle',  $p['subtitle'] );
+		update_post_meta( $pid, '_vc_product_price',     $p['price'] );
+		update_post_meta( $pid, '_vc_product_specs',     $p['specs'] );
+		update_post_meta( $pid, '_vc_product_cta_label', $p['cta_l'] );
+		update_post_meta( $pid, '_vc_product_cta_url',   $p['cta_u'] );
+
+		if ( ! empty( $cat_ids[ $p['cat'] ] ) ) {
+			wp_set_object_terms( $pid, array( (int) $cat_ids[ $p['cat'] ] ), 'vc_product_cat' );
+		}
+
+		$src_file = VOLTCORE_DIR . '/assets/images/' . $p['image'];
+		if ( file_exists( $src_file ) ) {
+			$aid = voltcore_attach_local_image( $src_file, $pid, $p['image_alt'] );
+			if ( $aid ) set_post_thumbnail( $pid, $aid );
+		}
+	}
+}
+
+/* ============================================================
  * Reading settings
  * ============================================================ */
 
@@ -257,8 +373,18 @@ function voltcore_install_menu( $pages ) {
 		if ( is_wp_error( $menu_id ) ) {
 			return;
 		}
+		// Products menu item points to the CPT archive URL, not a page.
+		$products_archive_url = get_post_type_archive_link( 'vc_product' );
+		if ( $products_archive_url ) {
+			wp_update_nav_menu_item( $menu_id, 0, array(
+				'menu-item-title'  => __( 'Products', 'voltcore' ),
+				'menu-item-url'    => $products_archive_url,
+				'menu-item-type'   => 'custom',
+				'menu-item-status' => 'publish',
+			) );
+		}
+
 		$items = array(
-			array( 'title' => __( 'Products', 'voltcore' ), 'object_id' => $pages['products'] ?? 0 ),
 			array( 'title' => __( 'About',    'voltcore' ), 'object_id' => $pages['about'] ?? 0 ),
 			array( 'title' => __( 'Blog',     'voltcore' ), 'object_id' => $pages['blog'] ?? 0 ),
 			array( 'title' => __( 'Contact',  'voltcore' ), 'object_id' => $pages['contact'] ?? 0 ),
