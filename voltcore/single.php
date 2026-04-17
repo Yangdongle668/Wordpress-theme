@@ -18,6 +18,7 @@ if ( function_exists( 'voltcore_tmpl_render' ) && voltcore_tmpl_render( 'single'
 }
 
 while ( have_posts() ) : the_post();
+	if ( voltcore_is_elementor_built() ) { voltcore_render_elementor_page(); continue; }
 	$thumb_id  = get_post_thumbnail_id();
 	$thumb_url = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'voltcore-hero' ) : '';
 	$thumb_alt = $thumb_id ? get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : '';

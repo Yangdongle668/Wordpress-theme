@@ -129,6 +129,31 @@ function voltcore_widgets() {
 add_action( 'widgets_init', 'voltcore_widgets' );
 
 /**
+ * Is the given post built with Elementor?
+ *
+ * When true, page templates should render ONLY the_content() and
+ * skip hardcoded hero / CTA chrome — Elementor owns the whole canvas.
+ */
+function voltcore_is_elementor_built( $post_id = 0 ) {
+	$post_id = $post_id ?: get_the_ID();
+	if ( ! $post_id ) return false;
+	if ( get_post_meta( $post_id, '_elementor_edit_mode', true ) !== 'builder' ) return false;
+	$data = get_post_meta( $post_id, '_elementor_data', true );
+	return ! empty( $data ) && $data !== '[]';
+}
+
+/**
+ * Render an Elementor-built page: just the_content() inside a minimal
+ * wrapper. Respects the page's Elementor page template when set.
+ */
+function voltcore_render_elementor_page() {
+	$classes = implode( ' ', get_post_class( 'voltcore-elementor-page' ) );
+	echo '<article id="post-' . esc_attr( get_the_ID() ) . '" class="' . esc_attr( $classes ) . '">';
+	the_content();
+	echo '</article>';
+}
+
+/**
  * Get a Customizer-managed image URL, falling back to a bundled placeholder.
  */
 function voltcore_image( $setting, $fallback ) {

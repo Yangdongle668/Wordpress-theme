@@ -19,6 +19,7 @@ if ( function_exists( 'voltcore_elementor_location' ) && voltcore_elementor_loca
 }
 
 while ( have_posts() ) : the_post();
+	if ( voltcore_is_elementor_built() ) { voltcore_render_elementor_page(); continue; }
 	$updated = get_the_modified_date( get_option( 'date_format' ) );
 	$eyebrow = get_post_meta( get_the_ID(), '_vc_legal_eyebrow', true ) ?: __( 'Legal', 'voltcore' );
 ?>

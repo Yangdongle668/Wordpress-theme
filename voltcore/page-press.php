@@ -23,6 +23,7 @@ if ( function_exists( 'voltcore_elementor_location' ) && voltcore_elementor_loca
 }
 
 while ( have_posts() ) : the_post();
+	if ( voltcore_is_elementor_built() ) { voltcore_render_elementor_page(); continue; }
 	$sub = get_the_excerpt();
 	if ( ! $sub ) {
 		$sub = __( 'Media kit, news, and who to talk to.', 'voltcore' );

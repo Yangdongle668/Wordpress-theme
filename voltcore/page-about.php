@@ -21,6 +21,7 @@ if ( function_exists( 'voltcore_elementor_location' ) && voltcore_elementor_loca
 }
 
 while ( have_posts() ) : the_post();
+	if ( voltcore_is_elementor_built() ) { voltcore_render_elementor_page(); continue; }
 	$thumb_id  = get_post_thumbnail_id();
 	$thumb_url = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'voltcore-hero' ) : voltcore_image( '', 'story-1.jpg' );
 	$thumb_alt = $thumb_id ? get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : get_the_title();

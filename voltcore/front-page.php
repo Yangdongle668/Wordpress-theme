@@ -26,24 +26,9 @@ if ( function_exists( 'voltcore_elementor_location' ) && voltcore_elementor_loca
 if ( ! $vc_rendered && have_posts() ) {
 	while ( have_posts() ) :
 		the_post();
-		$post_content = get_the_content();
-		$has_real_content = false;
-
-		if ( post_password_required() ) {
-			$has_real_content = true;
-		} elseif ( function_exists( '\Elementor\Plugin' ) || class_exists( '\Elementor\Plugin' ) ) {
-			// Elementor page?
-			if ( class_exists( '\Elementor\Plugin' ) ) {
-				$doc = \Elementor\Plugin::$instance->documents->get( get_the_ID() );
-				if ( $doc && method_exists( $doc, 'is_built_with_elementor' ) && $doc->is_built_with_elementor() ) {
-					$has_real_content = true;
-				}
-			}
-		}
-
-		if ( ! $has_real_content && trim( wp_strip_all_tags( $post_content ) ) !== '' ) {
-			$has_real_content = true;
-		}
+		$has_real_content = voltcore_is_elementor_built()
+			|| post_password_required()
+			|| trim( wp_strip_all_tags( get_the_content() ) ) !== '';
 
 		if ( $has_real_content ) {
 			?>
