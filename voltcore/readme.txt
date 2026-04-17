@@ -2,11 +2,11 @@
 
 Contributors: voltcore
 Tested up to: 6.5
-Stable tag: 1.0.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A Tesla-inspired WordPress theme for battery, EV, and clean-energy brands.
+A Tesla-inspired, Elementor-native WordPress theme for battery, EV, and clean-energy brands.
 
 == Description ==
 
@@ -69,6 +69,20 @@ Default filenames:
 * logo.svg — fallback logo when no custom logo is uploaded
 
 == Changelog ==
+
+= 2.0.0 =
+* Full Elementor-native rearchitecture.
+* 18 VoltCore-branded Elementor widgets under a unified category.
+* One-click Elementor template importer (Import Demo → Import
+  Elementor templates): every bundled page becomes an Elementor
+  document, header/footer/404 land in the Theme Builder with
+  display conditions auto-assigned under Elementor Pro.
+* PHP templates now act as fallbacks when Elementor is not active
+  — no functionality lost for users running without Elementor.
+* Added Careers, Press, Privacy, Terms, Cookies page templates.
+* Admin dashboard shows Elementor + Pro status pills.
+* Persistent dismissible admin notice guides users to install
+  Elementor / Pro when missing.
 
 = 1.0.0 =
 * Initial release.

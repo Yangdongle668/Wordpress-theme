@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'VOLTCORE_VERSION', '1.0.0' );
+define( 'VOLTCORE_VERSION', '2.0.0' );
 define( 'VOLTCORE_DIR', get_template_directory() );
 define( 'VOLTCORE_URI', get_template_directory_uri() );
 
