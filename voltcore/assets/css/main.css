@@ -2,7 +2,7 @@
    VoltCore — Tesla-inspired WordPress theme
    ========================================================================== */
 
-/* ---------- 1. Design tokens ---------- */
+/* ---------- 1. Design tokens (Tesla.com-calibrated) ---------- */
 :root {
 	--vc-black: #000;
 	--vc-ink: #171a20;
@@ -11,19 +11,19 @@
 	--vc-line: #e6e7e8;
 	--vc-surface: #f4f4f4;
 	--vc-white: #ffffff;
-	--vc-accent: #cc0000;
+	--vc-accent: #3457dc;
 
-	--vc-font: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
-	--vc-font-display: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+	--vc-font: "Inter", "Gotham SSm A", "Gotham SSm B", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+	--vc-font-display: var(--vc-font);
 
 	--vc-radius: 100px;
-	--vc-radius-card: 14px;
+	--vc-radius-card: 10px;
 	--vc-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
 
 	--vc-ease: cubic-bezier(0.4, 0, 0.2, 1);
 	--vc-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-	--vc-header-h: 68px;
+	--vc-header-h: 56px;
 	--vc-container: 1440px;
 }
 
@@ -52,15 +52,16 @@ button { font-family: inherit; }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: var(--vc-font-display);
-	font-weight: 600;
-	letter-spacing: -0.02em;
+	font-weight: 500;
+	letter-spacing: -0.015em;
 	margin: 0 0 0.6em;
 	line-height: 1.1;
 }
-h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 500; }
-h2 { font-size: clamp(2rem, 3.6vw, 3.25rem); }
-h3 { font-size: clamp(1.4rem, 2vw, 1.75rem); }
+h1 { font-size: clamp(2.25rem, 4.5vw, 4rem); font-weight: 500; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.75rem, 3.2vw, 3rem); font-weight: 500; }
+h3 { font-size: clamp(1.25rem, 1.8vw, 1.5rem); font-weight: 500; }
 p { margin: 0 0 1em; }
+strong { font-weight: 600; }
 
 .screen-reader-text {
 	border: 0;
@@ -99,25 +100,24 @@ p { margin: 0 0 1em; }
 	top: 0; left: 0; right: 0;
 	height: var(--vc-header-h);
 	z-index: 90;
-	padding: 0 40px;
+	padding: 0 24px;
 	display: flex;
 	align-items: center;
-	transition: background .3s var(--vc-ease), backdrop-filter .3s var(--vc-ease), color .3s var(--vc-ease);
+	transition: background .35s var(--vc-ease), backdrop-filter .35s var(--vc-ease), color .35s var(--vc-ease);
 	color: var(--vc-white);
 }
 .site-header::after {
 	content: "";
 	position: absolute; inset: 0;
-	background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,0));
+	background: linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,0));
 	pointer-events: none;
 	transition: opacity .3s var(--vc-ease);
 }
 .site-header.is-solid {
-	background: rgba(255,255,255,.85);
+	background: rgba(255,255,255,.92);
 	backdrop-filter: saturate(180%) blur(12px);
 	-webkit-backdrop-filter: saturate(180%) blur(12px);
 	color: var(--vc-ink);
-	box-shadow: 0 1px 0 rgba(0,0,0,.06);
 }
 .site-header.is-solid::after { opacity: 0; }
 
@@ -127,37 +127,38 @@ p { margin: 0 0 1em; }
 	position: relative; z-index: 1;
 }
 
-.site-branding { flex: 0 0 auto; }
-.site-branding img, .custom-logo { max-height: 28px; width: auto; }
-.site-title { font-weight: 600; letter-spacing: .12em; font-size: 1rem; text-transform: uppercase; }
+.site-branding { flex: 0 0 auto; margin: 0; }
+.site-branding img, .custom-logo { max-height: 20px; width: auto; }
+.site-branding a { color: inherit; display: inline-block; }
+.site-title { font-weight: 600; letter-spacing: .12em; font-size: 14px; text-transform: uppercase; margin: 0; line-height: 1; }
 
 .site-nav { flex: 1 1 auto; display: flex; justify-content: center; }
 .site-menu {
 	list-style: none; margin: 0; padding: 0;
-	display: flex; gap: 8px;
+	display: flex; gap: 4px;
 }
 .site-menu li a {
 	display: inline-block;
-	padding: 8px 14px;
+	padding: 6px 12px;
 	border-radius: var(--vc-radius);
-	font-size: 14px; font-weight: 500;
-	letter-spacing: .01em;
+	font-size: 13px; font-weight: 500;
+	letter-spacing: 0;
 	transition: background .18s var(--vc-ease);
 }
-.site-menu li a:hover { background: rgba(255,255,255,.12); color: inherit; }
-.site-header.is-solid .site-menu li a:hover { background: rgba(0,0,0,.06); }
+.site-menu li a:hover { background: rgba(255,255,255,.10); color: inherit; }
+.site-header.is-solid .site-menu li a:hover { background: rgba(0,0,0,.05); }
 .site-menu .sub-menu { display: none; }
 
-.site-header__right { display: flex; align-items: center; gap: 8px; }
+.site-header__right { display: flex; align-items: center; gap: 4px; }
 .site-header__cta {
 	display: inline-block;
-	padding: 8px 14px;
+	padding: 6px 12px;
 	border-radius: var(--vc-radius);
-	font-size: 14px; font-weight: 500;
+	font-size: 13px; font-weight: 500;
 	transition: background .18s var(--vc-ease);
 }
-.site-header__cta:hover { background: rgba(255,255,255,.12); color: inherit; }
-.site-header.is-solid .site-header__cta:hover { background: rgba(0,0,0,.06); }
+.site-header__cta:hover { background: rgba(255,255,255,.10); color: inherit; }
+.site-header.is-solid .site-header__cta:hover { background: rgba(0,0,0,.05); }
 
 .nav-toggle {
 	display: none;
@@ -207,44 +208,48 @@ p { margin: 0 0 1em; }
 	border-bottom: 1px solid var(--vc-line);
 }
 
-/* ---------- 5. Buttons ---------- */
+/* ---------- 5. Buttons (tesla.com-calibrated) ---------- */
 .btn {
 	display: inline-flex;
 	align-items: center; justify-content: center;
-	padding: 11px 24px;
-	min-width: 180px;
+	padding: 0 20px;
+	min-width: 260px;
 	height: 40px;
 	border-radius: var(--vc-radius);
 	font-size: 13px;
 	font-weight: 500;
 	letter-spacing: .08em;
 	text-transform: uppercase;
-	border: 1px solid transparent;
+	border: 0;
 	cursor: pointer;
-	transition: background .18s var(--vc-ease), color .18s var(--vc-ease), transform .18s var(--vc-ease);
+	transition: background .18s var(--vc-ease), color .18s var(--vc-ease);
 }
-.btn + .btn { margin-left: 12px; }
-.btn:hover { color: inherit; transform: translateY(-1px); }
-.btn--sm { min-width: 0; padding: 8px 16px; height: 36px; font-size: 12px; }
+.btn + .btn { margin-left: 16px; }
+.btn:hover { color: inherit; }
+.btn--sm { min-width: 0; padding: 0 16px; height: 36px; font-size: 12px; }
 .btn--light {
-	background: rgba(255,255,255,.9);
+	background: rgba(244,244,244,.65);
 	color: var(--vc-ink);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 }
-.btn--light:hover { background: #fff; }
+.btn--light:hover { background: rgba(244,244,244,.85); }
 .btn--ghost {
-	background: rgba(30,30,30,.5);
+	background: rgba(36,38,43,.65);
 	color: #fff;
 	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 }
-.btn--ghost:hover { background: rgba(30,30,30,.75); color: #fff; }
+.btn--ghost:hover { background: rgba(36,38,43,.85); color: #fff; }
 .btn--dark { background: var(--vc-ink); color: #fff; }
 .btn--dark:hover { background: #000; color: #fff; }
 .btn--ghost-dark {
-	background: rgba(255,255,255,.6);
+	background: rgba(163,163,163,.3);
 	color: var(--vc-ink);
 	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
 }
-.btn--ghost-dark:hover { background: rgba(255,255,255,.85); color: var(--vc-ink); }
+.btn--ghost-dark:hover { background: rgba(163,163,163,.5); color: var(--vc-ink); }
 
 @media (max-width: 640px) {
 	.btn { min-width: 0; width: 100%; }
@@ -263,14 +268,14 @@ p { margin: 0 0 1em; }
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
-	padding-top: 18vh;
+	padding-top: 15vh;
 	overflow: hidden;
 	scroll-snap-align: start;
 }
 .hero::before {
 	content: "";
 	position: absolute; inset: 0;
-	background: linear-gradient(to bottom, rgba(0,0,0,.15) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,.35) 100%);
+	background: linear-gradient(to bottom, rgba(0,0,0,.18) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,.25) 100%);
 	pointer-events: none;
 }
 .hero__inner {
@@ -279,22 +284,24 @@ p { margin: 0 0 1em; }
 	max-width: 900px;
 	padding: 0 24px;
 }
-.hero__inner--left { text-align: left; max-width: 720px; margin-left: 8%; padding-top: 4vh; }
+.hero__inner--left { text-align: left; max-width: 720px; margin-left: 8%; padding-top: 6vh; }
 .hero__inner--center { text-align: center; }
 .hero__title {
 	color: inherit;
-	font-size: clamp(2.25rem, 5vw, 4rem);
+	font-size: clamp(2.5rem, 5.5vw, 4.5rem);
 	font-weight: 500;
 	letter-spacing: -0.02em;
-	margin: 0 0 .25em;
+	line-height: 1.05;
+	margin: 0 0 .35em;
 }
 .hero__subtitle {
-	font-size: clamp(1rem, 1.3vw, 1.125rem);
+	font-size: clamp(.95rem, 1.1vw, 1.0625rem);
 	font-weight: 400;
 	color: inherit;
-	opacity: .92;
+	opacity: .94;
 	max-width: 640px;
-	margin: 0 auto 28px;
+	margin: 0 auto 48px;
+	line-height: 1.5;
 }
 .hero__inner--left .hero__subtitle { margin-left: 0; }
 
@@ -689,36 +696,92 @@ p { margin: 0 0 1em; }
 .error-404__desc { color: var(--vc-muted); margin-bottom: 28px; }
 .error-404__search { margin-top: 32px; display: flex; justify-content: center; }
 
-/* ---------- 20. Footer ---------- */
+/* ---------- 20. Footer (Tesla-style: tidy link columns) ---------- */
 .site-footer {
 	background: #fafafa;
-	padding: 80px 48px 40px;
+	padding: 64px 48px 32px;
 	border-top: 1px solid var(--vc-line);
 	font-size: 13px;
+	color: var(--vc-ink-soft);
 }
 .site-footer__widgets {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
-	gap: 40px;
+	gap: 48px;
 	max-width: 1440px;
-	margin: 0 auto 64px;
+	margin: 0 auto 48px;
 }
-@media (max-width: 900px) { .site-footer__widgets { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 520px) { .site-footer__widgets { grid-template-columns: 1fr; } }
-.site-footer h4.widget-title { font-size: 12px; color: var(--vc-ink); }
+@media (max-width: 900px) { .site-footer__widgets { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
+@media (max-width: 520px) { .site-footer__widgets { grid-template-columns: 1fr; gap: 24px; } }
+@media (max-width: 768px) { .site-footer { padding: 48px 20px 28px; } }
+
+/* Force every widget title into a small tesla.com-style uppercase label
+   — regardless of whether WP's widget block renders h2/h3/h4/h5/h6. */
+.site-footer .widget h1,
+.site-footer .widget h2,
+.site-footer .widget h3,
+.site-footer .widget h4,
+.site-footer .widget h5,
+.site-footer .widget h6,
+.site-footer .widget-title,
+.site-footer .wp-block-heading,
+.site-footer .wp-block-group__inner-container > h1,
+.site-footer .wp-block-group__inner-container > h2,
+.site-footer .wp-block-group__inner-container > h3 {
+	font-size: 12px !important;
+	font-weight: 600 !important;
+	letter-spacing: .12em !important;
+	text-transform: uppercase !important;
+	margin: 0 0 18px !important;
+	color: var(--vc-ink) !important;
+	line-height: 1.4 !important;
+}
+
+/* Link-list styling for any widget list. */
+.site-footer .widget ul,
+.site-footer .wp-block-list,
+.site-footer ul.wp-block-archives-list,
+.site-footer ul.wp-block-categories-list,
+.site-footer ul.wp-block-latest-posts__list {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.site-footer .widget li,
+.site-footer .wp-block-list li,
+.site-footer ul.wp-block-archives-list li,
+.site-footer ul.wp-block-categories-list li,
+.site-footer ul.wp-block-latest-posts__list li {
+	padding: 5px 0 !important;
+	border: 0 !important;
+	font-size: 13px !important;
+	line-height: 1.5;
+}
+.site-footer .widget a { color: var(--vc-muted); text-decoration: none; transition: color .15s var(--vc-ease); }
+.site-footer .widget a:hover { color: var(--vc-ink); }
+.site-footer .widget p { color: var(--vc-muted); font-size: 13px; line-height: 1.6; margin: 0 0 10px; }
 .site-footer .muted { color: var(--vc-muted); }
+.site-footer select { width: 100%; padding: 8px 10px; border: 1px solid var(--vc-line); border-radius: 8px; background: #fff; }
+
+/* Hide the entire widget if it is the WP default "Archives" or "Categories"
+   and contains no admin-set title — they look jarring in a tesla.com footer. */
+.site-footer .widget_archive > .widget-title + ul.wp-block-archives-list,
+.site-footer .widget_categories > .widget-title + ul.wp-block-categories-list { max-height: 140px; overflow: auto; }
+
 .site-footer__bottom {
 	max-width: 1440px; margin: 0 auto;
 	display: flex; justify-content: space-between; align-items: center;
 	padding-top: 24px; border-top: 1px solid var(--vc-line);
 	color: var(--vc-muted);
 	flex-wrap: wrap; gap: 16px;
+	font-size: 12px;
+	letter-spacing: .03em;
 }
 .footer-menu {
 	list-style: none; padding: 0; margin: 0;
-	display: flex; gap: 20px; flex-wrap: wrap;
+	display: flex; gap: 24px; flex-wrap: wrap;
 }
-.footer-menu a { color: var(--vc-muted); }
+.footer-menu a { color: var(--vc-muted); font-size: 12px; }
 .footer-menu a:hover { color: var(--vc-ink); }
 
 /* ---------- 21. Animations ---------- */
@@ -764,3 +827,25 @@ p { margin: 0 0 1em; }
 
 /* SEO-only <img> placed inside CSS-background sections — invisible but crawlable. */
 .single-hero__seo-img { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; clip: rect(0 0 0 0); overflow: hidden; }
+
+/* ---------- 26. Page templates (full width / blank) ---------- */
+.page-fullwidth .entry-content--fullwidth { max-width: none; padding: calc(var(--vc-header-h) + 20px) 0 0; }
+.page-fullwidth .entry-content--fullwidth > * { max-width: none; }
+body.page-blank { margin: 0; }
+body.page-blank .site-main { padding: 0; }
+
+/* Elementor-built page: remove VoltCore's auto page header so the page
+   renders edge-to-edge from the top without a giant blank banner. */
+.voltcore-elementor .page-header--light,
+.voltcore-elementor .page-header:not(.page-header--image) { display: none; }
+.voltcore-elementor .container--prose { max-width: none; padding: 0; }
+.voltcore-elementor main.site-main { padding-top: 0; }
+
+/* ---------- 27. Elementor widget helpers ---------- */
+.stat--elementor { padding: 20px 0; }
+.stat--elementor.stat--light .stat__value { color: var(--vc-ink); }
+.stat--elementor.stat--light .stat__label { color: var(--vc-muted); }
+
+/* Ensure hero widget inside Elementor doesn't inherit odd parent margins */
+.elementor-widget-voltcore-hero .hero { margin: 0; }
+.elementor-widget-voltcore-feature-card .product-card { height: 100%; }

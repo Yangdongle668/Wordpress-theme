@@ -292,39 +292,67 @@ function voltcore_install_menu( $pages ) {
  * ============================================================ */
 
 function voltcore_install_footer_widgets() {
-	$sidebars = get_option( 'sidebars_widgets', array() );
-	if ( ! empty( $sidebars['footer-1'] ) ) {
-		return; // Already configured by user.
+	// Seed once, tracked by its own flag so we can re-run safely.
+	if ( get_option( 'voltcore_footer_widgets_seeded' ) ) {
+		return;
 	}
 
-	$widget_text = get_option( 'widget_custom_html', array() );
-	$next        = is_array( $widget_text ) ? ( max( array_filter( array_keys( $widget_text ), 'is_numeric' ) ) + 1 ) : 1;
+	$sidebars = get_option( 'sidebars_widgets', array() );
+	if ( ! is_array( $sidebars ) ) {
+		$sidebars = array();
+	}
+
+	/*
+	 * WordPress, on theme switch, runs retrieve_widgets() and may move
+	 * widgets inherited from the previous theme (Archives, Categories,
+	 * Recent Posts, etc.) into the first available sidebar of the new
+	 * theme. That is the "giant Archives / Categories in footer column 1"
+	 * bug. Clear footer columns up front so the seed starts clean. If the
+	 * user wants those back, they can add them from Appearance → Widgets.
+	 */
+	for ( $col = 1; $col <= 4; $col++ ) {
+		$sidebars[ 'footer-' . $col ] = array();
+	}
+
+	$widget_html = get_option( 'widget_custom_html', array() );
+	if ( ! is_array( $widget_html ) ) {
+		$widget_html = array();
+	}
+	$next = 0;
+	foreach ( array_keys( $widget_html ) as $k ) {
+		if ( is_numeric( $k ) && (int) $k > $next ) {
+			$next = (int) $k;
+		}
+	}
+	$next++;
 
 	$blocks = array(
 		1 => array(
 			'title'   => __( 'VoltCore', 'voltcore' ),
-			'content' => '<p>High-density batteries and energy systems for the electric era.</p>',
+			'content' => '<p style="color:#5c5e62;font-size:13px;line-height:1.6">High-density batteries and energy systems for the electric era. Engineered in Reno.</p>',
 		),
 		2 => array(
 			'title'   => __( 'Products', 'voltcore' ),
-			'content' => '<ul><li><a href="#cell">Cell 4680</a></li><li><a href="#pack">Pack P-500</a></li><li><a href="#grid">Grid Node</a></li></ul>',
+			'content' => '<ul><li><a href="/products/#cell">Cell 4680</a></li><li><a href="/products/#pack">Pack P-500</a></li><li><a href="/products/#grid">Grid Node</a></li><li><a href="/products/">All products</a></li></ul>',
 		),
 		3 => array(
 			'title'   => __( 'Company', 'voltcore' ),
-			'content' => '<ul><li><a href="/about/">About</a></li><li><a href="/blog/">Blog</a></li><li><a href="/contact/">Contact</a></li></ul>',
+			'content' => '<ul><li><a href="/about/">About</a></li><li><a href="/blog/">Journal</a></li><li><a href="/contact/">Contact</a></li><li><a href="#">Careers</a></li></ul>',
 		),
 		4 => array(
 			'title'   => __( 'Legal', 'voltcore' ),
-			'content' => '<ul><li>Privacy Policy</li><li>Terms</li><li>Press</li></ul>',
+			'content' => '<ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Cookies</a></li><li><a href="#">Press</a></li></ul>',
 		),
 	);
 
 	foreach ( $blocks as $col => $b ) {
-		$widget_text[ $next ] = array( 'title' => $b['title'], 'content' => $b['content'] );
-		$sidebars[ 'footer-' . $col ] = array( 'custom_html-' . $next );
+		$widget_html[ $next ]          = array( 'title' => $b['title'], 'content' => $b['content'] );
+		$sidebars[ 'footer-' . $col ]  = array( 'custom_html-' . $next );
 		$next++;
 	}
 
-	update_option( 'widget_custom_html', $widget_text );
+	$widget_html['_multiwidget']     = 1;
+	update_option( 'widget_custom_html', $widget_html );
 	update_option( 'sidebars_widgets', $sidebars );
+	update_option( 'voltcore_footer_widgets_seeded', 1 );
 }

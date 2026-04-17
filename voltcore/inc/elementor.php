@@ -87,6 +87,16 @@ add_filter( 'body_class', 'voltcore_elementor_body_class' );
 /* =========================================================
  * Elementor widget category (for future custom widgets).
  * ========================================================= */
+/* =========================================================
+ * Load custom widgets.
+ * ========================================================= */
+function voltcore_elementor_load_widgets() {
+	if ( voltcore_has_elementor() ) {
+		require_once VOLTCORE_DIR . '/inc/elementor-widgets/loader.php';
+	}
+}
+add_action( 'init', 'voltcore_elementor_load_widgets', 20 );
+
 function voltcore_elementor_category( $elements_manager ) {
 	if ( ! method_exists( $elements_manager, 'add_category' ) ) {
 		return;
