@@ -167,6 +167,7 @@ require VOLTCORE_DIR . '/inc/products.php';
 require VOLTCORE_DIR . '/inc/sample-posts.php';
 require VOLTCORE_DIR . '/inc/install.php';
 require VOLTCORE_DIR . '/inc/elementor.php';
+require VOLTCORE_DIR . '/inc/elementor-importer.php';
 require VOLTCORE_DIR . '/inc/admin.php';
 require VOLTCORE_DIR . '/inc/theme-builder.php';
 

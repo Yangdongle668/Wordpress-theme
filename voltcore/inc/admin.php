@@ -297,6 +297,16 @@ function voltcore_admin_page_import() {
 		voltcore_after_switch_theme();
 		echo '<div class="notice notice-success"><p>' . esc_html__( 'Demo content imported.', 'voltcore' ) . '</p></div>';
 	}
+
+	if ( isset( $_POST['voltcore_import_elementor'] ) && check_admin_referer( 'voltcore_run_import' ) ) {
+		if ( ! voltcore_has_elementor() ) {
+			echo '<div class="notice notice-error"><p>' . esc_html__( 'Elementor is not active. Install and activate Elementor first.', 'voltcore' ) . '</p></div>';
+		} else {
+			$force = ! empty( $_POST['voltcore_import_force'] );
+			$res = voltcore_el_import_all( (bool) $force );
+			echo '<div class="notice notice-success"><p>' . esc_html__( 'Elementor templates imported.', 'voltcore' ) . '</p><pre style="max-height:200px;overflow:auto;background:#fff;padding:10px">' . esc_html( print_r( $res, true ) ) . '</pre></div>';
+		}
+	}
 	?>
 	<div class="voltcore-wrap">
 		<h1><?php esc_html_e( 'Import Demo Content', 'voltcore' ); ?></h1>
@@ -314,6 +324,32 @@ function voltcore_admin_page_import() {
 		<form method="post">
 			<?php wp_nonce_field( 'voltcore_run_import' ); ?>
 			<p><button type="submit" name="voltcore_run_import" class="button button-primary"><?php esc_html_e( 'Run importer now', 'voltcore' ); ?></button></p>
+		</form>
+
+		<hr style="margin:32px 0">
+
+		<h2 style="font-size:20px;margin:24px 0 12px"><?php esc_html_e( 'Import Elementor templates', 'voltcore' ); ?></h2>
+		<p><?php esc_html_e( "Build every page with Elementor. Writes a full page layout into each seeded page's Elementor data, sideloads images into the Media Library, and creates Theme Builder templates for the header, footer and 404.", 'voltcore' ); ?></p>
+		<ul class="ul-disc" style="margin-left:20px">
+			<li><?php esc_html_e( 'Home, About, Contact, Careers, Press, Privacy, Terms, Cookies — each gets a tesla.com-style composition built from VoltCore widgets.', 'voltcore' ); ?></li>
+			<li><?php esc_html_e( 'Header and Footer land in Elementor → Templates → Theme Builder (Pro only — display conditions auto-assigned when Pro is active).', 'voltcore' ); ?></li>
+			<li><?php esc_html_e( '404 template created; wire it up under Elementor → Templates → Theme Builder.', 'voltcore' ); ?></li>
+		</ul>
+
+		<form method="post">
+			<?php wp_nonce_field( 'voltcore_run_import' ); ?>
+			<p>
+				<label style="display:block;margin-bottom:10px">
+					<input type="checkbox" name="voltcore_import_force" value="1">
+					<?php esc_html_e( 'Force — overwrite existing Elementor data on each page', 'voltcore' ); ?>
+				</label>
+				<button type="submit" name="voltcore_import_elementor" class="button button-primary" <?php disabled( ! voltcore_has_elementor() ); ?>>
+					<?php esc_html_e( 'Import Elementor templates', 'voltcore' ); ?>
+				</button>
+				<?php if ( ! voltcore_has_elementor() ) : ?>
+					<span style="color:#a62929;margin-left:10px"><?php esc_html_e( 'Elementor is not active.', 'voltcore' ); ?></span>
+				<?php endif; ?>
+			</p>
 		</form>
 	</div>
 	<?php
