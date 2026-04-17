@@ -61,11 +61,16 @@ function voltcore_install_permalinks() {
 
 function voltcore_install_pages() {
 	$pages = array(
-		'home'     => array( 'title' => __( 'Home', 'voltcore' ), 'content' => "<!-- wp:paragraph --><p>Welcome to VoltCore.</p><!-- /wp:paragraph -->" ),
-		'blog'     => array( 'title' => __( 'Blog', 'voltcore' ), 'content' => '' ),
-		'about'    => array( 'title' => __( 'About', 'voltcore' ), 'content' => voltcore_seed_page_about() ),
-		'products' => array( 'title' => __( 'Products', 'voltcore' ), 'content' => voltcore_seed_page_products() ),
-		'contact'  => array( 'title' => __( 'Contact', 'voltcore' ), 'content' => voltcore_seed_page_contact() ),
+		'home'     => array( 'title' => __( 'Home',     'voltcore' ), 'content' => '', 'template' => '', 'excerpt' => '' ),
+		'blog'     => array( 'title' => __( 'Journal',  'voltcore' ), 'content' => '', 'template' => '', 'excerpt' => '' ),
+		'about'    => array( 'title' => __( 'About',    'voltcore' ), 'content' => voltcore_seed_page_about(),   'template' => 'page-about.php',   'excerpt' => __( "We engineer batteries — the stuff that's quietly becoming the bottleneck on electrifying the world.", 'voltcore' ) ),
+		'products' => array( 'title' => __( 'Products', 'voltcore' ), 'content' => voltcore_seed_page_products(), 'template' => '',                 'excerpt' => '' ),
+		'contact'  => array( 'title' => __( 'Contact',  'voltcore' ), 'content' => voltcore_seed_page_contact(),  'template' => 'page-contact.php', 'excerpt' => __( 'Our teams are organised by what you need. Pick the most relevant one below.', 'voltcore' ) ),
+		'careers'  => array( 'title' => __( 'Careers',  'voltcore' ), 'content' => voltcore_seed_page_careers(),  'template' => 'page-careers.php', 'excerpt' => __( "The bottleneck on electrifying the world is batteries. We build them. Come help.", 'voltcore' ) ),
+		'press'    => array( 'title' => __( 'Press',    'voltcore' ), 'content' => voltcore_seed_page_press(),    'template' => 'page-press.php',   'excerpt' => __( 'Media kit, news, and who to talk to at VoltCore.', 'voltcore' ) ),
+		'privacy'  => array( 'title' => __( 'Privacy',  'voltcore' ), 'content' => voltcore_seed_page_privacy(),  'template' => 'page-legal.php',   'excerpt' => '' ),
+		'terms'    => array( 'title' => __( 'Terms',    'voltcore' ), 'content' => voltcore_seed_page_terms(),    'template' => 'page-legal.php',   'excerpt' => '' ),
+		'cookies'  => array( 'title' => __( 'Cookies',  'voltcore' ), 'content' => voltcore_seed_page_cookies(),  'template' => 'page-legal.php',   'excerpt' => '' ),
 	);
 
 	$ids = array();
@@ -73,14 +78,22 @@ function voltcore_install_pages() {
 		$existing = get_page_by_path( $slug, OBJECT, 'page' );
 		if ( $existing ) {
 			$ids[ $slug ] = $existing->ID;
+			if ( ! empty( $def['template'] ) ) {
+				$current_tmpl = get_page_template_slug( $existing->ID );
+				if ( ! $current_tmpl ) {
+					update_post_meta( $existing->ID, '_wp_page_template', $def['template'] );
+				}
+			}
 			continue;
 		}
 		$ids[ $slug ] = wp_insert_post( array(
-			'post_title'   => $def['title'],
-			'post_name'    => $slug,
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-			'post_content' => $def['content'],
+			'post_title'    => $def['title'],
+			'post_name'     => $slug,
+			'post_status'   => 'publish',
+			'post_type'     => 'page',
+			'post_content'  => $def['content'],
+			'post_excerpt'  => $def['excerpt'] ?? '',
+			'page_template' => $def['template'] ?? '',
 		) );
 	}
 	return $ids;
@@ -110,10 +123,138 @@ HTML;
 
 function voltcore_seed_page_contact() {
 	return <<<HTML
-<!-- wp:paragraph --><p>Looking to partner, specify VoltCore cells in your next program, or request a quote for a grid-scale installation? Reach us below.</p><!-- /wp:paragraph -->
-<!-- wp:list --><ul><li><strong>Sales</strong> — sales@example.com</li><li><strong>Engineering</strong> — engineering@example.com</li><li><strong>Press</strong> — press@example.com</li></ul><!-- /wp:list -->
 <!-- wp:heading --><h2>Headquarters</h2><!-- /wp:heading -->
-<!-- wp:paragraph --><p>1 Volt Way, Reno, NV 89506, United States.</p><!-- /wp:paragraph -->
+<!-- wp:paragraph --><p>1 Volt Way, Reno, NV 89506, United States. Reception is staffed 09:00–18:00 local time, Monday through Friday.</p><!-- /wp:paragraph -->
+<!-- wp:heading --><h2>Other offices</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li>Austin — Battery systems engineering</li><li>Berlin — European sales & service</li><li>Singapore — Asia-Pacific operations</li></ul><!-- /wp:list -->
+HTML;
+}
+
+function voltcore_seed_page_careers() {
+	return <<<HTML
+<!-- wp:heading --><h2>Why VoltCore</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Batteries are not a commodity yet. They will become one — but the chemistry, the manufacturing, and the software are still being written. That is why we hire. If you have spent a decade on an adjacent problem and want to see your work ship in millions of vehicles, you are probably a fit.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Where we work</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li><strong>Reno, Nevada</strong> — cell R&D, pilot line, and headquarters.</li><li><strong>Austin, Texas</strong> — pack integration, BMS firmware, thermal systems.</li><li><strong>Berlin, Germany</strong> — European service, regulatory, and automotive OEM programs.</li><li><strong>Singapore</strong> — Asia-Pacific sales, commissioning, and supplier engineering.</li></ul><!-- /wp:list -->
+
+<!-- wp:heading --><h2>Open roles</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li><strong>Senior Cell Scientist</strong> — Reno · Full-time</li><li><strong>BMS Firmware Engineer</strong> — Austin · Full-time</li><li><strong>Dry Electrode Process Engineer</strong> — Reno · Full-time</li><li><strong>Thermal Systems Engineer</strong> — Austin · Full-time</li><li><strong>Field Commissioning Lead — APAC</strong> — Singapore · Full-time</li><li><strong>Automotive Sales Director — EU</strong> — Berlin · Full-time</li></ul><!-- /wp:list -->
+
+<!-- wp:heading --><h2>How we hire</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>First call with a recruiter, technical screen with the hiring manager, a half-day on-site (or remote equivalent) with the team, and an offer within 10 business days of the final round. We don't ghost. We tell you where you stand after each stage.</p><!-- /wp:paragraph -->
+HTML;
+}
+
+function voltcore_seed_page_press() {
+	return <<<HTML
+<!-- wp:heading --><h2>About VoltCore</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>VoltCore designs and manufactures lithium-ion and lithium iron phosphate cells, automotive-grade battery packs, and grid-scale energy storage systems. Founded in 2015 in Reno, Nevada. Privately held. 1,200 employees across four countries. Shipping at commercial volume since 2019.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Spokespeople</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li><strong>Elena Rojas</strong> — Chief Executive Officer. Strategy, factory footprint, macro.</li><li><strong>Dr. Mark Chen</strong> — Chief Technology Officer. Cell chemistry, manufacturing processes, roadmap.</li><li><strong>Priya Narayan</strong> — VP of Engineering. Pack design, BMS, thermal.</li></ul><!-- /wp:list -->
+
+<!-- wp:heading --><h2>Factsheet</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li>12 GWh of cells shipped to date</li><li>400 million km of on-road driving data analysed</li><li>99.98% pack uptime across field deployments</li><li>18 countries with active customer deployments</li></ul><!-- /wp:list -->
+HTML;
+}
+
+function voltcore_seed_page_privacy() {
+	return <<<HTML
+<!-- wp:paragraph --><p>This Privacy Policy describes how VoltCore (&quot;we&quot;, &quot;us&quot;) collects, uses, and discloses personal information when you visit our website, use our products, or otherwise interact with us. By using our services, you consent to the practices described here.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Information we collect</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We collect personal information you provide directly (name, email, company, job title when you request a quote or subscribe), information collected automatically (IP address, browser, pages visited), and information from third parties (service providers, analytics, authentication).</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>How we use information</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>To operate and improve our services, respond to your requests, send updates you've opted into, comply with legal obligations, and protect against fraud or unauthorised access. We do not sell your personal information.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Sharing</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We share information with service providers who process data on our behalf under contract, with professional advisers, in connection with business transfers, and where required by law.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Your rights</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Depending on your jurisdiction, you may have rights to access, correct, delete, or port your personal information, object to certain processing, or withdraw consent. To exercise these rights, email <a href="mailto:privacy@example.com">privacy@example.com</a>.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>International transfers</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We may transfer personal information to countries outside your jurisdiction, including the United States. We rely on appropriate safeguards such as Standard Contractual Clauses.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Retention</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We retain personal information for as long as needed to provide our services, comply with legal obligations, resolve disputes, and enforce our agreements.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Children</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Our services are not directed to children under 16. We do not knowingly collect personal information from children.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Changes</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We may update this Privacy Policy from time to time. The &quot;last updated&quot; date at the top reflects the most recent revision.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Contact</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Questions about this policy or our privacy practices: <a href="mailto:privacy@example.com">privacy@example.com</a>.</p><!-- /wp:paragraph -->
+HTML;
+}
+
+function voltcore_seed_page_terms() {
+	return <<<HTML
+<!-- wp:paragraph --><p>These Terms of Service govern your access to and use of VoltCore's website, products, and services. By accessing or using our services, you agree to these Terms.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Use of services</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>You may use our services only in compliance with these Terms and all applicable laws. You must not interfere with the services, misuse them, or attempt to access them by any method other than the interfaces we provide.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Accounts</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>You are responsible for safeguarding your account credentials and for any activity that occurs under your account. Notify us immediately of any unauthorised use.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Intellectual property</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>All content on our services — including text, graphics, logos, trademarks, and software — is owned by VoltCore or its licensors and protected by intellectual property laws. You may not copy, modify, distribute, or create derivative works without our prior written consent.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>User content</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>By submitting content to our services (such as a quote request), you grant us a non-exclusive, royalty-free licence to use that content as necessary to provide the services.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Disclaimer of warranties</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Services are provided &quot;as is&quot; without warranties of any kind, to the maximum extent permitted by law. We disclaim all implied warranties, including merchantability, fitness for a particular purpose, and non-infringement.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Limitation of liability</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>To the maximum extent permitted by law, VoltCore will not be liable for indirect, incidental, special, consequential, or punitive damages, or any loss of profits, revenue, data, or goodwill arising from your use of the services.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Indemnification</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>You agree to defend, indemnify, and hold harmless VoltCore from any claims arising out of your use of the services, your violation of these Terms, or your violation of any rights of a third party.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Termination</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We may suspend or terminate your access to the services at any time for any reason, including violation of these Terms. You may stop using the services at any time.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Governing law</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>These Terms are governed by the laws of the State of Nevada, United States, without regard to its conflict-of-laws principles.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Changes</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We may modify these Terms from time to time. Continued use of the services after changes take effect constitutes your acceptance of the revised Terms.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Contact</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Questions about these Terms: <a href="mailto:legal@example.com">legal@example.com</a>.</p><!-- /wp:paragraph -->
+HTML;
+}
+
+function voltcore_seed_page_cookies() {
+	return <<<HTML
+<!-- wp:paragraph --><p>This Cookie Policy explains how VoltCore uses cookies and similar technologies when you visit our website. By using our site, you consent to the use of cookies as described here.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>What are cookies</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Cookies are small text files placed on your device when you visit a website. They allow the site to recognise your device across sessions and remember information such as preferences, authentication state, and analytics identifiers.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>How we use cookies</h2><!-- /wp:heading -->
+<!-- wp:list --><ul><li><strong>Strictly necessary</strong> — session, CSRF, and authentication. Required for the site to function.</li><li><strong>Preferences</strong> — language, theme, consent state.</li><li><strong>Analytics</strong> — aggregate page views and flows. De-identified where possible.</li><li><strong>Marketing</strong> — only set if you have given consent, used to measure campaign performance.</li></ul><!-- /wp:list -->
+
+<!-- wp:heading --><h2>Third-party cookies</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Some cookies are set by third parties (for example, analytics providers and embedded content). Those providers have their own privacy and cookie policies which govern their use of cookies.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Managing cookies</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>You can control cookies through your browser settings — blocking all cookies, allowing only first-party, or deleting stored ones. Doing so may impact functionality. You can also change your consent at any time using the cookie banner.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Do Not Track</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We respect Global Privacy Control (GPC) signals from supported browsers by treating them as a request to opt out of sale or sharing of personal information where applicable.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Changes</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>We may update this Cookie Policy from time to time. The &quot;last updated&quot; date at the top reflects the most recent revision.</p><!-- /wp:paragraph -->
+
+<!-- wp:heading --><h2>Contact</h2><!-- /wp:heading -->
+<!-- wp:paragraph --><p>Cookie-related questions: <a href="mailto:privacy@example.com">privacy@example.com</a>.</p><!-- /wp:paragraph -->
 HTML;
 }
 
@@ -463,11 +604,11 @@ function voltcore_install_footer_widgets() {
 		),
 		3 => array(
 			'title'   => __( 'Company', 'voltcore' ),
-			'content' => '<ul><li><a href="/about/">About</a></li><li><a href="/blog/">Journal</a></li><li><a href="/contact/">Contact</a></li><li><a href="#">Careers</a></li></ul>',
+			'content' => '<ul><li><a href="/about/">About</a></li><li><a href="/blog/">Journal</a></li><li><a href="/contact/">Contact</a></li><li><a href="/careers/">Careers</a></li></ul>',
 		),
 		4 => array(
 			'title'   => __( 'Legal', 'voltcore' ),
-			'content' => '<ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Cookies</a></li><li><a href="#">Press</a></li></ul>',
+			'content' => '<ul><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms</a></li><li><a href="/cookies/">Cookies</a></li><li><a href="/press/">Press</a></li></ul>',
 		),
 	);
 

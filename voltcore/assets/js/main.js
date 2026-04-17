@@ -22,6 +22,7 @@
 		bindFadeIn();
 		bindCounters();
 		bindScrollHints();
+		bindLegalToc();
 	}
 
 	/* --------------------------------------------------------------------
@@ -144,6 +145,59 @@
 			else el.textContent = target.toFixed(decimals) + suffix;
 		}
 		requestAnimationFrame(frame);
+	}
+
+	/* --------------------------------------------------------------------
+	 * Legal TOC — scrape h2 headings in .entry-content, generate a
+	 * numbered anchor list in [data-legal-toc], and highlight the
+	 * active section as the reader scrolls.
+	 * -------------------------------------------------------------------- */
+	function bindLegalToc() {
+		const toc = qs("[data-legal-toc]");
+		const content = qs("[data-legal-content]");
+		if (!toc || !content) return;
+
+		const headings = qsa("h2", content).filter(h => h.textContent.trim() !== "");
+		if (!headings.length) {
+			const aside = toc.closest(".legal-toc");
+			if (aside) aside.style.display = "none";
+			return;
+		}
+
+		headings.forEach((h, i) => {
+			if (!h.id) {
+				const slug = h.textContent.trim().toLowerCase()
+					.replace(/[^\w\s-]/g, "")
+					.replace(/\s+/g, "-")
+					.replace(/-+/g, "-")
+					.slice(0, 60) || ("section-" + (i + 1));
+				h.id = slug;
+			}
+			const li = document.createElement("li");
+			const a  = document.createElement("a");
+			a.href = "#" + h.id;
+			a.textContent = h.textContent.trim();
+			a.setAttribute("data-toc-link", h.id);
+			li.appendChild(a);
+			toc.appendChild(li);
+		});
+
+		if (!("IntersectionObserver" in window) || prefersReducedMotion) return;
+
+		const links = qsa("[data-toc-link]", toc);
+		const io = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				const id = entry.target.id;
+				const link = links.find(l => l.getAttribute("data-toc-link") === id);
+				if (!link) return;
+				if (entry.isIntersecting) {
+					links.forEach(l => l.classList.remove("is-active"));
+					link.classList.add("is-active");
+				}
+			});
+		}, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+
+		headings.forEach(h => io.observe(h));
 	}
 
 	/* --------------------------------------------------------------------
