@@ -1,24 +1,49 @@
 # VoltCore — install & customize (5 minutes)
 
-VoltCore is a Tesla-inspired, SEO-first WordPress theme for battery,
-EV and clean-energy brands. On activation it **seeds the whole site**
-— pages, posts, menu, widgets, permalinks — so you have a working
-marketing site before you touch a single setting.
+VoltCore is a Tesla-inspired, **Elementor-native**, SEO-first WordPress
+theme for battery, EV and clean-energy brands. On activation it
+**seeds the whole site** — pages, posts, products, menus, widgets,
+permalinks — so you have a working marketing site before touching a
+single setting.
 
 Bundled out of the box:
 
-* 3 selectable homepage layouts (Classic / Grid / Story)
-* 6 sample blog articles with featured images and categories
-* 5 pre-built pages (Home, Blog, About, Products, Contact)
-* Primary menu, footer widgets, SEO-friendly permalinks
-* JSON-LD structured data + OG/Twitter Card + auto meta descriptions
-* Breadcrumbs + WordPress XML sitemap
-* **Built-in Theme Builder** (VoltCore → Theme Builder) to override
-  header, footer, single, page, archive or 404 visually
-* **Elementor / Elementor Pro** compatible — Theme Builder locations
-  are registered automatically
-* **wp-admin menu** (VoltCore → Dashboard / Options / Theme Builder /
-  Import Demo / Docs)
+* **18 VoltCore-branded Elementor widgets** (drag-and-drop under the
+  "VoltCore" category): Navbar, Footer, Hero, Stats Row, Icon Box,
+  Logo Cloud, Marquee, Feature Card, Stat, Split, CTA, Post Grid,
+  Contact Grid, Careers Hero, Press Kit, Press List, Legal Hero,
+  Legal TOC, Team Grid, Timeline, FAQ, Product Hero, Product Specs,
+  Breadcrumbs.
+* **One-click Elementor import** — VoltCore → Import Demo →
+  Import Elementor templates → every page becomes an Elementor
+  document, images go through the Media Library, header/footer/404
+  land as Theme Builder templates.
+* **3 selectable homepage layouts** (Classic / Grid / Story) — even
+  without Elementor.
+* **6 sample blog articles** + **3 sample products** with images and
+  categories.
+* **10 pre-built pages**: Home, Blog, About, Products, Contact,
+  Careers, Press, Privacy, Terms, Cookies — each with its own
+  tesla.com-style design language.
+* **Primary menu, footer widgets, SEO-friendly permalinks**.
+* **JSON-LD structured data + OG/Twitter Card + auto meta
+  descriptions + breadcrumbs + XML sitemap**.
+* **Built-in Theme Builder** (VoltCore → Theme Builder) works with
+  Elementor Free as a Pro-alternative.
+* **wp-admin menu** (VoltCore → Dashboard / Options / Theme Builder
+  / Import Demo / Docs).
+
+## Recommended workflow
+
+1. Upload `voltcore.zip`, activate.
+2. Install and activate Elementor + Elementor Pro.
+3. Go to **VoltCore → Import Demo** and run both importers
+   (demo content, then Elementor templates).
+4. Visit the site — every page is now composed of VoltCore widgets.
+   Open Elementor on any page to tweak images, text, colors and
+   spacing visually.
+5. Replace the bundled images and content with your own — everything
+   lives in the Media Library and the Elementor editor.
 
 ## 1. Install
 

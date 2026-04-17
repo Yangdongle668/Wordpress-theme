@@ -81,6 +81,38 @@ function voltcore_admin_assets( $hook ) {
 add_action( 'admin_enqueue_scripts', 'voltcore_admin_assets' );
 
 /* =========================================================
+ * Elementor dependency notice (persistent, dismissible per-release)
+ * ========================================================= */
+function voltcore_admin_elementor_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) return;
+	if ( voltcore_has_elementor_pro() ) return;
+
+	$dismissed = (string) get_option( 'voltcore_elementor_notice_dismissed' );
+	if ( $dismissed === VOLTCORE_VERSION ) return;
+
+	if ( isset( $_GET['voltcore_dismiss_elementor_notice'] ) && check_admin_referer( 'voltcore_dismiss_elementor_notice' ) ) {
+		update_option( 'voltcore_elementor_notice_dismissed', VOLTCORE_VERSION );
+		return;
+	}
+
+	$has_free = voltcore_has_elementor();
+	$install_free_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
+	$pro_url          = 'https://elementor.com/pro/';
+	$dismiss_url      = wp_nonce_url( add_query_arg( 'voltcore_dismiss_elementor_notice', 1 ), 'voltcore_dismiss_elementor_notice' );
+
+	echo '<div class="notice notice-info"><p><strong>VoltCore</strong> — ';
+	if ( ! $has_free ) {
+		echo esc_html__( 'install Elementor to unlock the full Elementor-native experience (drag-and-drop widgets, Theme Builder, one-click demo).', 'voltcore' );
+		echo ' <a class="button button-primary" style="margin-left:8px" href="' . esc_url( $install_free_url ) . '">' . esc_html__( 'Install Elementor', 'voltcore' ) . '</a>';
+	} else {
+		echo esc_html__( 'Elementor is active. For best results — including Theme Builder conditions for headers/footers/archives — install Elementor Pro.', 'voltcore' );
+		echo ' <a class="button button-primary" style="margin-left:8px" target="_blank" rel="noopener" href="' . esc_url( $pro_url ) . '">' . esc_html__( 'Get Elementor Pro', 'voltcore' ) . '</a>';
+	}
+	echo ' <a style="margin-left:8px" href="' . esc_url( $dismiss_url ) . '">' . esc_html__( 'Dismiss', 'voltcore' ) . '</a></p></div>';
+}
+add_action( 'admin_notices', 'voltcore_admin_elementor_notice' );
+
+/* =========================================================
  * Admin notice on first activation
  * ========================================================= */
 function voltcore_admin_welcome_notice() {
@@ -210,6 +242,16 @@ function voltcore_admin_status_checks() {
 	$out[] = array(
 		'label' => $demo ? __( 'Demo content: imported', 'voltcore' ) : __( 'Demo content: not imported', 'voltcore' ),
 		'state' => $demo ? 'ok' : 'warn',
+	);
+
+	$out[] = array(
+		'label' => voltcore_has_elementor() ? __( 'Elementor: active', 'voltcore' ) : __( 'Elementor: not active', 'voltcore' ),
+		'state' => voltcore_has_elementor() ? 'ok' : 'warn',
+	);
+
+	$out[] = array(
+		'label' => voltcore_has_elementor_pro() ? __( 'Elementor Pro: active', 'voltcore' ) : __( 'Elementor Pro: not active', 'voltcore' ),
+		'state' => voltcore_has_elementor_pro() ? 'ok' : 'warn',
 	);
 
 	return $out;
@@ -390,8 +432,11 @@ function voltcore_admin_page_docs() {
 			<h2>4. Theme Builder</h2>
 			<p><?php esc_html_e( 'Go to VoltCore → Theme Builder. Create a new template, pick a type (Header / Footer / Single / Archive / 404), and compose it with the block editor or Elementor. Enable it and VoltCore will use it in place of the default template.', 'voltcore' ); ?></p>
 
-			<h2>5. Elementor</h2>
-			<p><?php esc_html_e( 'VoltCore is Elementor- and Elementor Pro-ready. Theme Builder locations are registered automatically. A VoltCore widget category is added. Elementor buttons and headings inherit VoltCore design tokens.', 'voltcore' ); ?></p>
+			<h2>5. Elementor (recommended)</h2>
+			<p><?php esc_html_e( 'VoltCore ships 18 VoltCore-branded Elementor widgets under the "VoltCore" category: Navbar, Footer, Hero, Stats Row, Icon Box, Logo Cloud, Marquee, Feature Card, Stat, Split, CTA, Post Grid, Contact Grid, Careers Hero, Press Kit, Press List, Legal Hero, Legal TOC, Team Grid, Timeline, FAQ, Product Hero, Product Specs, Breadcrumbs.', 'voltcore' ); ?></p>
+			<p><?php esc_html_e( 'For the richest workflow, install Elementor Pro — its Theme Builder handles header/footer/archive/single/404. With Pro installed, run VoltCore → Import Demo → Import Elementor templates to seed every page.', 'voltcore' ); ?></p>
+			<p><?php esc_html_e( 'Without Pro, VoltCore\'s built-in Theme Builder (VoltCore → Theme Builder) gives you the same header/footer/archive capability — just fewer built-in conditions.', 'voltcore' ); ?></p>
+			<p><strong><?php esc_html_e( 'What happens if Elementor is not active?', 'voltcore' ); ?></strong> <?php esc_html_e( 'Every page falls back to its PHP template. You still get tesla.com-style hero / CTA chrome and the full blog + product system.', 'voltcore' ); ?></p>
 
 			<h2>6. Menus</h2>
 			<p><?php esc_html_e( 'Appearance → Menus. Assign your menu to the "Primary Menu" location (for the top nav) and "Footer Menu" (for the footer bar).', 'voltcore' ); ?></p>

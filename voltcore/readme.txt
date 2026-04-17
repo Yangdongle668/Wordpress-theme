@@ -16,14 +16,27 @@ scroll-snap storytelling, and monochrome palette with a single accent color.
 
 It ships with:
 
-* 3 ready-to-use homepage styles (Classic hero stack, Product grid, Split-screen story)
-* Full blog system (index, archive, single, category, tag, search, 404)
-* Sticky minimal navigation with transparent → solid on scroll
-* Intersection-observer driven fade-in / counter-up animations
-* Mobile drawer menu
-* Customizer controls for logo, hero images, headlines, CTAs, accent color,
-  footer, and homepage variant selection
-* Placeholder images so the site works the moment it is activated
+* Fully Elementor-native workflow: 18 VoltCore-branded widgets
+  (Navbar, Footer, Hero, Stats, Split, CTA, Post Grid, Feature Card,
+  Icon Box, Logo Cloud, Marquee, Contact Grid, Careers Hero, Press
+  Kit, Press List, Legal Hero, Legal TOC, Team Grid, Timeline, FAQ,
+  Product Hero, Product Specs, Breadcrumbs).
+* One-click Elementor template importer that turns every bundled
+  page into an Elementor document.
+* 3 ready-to-use homepage styles (Classic / Grid / Story) also
+  available as a Customizer variant selector for non-Elementor users.
+* Full blog system (index, archive, single, category, tag, search, 404).
+* Products CPT (vc_product) with category taxonomy and dedicated
+  archive + detail templates.
+* Sticky minimal navigation with transparent → solid on scroll.
+* Intersection-observer driven fade-in / counter-up animations.
+* Mobile drawer menu.
+* Customizer controls for logo, hero images, headlines, CTAs, accent
+  color, footer, and homepage variant selection.
+* Placeholder images so the site works the moment it is activated.
+* JSON-LD, Open Graph, Twitter Card and breadcrumbs on every page.
+* Built-in Theme Builder (VoltCore → Theme Builder) that covers
+  header/footer/archive/single/404 without needing Elementor Pro.
 
 == Installation ==
 
