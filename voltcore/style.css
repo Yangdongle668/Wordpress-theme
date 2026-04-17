@@ -1,0 +1,17 @@
+/*
+Theme Name: VoltCore
+Theme URI: https://example.com/voltcore
+Author: VoltCore Studio
+Author URI: https://example.com
+Description: A Tesla-inspired, minimalist WordPress theme built for battery, EV and clean-energy brands. Ships with three homepage styles, a full blog system, animated scroll-snap sections, and a Customizer-driven content workflow so you only need to replace images and text after installing. Ready for battery manufacturers, energy storage startups, and EV accessory brands.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.5
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: voltcore
+Tags: one-column, two-columns, custom-colors, custom-logo, custom-menu, custom-header, featured-images, full-width-template, theme-options, threaded-comments, translation-ready, block-styles, wide-blocks, blog, portfolio, e-commerce
+*/
+
+/* All runtime styles live in assets/css/main.css. This file is required by WordPress for theme metadata only. */
