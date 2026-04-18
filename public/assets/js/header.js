@@ -55,6 +55,7 @@
     document.addEventListener('mobilenav:open', () => {
       state.menuOpen = true;
       header.classList.remove('is-hidden');
+      document.documentElement.classList.remove('header-hidden');
     });
     document.addEventListener('mobilenav:close', () => {
       state.menuOpen = false;
@@ -86,15 +87,23 @@
     if (!state.menuOpen) {
       const delta = y - lastY;
       if (y < HIDE_THRESHOLD) {
-        header.classList.remove('is-hidden');
+        setHidden(false);
       } else if (delta > DELTA_HIDE) {
-        header.classList.add('is-hidden');
+        setHidden(true);
       } else if (delta < -DELTA_SHOW) {
-        header.classList.remove('is-hidden');
+        setHidden(false);
       }
     }
 
     state.lastY = y;
+  }
+
+  // Mirror the header's hidden state onto <html> so sticky widgets below
+  // the header (filter bars, sub-nav) can drop their top offset to 0 when
+  // the header slides up, and ride it back down when it reappears.
+  function setHidden(hidden) {
+    state.header.classList.toggle('is-hidden', hidden);
+    document.documentElement.classList.toggle('header-hidden', hidden);
   }
 
 

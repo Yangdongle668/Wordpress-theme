@@ -33,12 +33,15 @@
   position: sticky;
   top: var(--header-height);
   z-index: var(--z-sticky);
-  /* Solid background so the sticky bar never shows scrolling cards bleeding
-     through. Frosted-translucent read nicely in mockups but broke in
-     practice — white bg + dark cards = visible content through 14% alpha. */
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
+  /* Ride down with the site header: header.js flips `.header-hidden` on
+     <html> when the fixed header slides up, and we drop our sticky offset
+     to 0 in sync so the filter bar hugs the viewport top instead of
+     floating with empty space above it. */
+  transition: top var(--duration-base) var(--ease-out);
 }
+html.header-hidden .cases-filter { top: 0; }
 .cases-filter__bar {
   display: flex;
   gap: var(--space-2);

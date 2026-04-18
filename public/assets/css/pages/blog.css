@@ -101,10 +101,13 @@
   position: sticky;
   top: var(--header-height);
   z-index: var(--z-sticky);
-  /* Solid background — translucent bg let scrolling posts bleed through. */
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
+  /* Drop sticky offset to 0 while the site header is hidden, animate back
+     up when the header reappears. See header.js → .header-hidden toggle. */
+  transition: top var(--duration-base) var(--ease-out);
 }
+html.header-hidden .blog-filter { top: 0; }
 .blog-filter__tabs {
   border-bottom: 0;
   margin-bottom: 0;
