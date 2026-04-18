@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'VOLTCORE_VERSION', '2.0.0' );
+define( 'VOLTCORE_VERSION', '3.0.0' );
 define( 'VOLTCORE_DIR', get_template_directory() );
 define( 'VOLTCORE_URI', get_template_directory_uri() );
 
@@ -82,10 +82,26 @@ function voltcore_assets() {
 
 	wp_add_inline_style( 'voltcore-main', voltcore_customizer_inline_css() );
 
+	// v3 advanced widgets (Panel, Mega Nav, Configurator, Inventory, etc.)
+	wp_enqueue_style(
+		'voltcore-v3',
+		VOLTCORE_URI . '/assets/css/v3.css',
+		array( 'voltcore-main' ),
+		VOLTCORE_VERSION
+	);
+
 	wp_enqueue_script(
 		'voltcore-main',
 		VOLTCORE_URI . '/assets/js/main.js',
 		array(),
+		VOLTCORE_VERSION,
+		true
+	);
+
+	wp_enqueue_script(
+		'voltcore-v3',
+		VOLTCORE_URI . '/assets/js/v3.js',
+		array( 'voltcore-main' ),
 		VOLTCORE_VERSION,
 		true
 	);
@@ -195,6 +211,7 @@ require VOLTCORE_DIR . '/inc/elementor.php';
 require VOLTCORE_DIR . '/inc/elementor-importer.php';
 require VOLTCORE_DIR . '/inc/admin.php';
 require VOLTCORE_DIR . '/inc/theme-builder.php';
+require VOLTCORE_DIR . '/inc/test-drive.php';
 
 /**
  * Pingback header for single posts.

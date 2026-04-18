@@ -23,23 +23,28 @@ if ( ! defined( 'ABSPATH' ) ) {
  * ============================================================ */
 
 function voltcore_after_switch_theme() {
-	// Guard against multiple runs.
-	if ( get_option( 'voltcore_installed_v1' ) ) {
-		return;
+	$first_run = ! get_option( 'voltcore_installed_v1' );
+
+	if ( $first_run ) {
+		voltcore_install_permalinks();
+		$pages = voltcore_install_pages();
+		$cats  = voltcore_install_categories();
+		voltcore_install_posts( $cats );
+		voltcore_install_products();
+		voltcore_install_reading( $pages );
+		voltcore_install_menu( $pages );
+		voltcore_install_footer_widgets();
+		update_option( 'voltcore_installed_v1', time() );
 	}
 
-	voltcore_install_permalinks();
-	$pages  = voltcore_install_pages();
-	$cats   = voltcore_install_categories();
-	voltcore_install_posts( $cats );
-	voltcore_install_products();
-	voltcore_install_reading( $pages );
-	voltcore_install_menu( $pages );
-	voltcore_install_footer_widgets();
+	// v3 migration — idempotent. Ensures new pages (vehicles, energy, shop,
+	// inventory, find-us, compare, test-drive, account) exist even on
+	// upgrades from v2. voltcore_install_pages() is itself idempotent.
+	if ( ! get_option( 'voltcore_installed_v3' ) ) {
+		voltcore_install_pages();
+		update_option( 'voltcore_installed_v3', time() );
+	}
 
-	update_option( 'voltcore_installed_v1', time() );
-
-	// Flush pretty permalinks.
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'voltcore_after_switch_theme' );
@@ -71,6 +76,15 @@ function voltcore_install_pages() {
 		'privacy'  => array( 'title' => __( 'Privacy',  'voltcore' ), 'content' => voltcore_seed_page_privacy(),  'template' => 'page-legal.php',   'excerpt' => '' ),
 		'terms'    => array( 'title' => __( 'Terms',    'voltcore' ), 'content' => voltcore_seed_page_terms(),    'template' => 'page-legal.php',   'excerpt' => '' ),
 		'cookies'  => array( 'title' => __( 'Cookies',  'voltcore' ), 'content' => voltcore_seed_page_cookies(),  'template' => 'page-legal.php',   'excerpt' => '' ),
+		// v3 additions — Elementor-first pages (thin shells; factories fill them).
+		'vehicles'   => array( 'title' => __( 'Vehicles',    'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Our vehicles, configured your way.', 'voltcore' ) ),
+		'energy'     => array( 'title' => __( 'Energy',      'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Home energy storage, utility-scale storage, solar.', 'voltcore' ) ),
+		'shop'       => array( 'title' => __( 'Shop',        'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Accessories, apparel and parts.', 'voltcore' ) ),
+		'inventory'  => array( 'title' => __( 'Inventory',   'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'In-stock vehicles ready for delivery.', 'voltcore' ) ),
+		'find-us'    => array( 'title' => __( 'Find us',     'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Showrooms, service and chargers.', 'voltcore' ) ),
+		'compare'    => array( 'title' => __( 'Compare',     'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Compare models side by side.', 'voltcore' ) ),
+		'test-drive' => array( 'title' => __( 'Demo Drive',  'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Book a demo drive in four steps.', 'voltcore' ) ),
+		'account'    => array( 'title' => __( 'Account',     'voltcore' ), 'content' => '', 'template' => 'page-blank.php', 'excerpt' => __( 'Manage your VoltCore account.', 'voltcore' ) ),
 	);
 
 	$ids = array();
@@ -526,9 +540,13 @@ function voltcore_install_menu( $pages ) {
 		}
 
 		$items = array(
-			array( 'title' => __( 'About',    'voltcore' ), 'object_id' => $pages['about'] ?? 0 ),
-			array( 'title' => __( 'Blog',     'voltcore' ), 'object_id' => $pages['blog'] ?? 0 ),
-			array( 'title' => __( 'Contact',  'voltcore' ), 'object_id' => $pages['contact'] ?? 0 ),
+			array( 'title' => __( 'Vehicles', 'voltcore' ), 'object_id' => $pages['vehicles'] ?? 0 ),
+			array( 'title' => __( 'Energy',   'voltcore' ), 'object_id' => $pages['energy']   ?? 0 ),
+			array( 'title' => __( 'Shop',     'voltcore' ), 'object_id' => $pages['shop']     ?? 0 ),
+			array( 'title' => __( 'Find us',  'voltcore' ), 'object_id' => $pages['find-us']  ?? 0 ),
+			array( 'title' => __( 'About',    'voltcore' ), 'object_id' => $pages['about']    ?? 0 ),
+			array( 'title' => __( 'Blog',     'voltcore' ), 'object_id' => $pages['blog']     ?? 0 ),
+			array( 'title' => __( 'Contact',  'voltcore' ), 'object_id' => $pages['contact']  ?? 0 ),
 		);
 		foreach ( $items as $it ) {
 			if ( ! $it['object_id'] ) {

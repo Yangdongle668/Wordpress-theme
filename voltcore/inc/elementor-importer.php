@@ -202,17 +202,26 @@ function voltcore_el_import_theme_builder( $title, $type, array $tree ) {
 
 function voltcore_el_templates() {
 	return array(
-		'home'    => 'voltcore_el_tpl_home',
-		'about'   => 'voltcore_el_tpl_about',
-		'contact' => 'voltcore_el_tpl_contact',
-		'careers' => 'voltcore_el_tpl_careers',
-		'press'   => 'voltcore_el_tpl_press',
-		'privacy' => 'voltcore_el_tpl_privacy',
-		'terms'   => 'voltcore_el_tpl_terms',
-		'cookies' => 'voltcore_el_tpl_cookies',
-		'header'  => 'voltcore_el_tpl_header',
-		'footer'  => 'voltcore_el_tpl_footer',
-		'404'     => 'voltcore_el_tpl_404',
+		'home'        => 'voltcore_el_tpl_home',
+		'about'       => 'voltcore_el_tpl_about',
+		'contact'     => 'voltcore_el_tpl_contact',
+		'careers'     => 'voltcore_el_tpl_careers',
+		'press'       => 'voltcore_el_tpl_press',
+		'privacy'     => 'voltcore_el_tpl_privacy',
+		'terms'       => 'voltcore_el_tpl_terms',
+		'cookies'     => 'voltcore_el_tpl_cookies',
+		// v3 additions
+		'vehicles'    => 'voltcore_el_tpl_vehicles',
+		'energy'      => 'voltcore_el_tpl_energy',
+		'shop'        => 'voltcore_el_tpl_shop',
+		'inventory'   => 'voltcore_el_tpl_inventory',
+		'find-us'     => 'voltcore_el_tpl_findus',
+		'compare'     => 'voltcore_el_tpl_compare',
+		'test-drive'  => 'voltcore_el_tpl_testdrive',
+		'account'     => 'voltcore_el_tpl_account',
+		'header'      => 'voltcore_el_tpl_header',
+		'footer'      => 'voltcore_el_tpl_footer',
+		'404'         => 'voltcore_el_tpl_404',
 	);
 }
 
@@ -221,26 +230,43 @@ function voltcore_el_templates() {
  * ===================================================================== */
 
 function voltcore_el_tpl_home() {
-	$heroes = array(
-		array( 'hero-1.jpg', 'Model V',     'The most energy-dense battery pack we have ever built.',    'Pre-order',     '/products/',                 'Learn more', '/products/cell-4680/' ),
-		array( 'hero-2.jpg', 'Powerwall X', 'Home energy storage, redesigned for 2026 and beyond.',      'Order now',     '/products/pack-p500/',       'Specs',      '/products/pack-p500/' ),
-		array( 'hero-3.jpg', 'Megapack',    'Utility-scale storage. One rack. 3.9 MWh.',                 'Request quote', '/contact/',                  'Tech sheet', '/products/grid-node/' ),
+	$panels = array(
+		array( 'hero-1.jpg', 'Model V',     'Up to 340 mi range',                 'Custom Order',  '/vehicles/',        'Demo Drive',   '/test-drive/' ),
+		array( 'hero-2.jpg', 'Powerwall X', 'Home energy storage, redesigned',    'Order',         '/energy/',          'Learn more',   '/energy/' ),
+		array( 'hero-3.jpg', 'Megapack',    'Utility-scale storage. 3.9 MWh.',    'Request quote', '/contact/',         'Tech sheet',   '/products/' ),
 	);
 	$out = array();
-	foreach ( $heroes as $i => $h ) {
-		$out[] = vc_el_solo( 'voltcore-hero', array(
-			'image'       => vc_el_img( $h[0], $h[1] ),
-			'title'       => $h[1],
-			'heading_tag' => $i === 0 ? 'h1' : 'h2',
-			'subtitle'    => $h[2],
-			'align'       => 'center',
-			'height'      => 'full',
-			'btn1_label'  => $h[3],
-			'btn1_url'    => vc_el_url( $h[4] ),
-			'btn2_label'  => $h[5],
-			'btn2_url'    => vc_el_url( $h[6] ),
+	foreach ( $panels as $i => $h ) {
+		$out[] = vc_el_solo( 'voltcore-panel', array(
+			'media_type'       => 'image',
+			'image'            => vc_el_img( $h[0], $h[1] ),
+			'scheme'           => 'light',
+			'align'            => 'top-center',
+			'title'            => $h[1],
+			'heading_tag'      => $i === 0 ? 'h1' : 'h2',
+			'subtitle'         => $h[2],
+			'btn1_label'       => $h[3],
+			'btn1_url'         => vc_el_url( $h[4] ),
+			'btn2_label'       => $h[5],
+			'btn2_url'         => vc_el_url( $h[6] ),
+			'show_scroll_hint' => 'yes',
 		) );
 	}
+	$out[] = vc_el_solo( 'voltcore-scroll-reveal-cards', array(
+		'heading' => 'Explore the lineup',
+		'columns' => '3',
+	) );
+	$out[] = vc_el_solo( 'voltcore-spec-ticker', array(
+		'eyebrow' => 'By the numbers',
+		'heading' => 'A decade of battery data.',
+		'scheme'  => 'dark',
+		'specs'   => array(
+			array( 'value' => '12',    'unit' => 'GWh', 'label' => 'Cells shipped' ),
+			array( 'value' => '400',   'unit' => 'M mi', 'label' => 'On-road data' ),
+			array( 'value' => '99.98', 'suffix' => '%', 'unit' => '', 'label' => 'Pack uptime' ),
+			array( 'value' => '18',    'unit' => '',    'label' => 'Countries' ),
+		),
+	) );
 	$out[] = vc_el_solo( 'voltcore-post-grid', array(
 		'heading'        => 'Latest from the Journal',
 		'posts_per_page' => 3,
@@ -252,6 +278,7 @@ function voltcore_el_tpl_home() {
 		'btn_url'   => vc_el_url( '/contact/' ),
 		'scheme'    => 'dark',
 	) );
+	$out[] = vc_el_solo( 'voltcore-cookie-banner', array() );
 	return $out;
 }
 
@@ -490,9 +517,222 @@ function voltcore_el_tpl_cookies() {
 	) );
 }
 
+/* =====================================================================
+ *  v3 factories (tesla.com-scale pages)
+ * ===================================================================== */
+
+function voltcore_el_tpl_vehicles() {
+	return array(
+		vc_el_solo( 'voltcore-panel', array(
+			'media_type' => 'image',
+			'image'      => vc_el_img( 'hero-1.jpg', 'Model V' ),
+			'scheme'     => 'light',
+			'align'      => 'top-center',
+			'title'      => 'Model V',
+			'heading_tag'=> 'h1',
+			'subtitle'   => 'From $39,990. Up to 340 mi range.',
+			'btn1_label' => 'Custom Order',
+			'btn1_url'   => vc_el_url( '/vehicles/?model=v' ),
+			'btn2_label' => 'Demo Drive',
+			'btn2_url'   => vc_el_url( '/test-drive/' ),
+		) ),
+		vc_el_solo( 'voltcore-panel', array(
+			'media_type' => 'image',
+			'image'      => vc_el_img( 'hero-2.jpg', 'Model V Performance' ),
+			'scheme'     => 'light',
+			'align'      => 'bottom-left',
+			'title'      => 'Performance',
+			'subtitle'   => '0-60 in 2.9 s. 162 mph top speed.',
+			'btn1_label' => 'Custom Order',
+			'btn1_url'   => vc_el_url( '/vehicles/?trim=perf' ),
+			'btn2_label' => 'Learn more',
+			'btn2_url'   => vc_el_url( '#specs' ),
+		) ),
+		vc_el_solo( 'voltcore-spec-ticker', array(
+			'eyebrow' => 'Performance',
+			'heading' => 'Built to move.',
+			'scheme'  => 'dark',
+		) ),
+		vc_el_solo( 'voltcore-configurator', array(
+			'vehicle_name' => 'Model V',
+			'base_price'   => 39990,
+			'image'        => vc_el_img( 'hero-1.jpg', 'Model V' ),
+		) ),
+		vc_el_solo( 'voltcore-compare', array(
+			'heading' => 'Compare trims',
+		) ),
+		vc_el_solo( 'voltcore-financing-calc', array(
+			'heading' => 'Estimate your monthly payment',
+			'price'   => 39990,
+		) ),
+		vc_el_solo( 'voltcore-cta', array(
+			'title'     => 'Ready for a demo?',
+			'btn_label' => 'Book a Demo Drive',
+			'btn_url'   => vc_el_url( '/test-drive/' ),
+			'scheme'    => 'dark',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_energy() {
+	return array(
+		vc_el_solo( 'voltcore-panel', array(
+			'media_type' => 'image',
+			'image'      => vc_el_img( 'hero-2.jpg', 'Home energy storage' ),
+			'scheme'     => 'light',
+			'align'      => 'top-center',
+			'title'      => 'Home Energy',
+			'heading_tag'=> 'h1',
+			'subtitle'   => 'Solar and storage that just work. Power what you love, even off-grid.',
+			'btn1_label' => 'Order Powerwall',
+			'btn1_url'   => vc_el_url( '/shop/' ),
+			'btn2_label' => 'Find installers',
+			'btn2_url'   => vc_el_url( '/find-us/' ),
+		) ),
+		vc_el_solo( 'voltcore-scroll-reveal-cards', array(
+			'heading' => 'Our energy lineup',
+			'columns' => '3',
+		) ),
+		vc_el_solo( 'voltcore-energy-calc', array(
+			'heading' => 'Estimate your savings',
+		) ),
+		vc_el_solo( 'voltcore-spec-ticker', array(
+			'eyebrow' => 'Why VoltCore',
+			'heading' => 'Numbers that move the needle.',
+			'scheme'  => 'light',
+			'specs'   => array(
+				array( 'value' => '12', 'unit' => 'GWh',  'label' => 'Storage deployed' ),
+				array( 'value' => '99.98', 'suffix' => '%', 'unit' => '', 'label' => 'Pack uptime' ),
+				array( 'value' => '4680', 'unit' => '',   'label' => 'Cell format' ),
+				array( 'value' => '15',   'unit' => 'yr', 'label' => 'Warranty' ),
+			),
+		) ),
+		vc_el_solo( 'voltcore-cta', array(
+			'title'     => 'Power what comes next.',
+			'btn_label' => 'Contact Sales',
+			'btn_url'   => vc_el_url( '/contact/' ),
+			'scheme'    => 'dark',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_shop() {
+	return array(
+		vc_el_solo( 'voltcore-hero', array(
+			'image'       => vc_el_img( 'about.jpg', 'Shop' ),
+			'eyebrow'     => 'Shop',
+			'title'       => 'Accessories, apparel, and parts.',
+			'heading_tag' => 'h1',
+			'subtitle'    => 'Official VoltCore goods. Ships worldwide.',
+			'align'       => 'center',
+			'height'      => 'short',
+		) ),
+		vc_el_solo( 'voltcore-inventory', array(
+			'heading'  => 'All products',
+			'source'   => 'products',
+			'per_page' => 12,
+		) ),
+		vc_el_solo( 'voltcore-cta', array(
+			'title'     => 'Need something you can\'t find?',
+			'btn_label' => 'Contact Support',
+			'btn_url'   => vc_el_url( '/contact/' ),
+			'scheme'    => 'light',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_inventory() {
+	return array(
+		vc_el_solo( 'voltcore-hero', array(
+			'image'       => vc_el_img( 'hero-1.jpg', 'Inventory' ),
+			'eyebrow'     => 'Available now',
+			'title'       => 'In-stock vehicles',
+			'heading_tag' => 'h1',
+			'subtitle'    => 'Delivery in days, not months.',
+			'align'       => 'center',
+			'height'      => 'short',
+		) ),
+		vc_el_solo( 'voltcore-inventory', array(
+			'heading' => 'Available now',
+			'source'  => 'manual',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_findus() {
+	return array(
+		vc_el_solo( 'voltcore-hero', array(
+			'image'       => vc_el_img( 'story-1.jpg', 'Find VoltCore' ),
+			'eyebrow'     => 'Find us',
+			'title'       => 'Showrooms, service & chargers',
+			'heading_tag' => 'h1',
+			'subtitle'    => 'A growing network of locations worldwide.',
+			'align'       => 'center',
+			'height'      => 'short',
+		) ),
+		vc_el_solo( 'voltcore-locator', array(
+			'heading' => 'Find a location',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_compare() {
+	return array(
+		vc_el_solo( 'voltcore-hero', array(
+			'image'       => vc_el_img( 'hero-3.jpg', 'Compare models' ),
+			'eyebrow'     => 'Compare',
+			'title'       => 'Pick the right one.',
+			'heading_tag' => 'h1',
+			'align'       => 'center',
+			'height'      => 'short',
+		) ),
+		vc_el_solo( 'voltcore-compare', array( 'heading' => 'Model V trims' ) ),
+		vc_el_solo( 'voltcore-cta', array(
+			'title'     => 'Still deciding?',
+			'btn_label' => 'Book a Demo Drive',
+			'btn_url'   => vc_el_url( '/test-drive/' ),
+			'scheme'    => 'dark',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_testdrive() {
+	return array(
+		vc_el_solo( 'voltcore-hero', array(
+			'image'       => vc_el_img( 'hero-2.jpg', 'Demo Drive' ),
+			'eyebrow'     => 'Demo Drive',
+			'title'       => 'Feel the torque.',
+			'heading_tag' => 'h1',
+			'subtitle'    => 'Book a 30-minute drive in four short steps.',
+			'align'       => 'center',
+			'height'      => 'short',
+		) ),
+		vc_el_solo( 'voltcore-test-drive', array(
+			'heading' => 'Book a Demo Drive',
+		) ),
+	);
+}
+
+function voltcore_el_tpl_account() {
+	return array(
+		vc_el_solo( 'voltcore-hero', array(
+			'image'       => vc_el_img( 'about.jpg', 'Account' ),
+			'eyebrow'     => 'Account',
+			'title'       => 'Manage your VoltCore.',
+			'heading_tag' => 'h1',
+			'subtitle'    => 'Orders, deliveries, profile and service requests.',
+			'align'       => 'center',
+			'height'      => 'short',
+		) ),
+		vc_el_solo( 'voltcore-account-drawer', array(
+			'heading' => 'Sign in',
+		) ),
+	);
+}
+
 function voltcore_el_tpl_header() {
 	return array(
-		vc_el_solo( 'voltcore-navbar', array(
+		vc_el_solo( 'voltcore-mega-nav', array(
 			'logo_source' => 'site',
 			'scroll_mode' => 'transparent',
 		) ),
