@@ -46,8 +46,8 @@ sudo chown -R deploy:deploy /var/www/batteryco /var/log/batteryco
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
 sudo certbot certonly --webroot -w /var/www/letsencrypt \
-  -d example.com -d www.example.com \
-  --email ops@example.com --agree-tos --no-eff-email
+  -d 07691688.xyz -d www.07691688.xyz \
+  --email ops@07691688.xyz --agree-tos --no-eff-email
 
 # certbot auto-renewal timer is installed by default; verify with:
 systemctl list-timers | grep certbot
@@ -82,7 +82,7 @@ Edit `/var/www/batteryco/server/.env` and fill in:
 
 - `SMTP_HOST` / `SMTP_USER` / `SMTP_PASS`
 - `MAIL_FROM` and the `MAIL_TO_*` recipient addresses
-- `CORS_ORIGINS=https://www.example.com`
+- `CORS_ORIGINS=https://www.07691688.xyz`
 - `TRUST_PROXY=1`
 
 ---
@@ -134,18 +134,18 @@ don't skip.
 
 ```bash
 # From the VM
-curl -I https://www.example.com/en/               # 200 + HSTS + CSP headers
-curl -I https://www.example.com/sitemap.xml       # 200, Content-Type: application/xml
-curl -s  https://www.example.com/api/health       # {"ok":true,"service":"form",...}
+curl -I https://www.07691688.xyz/en/               # 200 + HSTS + CSP headers
+curl -I https://www.07691688.xyz/sitemap.xml       # 200, Content-Type: application/xml
+curl -s  https://www.07691688.xyz/api/health       # {"ok":true,"service":"form",...}
 
 # Reverse-proxy check (posts a tiny JSON so the rate limiter doesn't flare)
-curl -sS -X POST https://www.example.com/api/contact \
+curl -sS -X POST https://www.07691688.xyz/api/contact \
   -H 'Content-Type: application/json' \
   --data '{"name":"test","email":"t@example.com","message":"hello","consent":"on"}'
 ```
 
 On external reachability: check the cert with `openssl s_client -connect
-www.example.com:443 -servername www.example.com </dev/null | openssl
+www.07691688.xyz:443 -servername www.07691688.xyz </dev/null | openssl
 x509 -noout -dates` and hit https://www.ssllabs.com/ssltest/analyze.html
 for a full TLS audit (target grade: A+).
 
@@ -201,7 +201,7 @@ equivalent, encrypted with age or openssl. Retain 90 days.
 Minimum viable monitoring for a marketing site:
 
 - **Uptime**: UptimeRobot / Better Uptime / Pingdom on
-  `https://www.example.com/en/` and `https://www.example.com/api/health`,
+  `https://www.07691688.xyz/en/` and `https://www.07691688.xyz/api/health`,
   1-minute interval
 - **Cert expiry**: certbot renewal timer + an alert at T-14 days
   (`journalctl -u certbot.timer` sanity-check monthly)

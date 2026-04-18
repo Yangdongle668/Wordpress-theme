@@ -14,7 +14,7 @@
  *
  * Run:
  *   node scripts/build-sitemap.js                 # default origin
- *   SITE_ORIGIN=https://www.example.com node scripts/build-sitemap.js
+ *   SITE_ORIGIN=https://www.07691688.xyz node scripts/build-sitemap.js
  *
  * No npm dependencies — uses only Node's standard library.
  */
@@ -29,7 +29,7 @@ const ROOT = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const OUT = path.join(PUBLIC_DIR, 'sitemap.xml');
 
-const ORIGIN = (process.env.SITE_ORIGIN || 'https://www.example.com').replace(/\/+$/, '');
+const ORIGIN = (process.env.SITE_ORIGIN || 'https://www.07691688.xyz').replace(/\/+$/, '');
 const LOCALES = ['en', 'zh'];        // URL prefixes
 const DEFAULT_LOCALE = 'en';
 

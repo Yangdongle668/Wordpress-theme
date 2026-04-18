@@ -1,0 +1,91 @@
+# =============================================================================
+# docker-compose.yml — BatteryCo site one-file deployment
+# -----------------------------------------------------------------------------
+# Three services on a single host:
+#
+#   form      Node.js form service (serves /api/*)
+#   nginx     TLS termination + static site + reverse proxy
+#   certbot   Let's Encrypt auto-renewal sidecar
+#
+# First-time deploy:
+#   1.  Point DNS A/AAAA records for 07691688.xyz and www.07691688.xyz at
+#       this host.
+#   2.  cp server/.env.example server/.env  and fill in SMTP creds.
+#   3.  cp .env.docker.example .env         and review DOMAIN / EMAIL.
+#   4.  bash deploy/init-letsencrypt.sh     # bootstraps real TLS cert.
+#   5.  docker compose up -d                # production is live.
+#
+# Subsequent deploys: `git pull && docker compose up -d --build`.
+# =============================================================================
+
+services:
+  form:
+    build:
+      context: ./server
+    image: batteryco-form:latest
+    container_name: batteryco-form
+    restart: unless-stopped
+    env_file:
+      - ./server/.env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      TRUST_PROXY: "1"
+    volumes:
+      - ./server/logs:/app/logs
+      - ./server/uploads:/app/uploads
+    expose:
+      - "3000"
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: batteryco-nginx
+    restart: unless-stopped
+    depends_on:
+      - form
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+      - ./deploy/nginx-docker.conf:/etc/nginx/conf.d/default.conf:ro
+      - certbot-etc:/etc/letsencrypt:ro
+      - certbot-www:/var/www/certbot:ro
+    networks:
+      - frontend
+      - backend
+    # Reload nginx every 6 hours so renewed certs are picked up without a
+    # manual restart.
+    command: >
+      /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done
+      & nginx -g "daemon off;"'
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: batteryco-certbot
+    restart: unless-stopped
+    depends_on:
+      - nginx
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-www:/var/www/certbot
+    # Try to renew every 12 hours; no-op if certs have >30 days left.
+    entrypoint: >
+      /bin/sh -c 'trap exit TERM;
+      while :; do certbot renew --quiet --webroot -w /var/www/certbot;
+      sleep 12h & wait $${!}; done;'
+
+networks:
+  frontend:
+    name: batteryco_frontend
+  backend:
+    name: batteryco_backend
+
+volumes:
+  certbot-etc:
+    name: batteryco_certbot_etc
+  certbot-www:
+    name: batteryco_certbot_www
