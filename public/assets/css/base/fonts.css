@@ -1,35 +1,43 @@
 /* =============================================================================
    fonts.css — self-hosted typography
    -----------------------------------------------------------------------------
-   Registers the site's primary typeface (Inter Variable) with @font-face.
+   Registers the site's primary typeface (Montserrat Variable) with @font-face.
    Gracefully falls back to the system stack while the font file is being
    downloaded, and keeps working entirely on the system stack if the woff2
    file isn't present on disk.
 
-   To activate a branded face:
+   Montserrat is SIL OFL 1.1 (free for commercial use). Its geometric
+   character and street-lettering lineage make it a close visual relative
+   of commercial faces like Gotham while remaining fully free to self-host.
+
+   To activate:
      1.  Drop the two variable woff2 files at the paths below.
-         Public download: https://rsms.me/inter/  (SIL OFL 1.1 license)
+         Public download: https://fonts.google.com/specimen/Montserrat
+         or https://github.com/JulietaUla/Montserrat
          See assets/fonts/README.md for the exact filenames we expect.
      2.  No other change is needed. --font-sans in tokens.css already
-         points at "Inter" first; these files light up automatically.
+         points at "Montserrat" first; these files light up automatically.
 
    To swap in a licensed Gotham (or another family) instead:
-     1.  Place the woff2 files in /assets/fonts/
+     1.  Place the licensed woff2 files in /assets/fonts/
      2.  Replace the `font-family` name below to match
      3.  Update --font-sans in tokens.css to prefer that name
    ============================================================================= */
 
 
-/* ─── Inter 4 — variable weight + variable italic ─────────────────────── */
+/* ─── Montserrat — variable weight + variable italic ──────────────────── */
 
 @font-face {
-  font-family: "Inter";
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/assets/fonts/InterVariable.woff2") format("woff2");
-  /* Latin + Latin-Extended + Cyrillic — covers EN, most European, and basic
-     CJK fallback (the Chinese system faces in --font-sans handle zh). */
+  src: url("/assets/fonts/Montserrat-Variable.woff2") format("woff2-variations"),
+       url("/assets/fonts/Montserrat-Variable.woff2") format("woff2");
+  /* Latin + Latin-Extended covers English, Spanish, French, German,
+     Portuguese and most European languages. Montserrat also includes
+     Cyrillic and Vietnamese glyphs in the upstream font, so the range
+     is broad. */
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
                  U+02DA, U+02DC, U+0300-0301, U+0303-0304, U+0308-0309,
                  U+0323, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
@@ -39,29 +47,30 @@
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: "Montserrat";
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;
-  src: url("/assets/fonts/InterVariable-Italic.woff2") format("woff2");
+  src: url("/assets/fonts/Montserrat-Variable-Italic.woff2") format("woff2-variations"),
+       url("/assets/fonts/Montserrat-Variable-Italic.woff2") format("woff2");
 }
 
 
 /* ─── OpenType feature defaults ───────────────────────────────────────────
-   Inter ships with excellent tabular numerals, small caps, and
-   contextual alternates — turn on the ones that belong on by default.
+   Montserrat ships with proper oldstyle vs. lining numerals, small caps,
+   and a handful of contextual alternates. Turn on tabular numerals site-
+   wide in data-heavy components so numbers line up vertically.
    ============================================================================= */
 
 html {
-  font-feature-settings:
-    "cv11" 1,   /* single-storey 'a' for tighter rhythm — optional, remove if disliked */
-    "ss03" 1,   /* rounded rather than pointed quotes */
-    "cv05" 1,   /* lowercase 'l' with tail (disambiguates from '1', 'I') */
-    "cv09" 1;   /* flat-top '3' (cleaner at small sizes) */
   font-optical-sizing: auto;
+  /* Kerning + standard ligatures on; contextual alternates for the
+     geometric 'a' variants Montserrat provides. */
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
 }
 
-/* Use tabular-nums in tables/stat blocks so numbers line up vertically */
+/* Use tabular-nums in tables/stat blocks so numbers line up vertically. */
 .home-stats__value,
 .pd-metrics__value,
 .cd-metrics__value,
@@ -72,5 +81,16 @@ html {
 table,
 .pagination {
   font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1, "cv11" 1;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Subtle letter-spacing tweak for very large display headings — Montserrat
+   reads tighter than Inter at the same rendered size, so tighten uppercase
+   eyebrow labels a hair less than the global default. */
+.text-eyebrow,
+.site-nav__link,
+.btn,
+.badge,
+.chip {
+  font-feature-settings: "kern" 1, "liga" 1;
 }
