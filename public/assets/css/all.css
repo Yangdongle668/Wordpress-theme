@@ -1,0 +1,28 @@
+/* =============================================================================
+   all.css — CSS barrel
+   -----------------------------------------------------------------------------
+   Convenience bundle that imports every shared stylesheet in the correct
+   cascade order. Pages can link this one file instead of listing 10 <link>
+   tags — handy during development.
+
+   Production guidance:
+     - Prefer individual <link> tags (HTTP/2 multiplexes them efficiently,
+       and you get per-file caching)
+     - Or concatenate into a single build artifact (scripts/build-css.js —
+       future) and link that
+     - Do NOT @import this file from other stylesheets (blocks parallel
+       loading)
+   ============================================================================= */
+
+@import url("./tokens.css");
+
+@import url("./base.css");
+@import url("./base/prose.css");
+@import url("./base/loading.css");
+
+@import url("./components/buttons.css");
+@import url("./components/cards.css");
+@import url("./components/forms.css");
+@import url("./components/nav.css");
+@import url("./components/footer.css");
+@import url("./components/misc.css");
