@@ -451,10 +451,11 @@
   height: 100%;
 }
 
-/* Every slide is absolute-pinned inside the stage and fades in/out.
-   Explicitly set display/alignment here because `position: absolute`
-   on an <a class="card"> can drop the flex context that normally
-   pushes .card__body to the bottom-left. */
+/* Every slide is absolute-pinned inside the stage. The tile itself
+   cross-fades while its background and body independently translate,
+   so the transition reads as a cinematic lift rather than a plain
+   opacity swap. `position: absolute` on an <a class="card"> drops
+   the default flex context, so redeclare display + alignment here. */
 .home-apps--stack .home-apps__tile {
   position: absolute;
   inset: 0;
@@ -466,51 +467,41 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity    var(--duration-base) var(--ease-out),
-    visibility 0s linear var(--duration-base);
+    opacity    560ms var(--ease-out),
+    visibility 0s linear 560ms;
 }
 .home-apps--stack .home-apps__tile.is-active {
   opacity: 1;
   visibility: visible;
   transition-delay: 0s;
 }
-/* Body keeps its natural height so the tile's justify-content can push
-   it to the bottom; max-width/left-align come from the base rule above. */
+
+/* Background gradient lifts into place — adds depth to the crossfade. */
+.home-apps--stack .home-apps__tile::before {
+  transform: translateY(6%) scale(1.04);
+  transition: transform 900ms var(--ease-emphasis);
+}
+.home-apps--stack .home-apps__tile.is-active::before {
+  transform: translateY(0) scale(1);
+}
+
+/* Body text + CTA slides up from below with a staggered ease. */
 .home-apps--stack .home-apps__tile .card__body {
   flex: 0 0 auto;
   width: 100%;
-}
-
-/* Dots indicator — centered under the hero copy, clickable to jump */
-.home-apps__dots {
-  position: absolute;
-  left: 50%;
-  bottom: var(--space-10);
-  transform: translateX(-50%);
-  display: flex;
-  gap: var(--space-3);
-  z-index: 3;
-}
-.home-apps__dots button {
-  width: 9px;
-  height: 9px;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.38);
-  cursor: pointer;
+  transform: translateY(40px);
+  opacity: 0;
   transition:
-    background-color var(--duration-quick) var(--ease-out),
-    transform        var(--duration-quick) var(--ease-emphasis);
+    transform 700ms var(--ease-emphasis) 100ms,
+    opacity   500ms var(--ease-out)      100ms;
 }
-.home-apps__dots button:hover { background: rgba(255, 255, 255, 0.7); }
-.home-apps__dots button.is-active {
-  background: var(--color-white);
-  transform: scale(1.35);
+.home-apps--stack .home-apps__tile.is-active .card__body {
+  transform: translateY(0);
+  opacity: 1;
 }
 
-/* Narrow screens: flatten the stack back into 3 stacked tiles (no
-   sticky progression) so phones scroll through them normally. */
+/* Narrow screens: flatten the stack back into 3 stacked tiles so phones
+   scroll through them normally, no sticky + no animation. */
 @media (max-width: 900px) {
   .home-apps--stack { height: auto; }
   .home-apps__stage { position: static; height: auto; }
@@ -520,11 +511,21 @@
     inset: auto;
     opacity: 1;
     visibility: visible;
+    transform: none;
     min-height: 72svh;
   }
-  .home-apps__dots { display: none; }
+  .home-apps--stack .home-apps__tile::before,
+  .home-apps--stack .home-apps__tile .card__body {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .home-apps--stack .home-apps__tile { transition: none; }
+  .home-apps--stack .home-apps__tile,
+  .home-apps--stack .home-apps__tile::before,
+  .home-apps--stack .home-apps__tile .card__body {
+    transition: none;
+    transform: none;
+  }
 }
