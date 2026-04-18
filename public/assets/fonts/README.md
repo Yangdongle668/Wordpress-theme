@@ -1,36 +1,37 @@
 # Fonts — self-hosted web typography
 
-The site ships with **Inter** (variable weight + italic) self-hosted as
-woff2. `public/assets/css/base/fonts.css` registers the `@font-face`
-blocks, `public/assets/css/tokens.css` references `"Inter"` first in
-`--font-sans`, and `public/en/index.html` preloads
-`/assets/fonts/InterVariable.woff2` on the home page.
+Primary typeface: **Mona Sans** (GitHub, SIL OFL 1.1). A confident,
+tall-x-height geometric sans with five variation axes packed into one
+file — weight 200–900, width 75–125, italic, optical size. ~518 KB gives
+the whole site every style it needs.
 
 ## Files
 
 ```
-InterVariable.woff2              — weight 100–900, normal
-InterVariable-Italic.woff2       — weight 100–900, italic
-Inter-OFL.txt                    — SIL Open Font License, v1.1
+MonaSans-Variable.woff2   — full five-axis variable font
+MonaSans-OFL.txt          — SIL Open Font License, v1.1
 ```
 
-All from the official [rsms/inter releases](https://github.com/rsms/inter/releases).
+From the official [`github/mona-sans`](https://github.com/github/mona-sans)
+release (`fonts/webfonts/variable/MonaSansVF[wdth,wght,opsz,ital].woff2`,
+renamed on disk for readable HTTP paths).
 
-## License
+## Wired up via
 
-Inter is distributed under the [SIL Open Font License 1.1](https://openfontlicense.org/).
-Self-hosting and commercial use are permitted. Keep `Inter-OFL.txt`
-alongside the woff2 files if you redistribute the site bundle.
+- `public/assets/css/base/fonts.css` — two `@font-face` rules (roman + italic).
+- `public/assets/css/tokens.css` — `"Mona Sans"` is the first entry of
+  `--font-sans`.
+- `public/en/index.html` — `<link rel=preload>` points at the variable file.
 
 ## Swapping to a different family
 
-If a project needs a different typeface:
-
-1. Drop the new variable woff2 file(s) into this directory.
-2. Update the `@font-face` `font-family` and `src` in
-   `public/assets/css/base/fonts.css`.
-3. Replace `"Inter"` in `--font-sans` (in `tokens.css`) with the new name.
+1. Drop the new variable woff2 into this directory.
+2. Update the `@font-face` `font-family` and `src` in `base/fonts.css`.
+3. Replace `"Mona Sans"` in `--font-sans` (`tokens.css`) with the new name.
 4. Update the `<link rel=preload>` in `public/en/index.html`.
 
-No other changes required — every page picks up the new family via the
-design token.
+## License
+
+Mona Sans is distributed under the [SIL Open Font License 1.1](https://openfontlicense.org/).
+Self-hosting and commercial use are permitted. Keep `MonaSans-OFL.txt`
+alongside the font file when redistributing the site bundle.
