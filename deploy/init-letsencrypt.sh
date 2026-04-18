@@ -56,21 +56,14 @@ if $DC run --rm --entrypoint "test -d $CERT_PATH" certbot >/dev/null 2>&1; then
   fi
 fi
 
-# ─── 1. Seed recommended TLS options files ─────────────────────────────────
-echo "### 1/5  Seeding recommended Nginx TLS options…"
-$DC run --rm --entrypoint "\
-  sh -c '\
-    mkdir -p /etc/letsencrypt && \
-    [ -f /etc/letsencrypt/options-ssl-nginx.conf ] || \
-      wget -q -O /etc/letsencrypt/options-ssl-nginx.conf \
-        https://raw.githubusercontent.com/certbot/certbot/main/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf; \
-    [ -f /etc/letsencrypt/ssl-dhparams.pem ] || \
-      openssl dhparam -out /etc/letsencrypt/ssl-dhparams.pem 2048'" \
-  certbot
+# TLS options (ssl_protocols, ssl_ciphers, etc.) are inlined in
+# deploy/nginx-docker.conf, so we skip the old step that downloaded Mozilla's
+# options-ssl-nginx.conf + generated dhparams — those network calls often
+# failed on minimal certbot images and left nginx unable to boot.
 
 
-# ─── 2. Drop a dummy self-signed cert so nginx can boot ────────────────────
-echo "### 2/5  Creating dummy certificate for $DOMAIN…"
+# ─── 1. Drop a dummy self-signed cert so nginx can boot ────────────────────
+echo "### 1/4  Creating dummy certificate for $DOMAIN…"
 DUMMY_PATH="/etc/letsencrypt/live/$DOMAIN"
 $DC run --rm --entrypoint "\
   sh -c '\
@@ -82,13 +75,13 @@ $DC run --rm --entrypoint "\
   certbot
 
 
-# ─── 3. Start nginx so it can answer ACME challenges ───────────────────────
-echo "### 3/5  Starting nginx…"
+# ─── 2. Start nginx so it can answer ACME challenges ───────────────────────
+echo "### 2/4  Starting nginx…"
 $DC up --force-recreate -d nginx
 
 
-# ─── 4. Remove dummy and obtain the real certificate ───────────────────────
-echo "### 4/5  Deleting dummy certificate and requesting the real one…"
+# ─── 3. Remove dummy and obtain the real certificate ───────────────────────
+echo "### 3/4  Deleting dummy certificate and requesting the real one…"
 $DC run --rm --entrypoint "rm -rf /etc/letsencrypt/live/$DOMAIN \
                                   /etc/letsencrypt/archive/$DOMAIN \
                                   /etc/letsencrypt/renewal/$DOMAIN.conf" \
@@ -117,8 +110,8 @@ $DC run --rm --entrypoint "\
   certbot
 
 
-# ─── 5. Reload nginx to pick up the real cert ──────────────────────────────
-echo "### 5/5  Reloading nginx…"
+# ─── 4. Reload nginx to pick up the real cert ──────────────────────────────
+echo "### 4/4  Reloading nginx…"
 $DC exec nginx nginx -s reload
 
 echo ""
