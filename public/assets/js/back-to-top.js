@@ -24,6 +24,8 @@
   }
   document.addEventListener('partials:loaded', init);
 
+  const state = { footerInView: false };
+
   function init() {
     const btn = document.querySelector('[data-back-to-top], .back-to-top');
     if (!btn || btn.dataset.backTopBound === '1') return;
@@ -56,12 +58,37 @@
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
+
+    // Hide the button while the footer is in view, so it doesn't collide
+    // visually with the social icon row (both live in the bottom-right).
+    observeFooter(btn, onScroll);
+
     applyVisibility(btn);
+  }
+
+  function observeFooter(btn, refresh) {
+    const footer = document.querySelector('.site-footer, footer[role="contentinfo"]');
+    if (!footer) {
+      // Footer may come in via partials-loader later; retry once on load.
+      document.addEventListener('partials:loaded', () => observeFooter(btn, refresh), { once: true });
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          state.footerInView = entry.isIntersecting;
+        }
+        refresh();
+      },
+      { threshold: 0 }
+    );
+    io.observe(footer);
   }
 
   function applyVisibility(btn) {
     const threshold = window.innerHeight * SHOW_RATIO;
-    btn.classList.toggle('is-visible', window.scrollY > threshold);
+    const show = window.scrollY > threshold && !state.footerInView;
+    btn.classList.toggle('is-visible', show);
   }
 
   function scrollToTop() {
