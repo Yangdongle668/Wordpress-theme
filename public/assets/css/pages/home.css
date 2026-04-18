@@ -418,22 +418,25 @@
    page scrolls normally (stats, tech, cases, blog, cta, footer).
    ═══════════════════════════════════════════════════════════════════════════ */
 
-html:has(body.page-home) {
-  scroll-snap-type: y mandatory;
-}
+/* The actual one-wheel-per-section snap is driven by home-snap.js.
+   CSS `scroll-snap-type: mandatory` had two real-world failure modes
+   on this layout: (a) a low-momentum wheel tick didn't cross the snap
+   threshold so scroll rested between sections, and (b) past the last
+   snap point the scroll was trapped, so sections 6+ (stats/tech/cases
+   /blog/cta/footer) became unreachable. JS handles the wheel intercept
+   on sections 1-5; CSS just makes each snap section exactly one
+   viewport tall. */
 
 .page-home .home-hero,
 .page-home .home-products,
 .page-home .home-apps__tile {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  height: 100svh;
 }
 
-/* Section 2 — fit everything (section-head + 4-card rail) into one
-   viewport. Cards shrink to whatever height is left after the heading,
-   instead of growing to their own 560 px default and overflowing. */
+/* Section 2 — keep section-head + 4-card rail inside one viewport.
+   Cards shrink to fit the remaining height instead of growing to their
+   560 px default and pushing the rail past the bottom. */
 .page-home .home-products {
-  min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -449,17 +452,10 @@ html:has(body.page-home) {
   }
 }
 
-/* Sections 3-5 — each application tile fills a full viewport so scroll
-   snaps cleanly onto it. Default was 86svh which left the snap tail
-   peeking at the next one. */
-.page-home .home-apps__tile {
-  min-height: 100svh;
-}
-
-/* Mobile / reduced motion fallbacks */
+/* Narrow screens: drop the fixed viewport heights — address-bar
+   resize + short content in a 100svh frame looks cramped on phones. */
 @media (max-width: 900px) {
-  html:has(body.page-home) { scroll-snap-type: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  html:has(body.page-home) { scroll-snap-type: none; }
+  .page-home .home-products,
+  .page-home .home-apps__tile { height: auto; }
+  .page-home .home-apps__tile { min-height: 72svh; }
 }
