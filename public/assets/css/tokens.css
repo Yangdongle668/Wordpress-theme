@@ -183,6 +183,63 @@
   --shadow-2xl: 0 48px 96px rgba(11, 12, 15, 0.22), 0 12px 24px rgba(11, 12, 15, 0.10);
   --shadow-focus: 0 0 0 3px rgba(10, 132, 255, 0.35);
 
+  /* ─── Gradient presets ────────────────────────────────────────────────── */
+  /* Scrims — dark→transparent washes for text-over-image readability      */
+  --gradient-scrim-bottom:
+    linear-gradient(180deg,
+      transparent 0%,
+      rgba(11, 12, 15, 0.00) 45%,
+      rgba(11, 12, 15, 0.56) 85%,
+      rgba(11, 12, 15, 0.80) 100%);
+
+  --gradient-scrim-top:
+    linear-gradient(0deg,
+      transparent 0%,
+      rgba(11, 12, 15, 0.00) 45%,
+      rgba(11, 12, 15, 0.56) 85%,
+      rgba(11, 12, 15, 0.80) 100%);
+
+  --gradient-scrim-diagonal:
+    linear-gradient(135deg,
+      rgba(11, 12, 15, 0.72) 0%,
+      rgba(11, 12, 15, 0.32) 45%,
+      transparent 80%);
+
+  --gradient-scrim-radial:
+    radial-gradient(ellipse at 50% 80%,
+      rgba(11, 12, 15, 0.72) 0%,
+      transparent 70%);
+
+  /* Accent gradients — electric-blue washes for CTAs / highlights        */
+  --gradient-accent:
+    linear-gradient(135deg,
+      var(--color-accent) 0%,
+      #3BA3FF 50%,
+      #0059B3 100%);
+
+  --gradient-accent-soft:
+    linear-gradient(135deg,
+      var(--color-accent-tint) 0%,
+      rgba(10, 132, 255, 0.04) 100%);
+
+  /* Neutral surface gradients */
+  --gradient-surface-light:
+    linear-gradient(180deg,
+      var(--color-white) 0%,
+      var(--color-snow) 100%);
+
+  --gradient-surface-dark:
+    linear-gradient(180deg,
+      #0F1114 0%,
+      var(--color-black) 100%);
+
+  /* Specular hover sheen (used by .btn and .card) */
+  --gradient-sheen:
+    linear-gradient(120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.14) 50%,
+      transparent 100%);
+
   /* ─── Motion (duration + easing) ──────────────────────────────────────── */
   --duration-instant:  60ms;
   --duration-fast:     120ms;
