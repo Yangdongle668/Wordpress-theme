@@ -1,0 +1,84 @@
+/* =============================================================================
+   pages/cases.css
+   -----------------------------------------------------------------------------
+   Case studies index layout.
+     .cases-hero         breadcrumbed hero
+     .cases-filter       horizontal scroll chip filter bar
+     .cases-grid         featured row + standard 3-up grid
+   ============================================================================= */
+
+
+/* ─── Hero ──────────────────────────────────────────────────────────────── */
+
+.cases-hero {
+  padding-top: calc(var(--header-height) + var(--space-10));
+  padding-bottom: var(--space-12);
+  background: var(--color-bg);
+}
+.cases-hero__content { max-width: 900px; padding-top: var(--space-6); }
+.cases-hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-top: var(--space-3);
+}
+.cases-hero__sub { margin-top: var(--space-4); max-width: 60ch; }
+
+
+/* ─── Filter bar ────────────────────────────────────────────────────────── */
+
+.cases-filter {
+  position: sticky;
+  top: var(--header-height);
+  z-index: var(--z-sticky);
+  background: color-mix(in srgb, var(--color-bg) 86%, transparent);
+  backdrop-filter: var(--backdrop-frosted);
+  -webkit-backdrop-filter: var(--backdrop-frosted);
+  border-bottom: 1px solid var(--color-border);
+}
+.cases-filter__bar {
+  display: flex;
+  gap: var(--space-2);
+  padding-block: var(--space-4);
+}
+
+
+/* ─── Grid ──────────────────────────────────────────────────────────────── */
+
+.cases-grid { padding-top: var(--space-12); }
+
+.cases-grid__featured {
+  list-style: none;
+  margin: 0 0 var(--space-10);
+  padding: 0;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-6);
+  grid-auto-rows: 1fr;
+}
+.cases-grid__item--feature {
+  grid-row: span 2;
+}
+.cases-grid__item--feature .card { height: 100%; min-height: 520px; }
+
+.cases-grid__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cases-grid__list > li { display: flex; }
+.cases-grid__list > li > .card { width: 100%; }
+
+@media (max-width: 992px) {
+  .cases-grid__featured {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cases-grid__item--feature { grid-column: span 2; grid-row: auto; }
+  .cases-grid__item--feature .card { min-height: 360px; }
+}
+@media (max-width: 640px) {
+  .cases-grid__featured { grid-template-columns: 1fr; }
+  .cases-grid__item--feature { grid-column: span 1; }
+}

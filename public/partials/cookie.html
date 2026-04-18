@@ -1,0 +1,109 @@
+<!-- =============================================================================
+  Cookie Consent Bar
+  -----------------------------------------------------------------------------
+  Minimal, non-intrusive bottom-of-page notice. Displayed until the user
+  dismisses it; preference stored in localStorage under `cookie:v1`.
+
+  Page usage:
+      <div data-include="/partials/cookie.html"></div>
+
+  Inline script is safe because partials-loader re-inserts <script> nodes.
+  ============================================================================= -->
+
+<div class="cookie-bar" data-cookie-bar hidden role="region" aria-label="Cookie notice">
+  <div class="cookie-bar__inner container container--3xl">
+    <p class="cookie-bar__text">
+      This site uses cookies to enhance your experience and analyze traffic.
+      See our <a href="/en/privacy.html#cookies">Cookie Policy</a> for details.
+    </p>
+    <div class="cookie-bar__actions">
+      <button type="button" class="btn btn--ghost btn--sm" data-cookie-decline>
+        Decline
+      </button>
+      <button type="button" class="btn btn--primary btn--sm" data-cookie-accept>
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Scoped rules for the cookie bar (kept in the partial for locality) */
+  .cookie-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--z-overlay);
+    background: var(--color-bg-elevated);
+    color: var(--color-text);
+    border-top: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(100%);
+    transition:
+      transform var(--duration-base) var(--ease-out-expo),
+      opacity   var(--duration-base) var(--ease-out);
+    opacity: 0;
+  }
+  .cookie-bar.is-visible {
+    transform: none;
+    opacity: 1;
+  }
+  .cookie-bar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--page-gutter);
+  }
+  .cookie-bar__text {
+    flex: 1 1 320px;
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+  }
+  .cookie-bar__text a { color: var(--color-accent); }
+  .cookie-bar__actions {
+    display: flex;
+    gap: var(--space-2);
+    flex: 0 0 auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cookie-bar { transition: none; }
+  }
+</style>
+
+<script>
+  (() => {
+    'use strict';
+    const KEY = 'cookie:v1';
+    const bar = document.currentScript.previousElementSibling?.previousElementSibling;
+    // Walk back to the [data-cookie-bar] node regardless of sibling layout.
+    const root =
+      document.querySelector('[data-cookie-bar]') || bar;
+    if (!root) return;
+
+    try {
+      if (localStorage.getItem(KEY)) return;
+    } catch (_) { /* storage blocked — still show once */ }
+
+    root.hidden = false;
+    // Reveal on next frame so the transition plays.
+    requestAnimationFrame(() => root.classList.add('is-visible'));
+
+    const dismiss = (choice) => {
+      try { localStorage.setItem(KEY, choice); } catch (_) {}
+      root.classList.remove('is-visible');
+      setTimeout(() => { root.hidden = true; }, 350);
+    };
+
+    root.querySelector('[data-cookie-accept]')?.addEventListener(
+      'click', () => dismiss('accepted')
+    );
+    root.querySelector('[data-cookie-decline]')?.addEventListener(
+      'click', () => dismiss('declined')
+    );
+  })();
+</script>

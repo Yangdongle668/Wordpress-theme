@@ -1,0 +1,96 @@
+<!-- =============================================================================
+  Site Header Partial
+  -----------------------------------------------------------------------------
+  Injected by partials-loader.js wherever a page includes:
+
+      <div data-include="/partials/header.html"></div>
+
+  Contains:
+    - Skip-link for keyboard users
+    - Fixed top bar: brand + primary nav + utility actions + hamburger
+    - Full-screen mobile drawer (identical link structure)
+
+  Paths are rooted at /en/ — i18n switch happens via the .lang-switcher.
+  ============================================================================= -->
+
+<a class="skip-link sr-only-focusable" href="#main">Skip to content</a>
+
+<header class="site-header" data-header role="banner">
+  <div class="site-header__bar container container--3xl">
+
+    <a class="site-header__brand" href="/en/" aria-label="Home">
+      <!-- Replace with company logo SVG once available -->
+      <span class="site-header__brand-mark">▇</span>
+      <span class="site-header__brand-name">BatteryCo</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list" role="list">
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="/en/products/">Products</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="/en/applications/">Applications</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="/en/cases/">Case Studies</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="/en/blog/">Blog</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="/en/about.html">About</a>
+        </li>
+        <li class="site-nav__item">
+          <a class="site-nav__link" href="/en/careers.html">Careers</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <a class="site-nav__link hide-md" href="/en/contact.html">Contact</a>
+
+      <div class="lang-switcher" aria-label="Language" role="group">
+        <a href="/en/" class="is-active" lang="en" aria-current="true">EN</a>
+        <span aria-hidden="true">/</span>
+        <a href="/zh/" lang="zh">中文</a>
+      </div>
+
+      <button
+        type="button"
+        class="site-header__menu"
+        data-menu-toggle
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<aside
+  id="mobile-nav"
+  class="mobile-nav"
+  data-mobile-nav
+  aria-hidden="true"
+  aria-label="Mobile navigation">
+  <ul class="mobile-nav__list" role="list">
+    <li><a class="mobile-nav__link" href="/en/products/">Products</a></li>
+    <li><a class="mobile-nav__link" href="/en/applications/">Applications</a></li>
+    <li><a class="mobile-nav__link" href="/en/cases/">Case Studies</a></li>
+    <li><a class="mobile-nav__link" href="/en/blog/">Blog</a></li>
+    <li><a class="mobile-nav__link" href="/en/about.html">About</a></li>
+    <li><a class="mobile-nav__link" href="/en/careers.html">Careers</a></li>
+    <li><a class="mobile-nav__link" href="/en/contact.html">Contact</a></li>
+  </ul>
+
+  <div class="mobile-nav__footer">
+    <div class="lang-switcher" aria-label="Language" role="group">
+      <a href="/en/" class="is-active" lang="en" aria-current="true">English</a>
+      <span aria-hidden="true">/</span>
+      <a href="/zh/" lang="zh">中文</a>
+    </div>
+  </div>
+</aside>

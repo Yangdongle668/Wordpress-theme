@@ -1,0 +1,318 @@
+/* =============================================================================
+   Card Component
+   -----------------------------------------------------------------------------
+   A flexible card system for product grids, case studies, blog entries,
+   and cinematic full-bleed industry tiles.
+
+   Variants:
+     .card                     — default (stacked, light surface)
+     .card--media              — image-on-top, body below
+     .card--split              — image + body side-by-side
+     .card--fullbleed          — text overlaid on a full-bleed background
+     .card--minimal            — no border, transparent surface
+     .card--elevated           — persistent shadow
+
+   Sub-elements:
+     .card__media, .card__body, .card__eyebrow, .card__title,
+     .card__desc, .card__meta, .card__footer, .card__badge
+
+   Interactions:
+     .card--hover    — shadow lift + image zoom + title nudge
+     .card--pressable — scale down on :active (whole card clickable)
+   ============================================================================= */
+
+.card {
+  --card-bg:           var(--color-bg-elevated);
+  --card-fg:           var(--color-text);
+  --card-border:       var(--color-border);
+  --card-radius:       var(--radius-lg);
+  --card-padding:      var(--space-6);
+  --card-shadow:       none;
+  --card-shadow-hover: var(--shadow-lg);
+  --card-media-ratio:  16 / 9;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-bg);
+  color: var(--card-fg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform   var(--duration-base) var(--ease-emphasis),
+    box-shadow  var(--duration-base) var(--ease-out),
+    border-color var(--duration-base) var(--ease-out);
+}
+
+/* Whole-card link: covers the card with an invisible target */
+.card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.card__link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring) inset;
+  border-radius: inherit;
+}
+
+
+/* ─── Sub-elements ─────────────────────────────────────────────────────── */
+
+.card__media {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--card-media-ratio);
+  overflow: hidden;
+  background: var(--color-surface-soft);
+}
+
+.card__media img,
+.card__media video,
+.card__media picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform var(--duration-slower) var(--ease-emphasis);
+  will-change: transform;
+}
+
+/* Scrim for full-bleed cards — ensures readable text over imagery */
+.card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 35%,
+    var(--overlay-dark-48) 75%,
+    var(--overlay-dark-72) 100%
+  );
+  pointer-events: none;
+}
+
+.card__body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--card-padding);
+  flex: 1 1 auto;
+}
+
+.card__eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.card__title {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-snug);
+  color: inherit;
+  transition: transform var(--duration-base) var(--ease-emphasis);
+}
+
+.card__desc {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+}
+
+.card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.card__meta > * + *::before {
+  content: "·";
+  margin-right: var(--space-4);
+  color: var(--color-border-strong);
+}
+
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--card-padding);
+  padding-top: 0;
+}
+
+/* Floating corner badge (e.g. "NEW", "CASE STUDY") */
+.card__badge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 3;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+
+/* ─── Variants ─────────────────────────────────────────────────────────── */
+
+.card--media { /* default vertical stack; .card__media goes first */ }
+
+.card--split {
+  flex-direction: row;
+  align-items: stretch;
+}
+.card--split .card__media {
+  width: 42%;
+  flex: 0 0 auto;
+  aspect-ratio: auto;
+  min-height: 100%;
+}
+.card--split .card__body {
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .card--split {
+    flex-direction: column;
+  }
+  .card--split .card__media {
+    width: 100%;
+    aspect-ratio: var(--card-media-ratio);
+    min-height: 0;
+  }
+}
+
+/* Full-bleed — cinematic industry / application tile */
+.card--fullbleed {
+  --card-border: transparent;
+  --card-radius: var(--radius-xl);
+  min-height: 56svh;
+  color: var(--color-white);
+}
+.card--fullbleed .card__media {
+  position: absolute;
+  inset: 0;
+  aspect-ratio: auto;
+  z-index: -1;
+}
+.card--fullbleed .card__body {
+  justify-content: flex-end;
+  padding: var(--space-10);
+  min-height: inherit;
+}
+.card--fullbleed .card__title    { color: var(--color-white); }
+.card--fullbleed .card__eyebrow  { color: rgba(255, 255, 255, 0.78); }
+.card--fullbleed .card__desc     { color: rgba(255, 255, 255, 0.86); }
+
+.card--fullbleed.card--tall  { min-height: 80svh; }
+.card--fullbleed.card--xtall { min-height: 100svh; }
+
+/* Minimal — transparent + no border (for dense list layouts) */
+.card--minimal {
+  --card-bg: transparent;
+  --card-border: transparent;
+  --card-padding: 0;
+}
+.card--minimal .card__body { padding-inline: 0; }
+
+/* Elevated — persistent soft shadow */
+.card--elevated {
+  --card-shadow:       var(--shadow-md);
+  --card-shadow-hover: var(--shadow-xl);
+  border-color: transparent;
+}
+
+/* Inverse / dark card */
+.card--inverse {
+  --card-bg: var(--color-ink);
+  --card-fg: var(--color-white);
+  --card-border: transparent;
+}
+.card--inverse .card__desc    { color: rgba(255, 255, 255, 0.72); }
+.card--inverse .card__eyebrow { color: rgba(255, 255, 255, 0.64); }
+
+
+/* ─── Interactions ─────────────────────────────────────────────────────── */
+
+.card--hover {
+  cursor: pointer;
+}
+.card--hover:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+.card--hover:hover .card__media img,
+.card--hover:hover .card__media picture,
+.card--hover:hover .card__media video {
+  transform: scale(1.06);
+}
+.card--hover:hover .card__title {
+  transform: translateY(-2px);
+}
+
+.card--pressable:active {
+  transform: translateY(-1px) scale(0.995);
+}
+
+/* Focus-within keyboard parity with hover */
+.card--hover:focus-within {
+  box-shadow: var(--focus-ring), var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+
+/* ─── Card grid helpers (consumed with layout utilities) ───────────────── */
+
+.card-grid {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.card-grid--tight   { gap: var(--space-4); }
+.card-grid--wide    { gap: var(--space-10); }
+.card-grid--2       { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.card-grid--3       { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.card-grid--4       { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+@media (max-width: 992px) {
+  .card-grid--3,
+  .card-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .card-grid--2,
+  .card-grid--3,
+  .card-grid--4 { grid-template-columns: 1fr; }
+}
+
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card__media img,
+  .card__media video,
+  .card__title {
+    transition: none !important;
+    transform: none !important;
+  }
+}

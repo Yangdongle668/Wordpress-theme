@@ -1,0 +1,391 @@
+/* =============================================================================
+   pages/home.css
+   -----------------------------------------------------------------------------
+   Page-specific styles for /en/index.html. Built entirely on design tokens;
+   adds only what the homepage needs beyond the shared component library:
+
+     - .home-hero        full-viewport dark hero with parallax bg + scroll hint
+     - .home-products    horizontal scroll rail with snap centering
+     - .home-apps        3 cinematic full-bleed industry tiles
+     - .home-stats       big-number strip on inverse background
+     - .home-tech        3-column feature grid
+     - .home-cases       2-up case preview
+     - .home-blog        3-up blog preview
+     - .home-cta         closing call-to-action
+
+   Also defines `.ph-img` — placeholder-image panels that render a tasteful
+   gradient stand-in until real photography is dropped in.
+   ============================================================================= */
+
+
+/* ─── Section heading layout ────────────────────────────────────────────── */
+
+.section-head {
+  max-width: 56rem;
+  margin: 0 auto var(--space-12) auto;
+}
+.section-head h2 {
+  margin-top: var(--space-2);
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+  text-wrap: balance;
+}
+.section-head .lead { margin-top: var(--space-4); }
+
+
+/* ─── B1.1 · Hero ───────────────────────────────────────────────────────── */
+
+.home-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white);
+  background: var(--color-black);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.home-hero__bg {
+  position: absolute;
+  inset: -8% 0 -8% 0;
+  z-index: -2;
+  /*
+     Real hero photography (when dropped in at the expected path) overlays
+     the tinted gradient. If the file is missing, the browser silently
+     skips the URL layer and the gradient fallback renders — no broken
+     image icon, no layout shift. Drop in:
+       public/assets/images/home/hero-1600.webp   (plus 1024, 640)
+     See deploy/README-images.md for full spec + alt text.
+  */
+  background:
+    image-set(
+      url('/assets/images/home/hero.avif') type('image/avif'),
+      url('/assets/images/home/hero.webp') type('image/webp')
+    ) center/cover no-repeat,
+    radial-gradient(ellipse at 50% 35%, rgba(10, 132, 255, 0.22) 0%, transparent 55%),
+    linear-gradient(135deg, #0A1D3A 0%, #0B0C0F 55%, #000 100%);
+}
+
+.home-hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--gradient-scrim-bottom);
+  pointer-events: none;
+}
+
+.home-hero__content {
+  position: relative;
+  padding-block: var(--space-24);
+  max-width: 960px;
+}
+
+.home-hero__eyebrow {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.home-hero__title {
+  color: var(--color-white);
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  margin-top: var(--space-4);
+}
+
+.home-hero__sub {
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 56ch;
+  margin: var(--space-6) auto 0;
+}
+
+.home-hero__cta { margin-top: var(--space-10); justify-content: center; }
+
+/* Scroll-hint chevron at the bottom of the hero */
+.home-hero__scroll {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 44px;
+  border: 1.5px solid rgba(255, 255, 255, 0.32);
+  border-radius: var(--radius-pill);
+  display: block;
+  opacity: 0.72;
+  transition: opacity var(--duration-quick) var(--ease-out);
+}
+.home-hero__scroll span {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 3px;
+  height: 8px;
+  margin-left: -1.5px;
+  background: var(--color-white);
+  border-radius: 2px;
+  animation: scroll-hint 1.8s var(--ease-in-out) infinite;
+}
+.home-hero__scroll:hover { opacity: 1; }
+@keyframes scroll-hint {
+  0%   { transform: translateY(0);    opacity: 0.2; }
+  30%  { opacity: 1; }
+  80%  { transform: translateY(14px); opacity: 0;   }
+  100% { transform: translateY(14px); opacity: 0;   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__scroll span { animation: none; }
+}
+
+
+/* ─── B1.2 · Product rail ───────────────────────────────────────────────── */
+
+.home-products__rail {
+  margin-top: var(--space-8);
+  padding-block: var(--space-2) var(--space-6);
+  scroll-padding-inline: var(--page-gutter);
+}
+
+.home-products__card {
+  flex: 0 0 min(78vw, 420px);
+  min-height: 520px;
+}
+
+
+/* ─── B1.3 · Application tiles (stacked full-bleed) ─────────────────────── */
+
+.home-apps { background: var(--color-black); }
+.home-apps__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px; /* hairline divider between tiles */
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.home-apps__tile {
+  position: relative;
+  display: block;
+  min-height: 86svh;
+  overflow: hidden;
+  border-radius: 0;
+}
+.home-apps__tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: transform var(--duration-slower) var(--ease-emphasis);
+}
+.home-apps__tile:hover::before {
+  transform: scale(1.04);
+}
+.home-apps__tile .card__body {
+  max-width: 640px;
+  margin: 0 auto 0 0;
+  padding: var(--space-20) var(--page-gutter) var(--space-16);
+  color: var(--color-white);
+}
+.home-apps__tile .card__scrim {
+  background:
+    linear-gradient(90deg, rgba(11,12,15,0.72) 0%, rgba(11,12,15,0.32) 55%, transparent 85%),
+    linear-gradient(180deg, transparent 50%, rgba(11,12,15,0.64) 100%);
+}
+
+/* Placeholder gradients per tile (replace with real imagery) */
+.home-apps__tile--ev::before    { background: linear-gradient(135deg, #0B1E3A 0%, #0A84FF 40%, #1E4B93 100%); }
+.home-apps__tile--grid::before  { background: linear-gradient(135deg, #0E1F16 0%, #2F7A4E 40%, #0B2218 100%); }
+.home-apps__tile--drone::before { background: linear-gradient(135deg, #2A0F2E 0%, #7B2A8A 40%, #1B0720 100%); }
+
+
+/* ─── B1.4 · Stats strip ────────────────────────────────────────────────── */
+
+.home-stats { color: var(--color-white); }
+.home-stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-8);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.home-stats__grid li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.home-stats__value {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.home-stats__unit {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  color: rgba(255, 255, 255, 0.64);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+.home-stats__label {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.72);
+}
+@media (max-width: 768px) {
+  .home-stats__grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-10); }
+}
+
+
+/* ─── B1.5 · Tech advantages ────────────────────────────────────────────── */
+
+.home-tech__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-10);
+}
+.home-tech__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.home-tech__icon {
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+  stroke: currentColor;
+  fill: none;
+}
+.home-tech__item h3 {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-snug);
+}
+.home-tech__item p {
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+}
+@media (max-width: 768px) {
+  .home-tech__grid { grid-template-columns: 1fr; gap: var(--space-8); }
+}
+
+
+/* ─── B1.8 · Closing CTA ────────────────────────────────────────────────── */
+
+.home-cta {
+  position: relative;
+  padding-block: clamp(5rem, 10vw, 9rem);
+  color: var(--color-white);
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(10, 132, 255, 0.18) 0%, transparent 60%),
+    linear-gradient(180deg, #0B0C0F 0%, #000 100%);
+  text-align: center;
+}
+.home-cta__title {
+  color: var(--color-white);
+  margin-top: var(--space-3);
+}
+.home-cta__sub {
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 60ch;
+  margin: var(--space-6) auto 0;
+}
+
+
+/* ─── Placeholder image panels ──────────────────────────────────────────── */
+
+/*
+   Image placeholder layer.
+
+   Each class declares a gradient fallback + an image-set() that points at
+   the expected WebP/AVIF path. When those files land in /assets/images/…,
+   they layer on top and cover the gradient automatically. Until then the
+   gradient renders alone — browsers silently drop missing image-set()
+   sources rather than showing a broken-image state.
+
+   See deploy/README-images.md for the full filename + dimensions manifest.
+*/
+.ph-img {
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface-soft);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ph-img--power {
+  background:
+    image-set(url('/assets/images/home/product-power.avif') type('image/avif'),
+              url('/assets/images/home/product-power.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #1B2438 0%, #0A84FF 80%);
+}
+.ph-img--storage {
+  background:
+    image-set(url('/assets/images/home/product-storage.avif') type('image/avif'),
+              url('/assets/images/home/product-storage.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #0F2318 0%, #2F7A4E 80%);
+}
+.ph-img--consumer {
+  background:
+    image-set(url('/assets/images/home/product-consumer.avif') type('image/avif'),
+              url('/assets/images/home/product-consumer.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #2C1832 0%, #7B2A8A 80%);
+}
+.ph-img--custom {
+  background:
+    image-set(url('/assets/images/home/product-custom.avif') type('image/avif'),
+              url('/assets/images/home/product-custom.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #2A1B0C 0%, #B26A1F 80%);
+}
+.ph-img--case1 {
+  background:
+    image-set(url('/assets/images/home/case-ev.avif') type('image/avif'),
+              url('/assets/images/home/case-ev.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #10263F 0%, #2E5C93 100%);
+}
+.ph-img--case2 {
+  background:
+    image-set(url('/assets/images/home/case-grid.avif') type('image/avif'),
+              url('/assets/images/home/case-grid.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #0E2318 0%, #3A7B5A 100%);
+}
+.ph-img--blog1 {
+  background:
+    image-set(url('/assets/images/home/blog-silicon.avif') type('image/avif'),
+              url('/assets/images/home/blog-silicon.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #1B1E24 0%, #3A3F47 100%);
+}
+.ph-img--blog2 {
+  background:
+    image-set(url('/assets/images/home/blog-coating.avif') type('image/avif'),
+              url('/assets/images/home/blog-coating.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #25221E 0%, #5A4F41 100%);
+}
+.ph-img--blog3 {
+  background:
+    image-set(url('/assets/images/home/blog-thermal.avif') type('image/avif'),
+              url('/assets/images/home/blog-thermal.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #222B1E 0%, #55654A 100%);
+}
+
+
+/* ─── Responsive refinements ────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .home-hero__sub { padding-inline: var(--space-2); }
+  .home-hero__cta { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; margin-inline: auto; }
+  .home-hero__cta .btn { width: 100%; }
+  .home-apps__tile { min-height: 72svh; }
+  .home-apps__tile .card__body { padding: var(--space-16) var(--page-gutter) var(--space-10); }
+  .home-cases .section-head,
+  .home-blog .section-head { align-items: flex-start; flex-direction: column; }
+}

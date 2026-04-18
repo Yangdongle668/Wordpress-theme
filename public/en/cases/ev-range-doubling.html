@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Doubling WLTP Range Without Redesigning the Pack — Case Study | BatteryCo</title>
+  <meta name="description" content="How a tier-1 OEM lifted a production EV platform from 380 to 620 km WLTP with a high-nickel BatteryCo chemistry upgrade — chassis and BMS unchanged." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0B0C0F" />
+
+  <link rel="canonical" href="https://www.example.com/en/cases/ev-range-doubling.html" />
+  <link rel="alternate" hreflang="en" href="https://www.example.com/en/cases/ev-range-doubling.html" />
+  <link rel="alternate" hreflang="zh" href="https://www.example.com/zh/cases/ev-range-doubling.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.example.com/en/cases/ev-range-doubling.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BatteryCo" />
+  <meta property="og:title" content="Doubling WLTP range without redesigning the pack" />
+  <meta property="og:description" content="A tier-1 OEM range upgrade without touching chassis or BMS." />
+  <meta property="og:url" content="https://www.example.com/en/cases/ev-range-doubling.html" />
+  <meta property="og:image" content="https://www.example.com/assets/images/og/case-ev.jpg" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base/fonts.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/base/prose.css" />
+  <link rel="stylesheet" href="/assets/css/base/loading.css" />
+  <link rel="stylesheet" href="/assets/css/components/buttons.css" />
+  <link rel="stylesheet" href="/assets/css/components/cards.css" />
+  <link rel="stylesheet" href="/assets/css/components/forms.css" />
+  <link rel="stylesheet" href="/assets/css/components/nav.css" />
+  <link rel="stylesheet" href="/assets/css/components/footer.css" />
+  <link rel="stylesheet" href="/assets/css/components/misc.css" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css" />
+  <link rel="stylesheet" href="/assets/css/pages/cases.css" />
+  <link rel="stylesheet" href="/assets/css/pages/case-detail.css" />
+
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Doubling WLTP range without redesigning the pack",
+    "description": "A tier-1 OEM range upgrade using BatteryCo high-nickel chemistry, without redesigning chassis or BMS.",
+    "author": { "@type": "Organization", "name": "BatteryCo" },
+    "publisher": { "@type": "Organization", "name": "BatteryCo" },
+    "datePublished": "2024-08-12",
+    "image": "https://www.example.com/assets/images/og/case-ev.jpg",
+    "mainEntityOfPage": "https://www.example.com/en/cases/ev-range-doubling.html"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home",         "item": "https://www.example.com/en/" },
+      { "@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://www.example.com/en/cases/" },
+      { "@type": "ListItem", "position": 3, "name": "EV range doubling", "item": "https://www.example.com/en/cases/ev-range-doubling.html" }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <div data-include="/partials/header.html"></div>
+
+  <main id="main" tabindex="-1">
+
+    <!-- C2.1 Cinematic hero -->
+    <section class="cd-hero cd-hero--ev" data-header-bg="dark">
+      <div class="cd-hero__scrim"></div>
+      <div class="container container--xl cd-hero__content">
+        <nav class="breadcrumb cd-hero__crumbs" aria-label="Breadcrumb">
+          <a href="/en/">Home</a>
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <a href="/en/cases/">Case Studies</a>
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <span class="breadcrumb__current">EV range doubling</span>
+        </nav>
+
+        <ul class="cd-hero__tags" role="list">
+          <li><span class="badge badge--inverse">Passenger EV</span></li>
+          <li><span class="badge badge--outline">Tier-1 OEM</span></li>
+          <li><span class="badge badge--outline">2024</span></li>
+        </ul>
+
+        <h1 class="cd-hero__title" data-reveal="up" style="--stagger: 1">
+          Doubling WLTP range<br>without redesigning the pack.
+        </h1>
+        <p class="lead cd-hero__sub" data-reveal="up" style="--stagger: 2">
+          A drop-in high-nickel chemistry upgrade lifted a production EV platform
+          from 380 to 620 km WLTP — chassis and BMS unchanged, delivery shipped
+          within the model-year refresh window.
+        </p>
+
+        <dl class="cd-hero__meta" data-reveal="up" style="--stagger: 3">
+          <div><dt>Customer</dt><dd>Tier-1 OEM, Germany</dd></div>
+          <div><dt>Platform</dt><dd>B-segment passenger EV</dd></div>
+          <div><dt>Pack size</dt><dd>60 kWh → 98 kWh</dd></div>
+          <div><dt>Timeline</dt><dd>11 months</dd></div>
+        </dl>
+      </div>
+    </section>
+
+
+    <!-- C2.2 Key results strip -->
+    <section class="section section--tight cd-metrics bg-alt">
+      <div class="container container--xl">
+        <ul class="cd-metrics__grid" role="list">
+          <li data-reveal="up" style="--stagger: 1">
+            <span class="cd-metrics__value">+63%</span>
+            <span class="cd-metrics__label">WLTP range (380 → 620 km)</span>
+          </li>
+          <li data-reveal="up" style="--stagger: 2">
+            <span class="cd-metrics__value">0</span>
+            <span class="cd-metrics__label">Chassis or BMS changes</span>
+          </li>
+          <li data-reveal="up" style="--stagger: 3">
+            <span class="cd-metrics__value">−12%</span>
+            <span class="cd-metrics__label">Bill of materials cost</span>
+          </li>
+          <li data-reveal="up" style="--stagger: 4">
+            <span class="cd-metrics__value">11<span class="cd-metrics__unit">months</span></span>
+            <span class="cd-metrics__label">Concept to SOP</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- C2.3 Challenge + C2.4 Solution (two columns of prose) -->
+    <article class="section cd-body">
+      <div class="container container--xl">
+        <div class="cd-body__grid">
+
+          <section class="cd-section" data-reveal="up">
+            <p class="text-eyebrow">Challenge</p>
+            <h2>The platform was at the limit of its original chemistry.</h2>
+            <div class="prose">
+              <p class="prose__lead">
+                The client's passenger EV had been in production for three years
+                on an NMC 622 platform. Competitors were closing the range gap;
+                doing a full re-engineering of the pack — new chassis cutouts,
+                re-homologation, updated BMS — would have cost a model-year and
+                roughly <strong>€40M in tooling</strong>.
+              </p>
+              <p>
+                Three constraints framed the brief:
+              </p>
+              <ol>
+                <li>Bolt-compatible with the existing pack tray — no chassis revisions.</li>
+                <li>Compatible with the existing BMS firmware — no functional-safety re-certification.</li>
+                <li>Volumetric density uplift of at least 50%.</li>
+              </ol>
+              <p>
+                "We didn't have a year. We had eleven months, and we had to hit the
+                refresh window." — Program Lead, BEV Platform
+              </p>
+            </div>
+          </section>
+
+          <section class="cd-section" data-reveal="up">
+            <p class="text-eyebrow">Solution</p>
+            <h2>A drop-in high-nickel cell with matched external geometry.</h2>
+            <div class="prose">
+              <p class="prose__lead">
+                We proposed our <a href="/en/products/polymer-cell-3000.html">NMC-811 prismatic platform</a>
+                with a geometry match to the customer's legacy cell — same external
+                dimensions, same mounting pattern, same voltage window. The
+                chemistry change delivered the energy density; the mechanical
+                compatibility preserved the pack architecture.
+              </p>
+              <h3>What we changed</h3>
+              <ul>
+                <li>Cathode: NMC 622 → NMC 811 (high-nickel)</li>
+                <li>Anode: graphite → silicon-doped graphite composite</li>
+                <li>Separator: upgraded to ceramic-coated (for high-nickel thermal margin)</li>
+              </ul>
+              <h3>What stayed the same</h3>
+              <ul>
+                <li>Cell external dimensions and tab positions</li>
+                <li>Pack tray, cooling plate, and module stackup</li>
+                <li>BMS hardware and firmware (only look-up tables re-parameterized)</li>
+              </ul>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </article>
+
+
+    <!-- C2.5 Timeline -->
+    <section class="section bg-alt cd-timeline">
+      <div class="container container--xl">
+        <header class="section-head text-center" data-reveal="up">
+          <p class="text-eyebrow">Timeline</p>
+          <h2>Eleven months, four gates.</h2>
+        </header>
+
+        <ol class="cd-timeline__list" role="list">
+          <li data-reveal="up" style="--stagger: 1">
+            <span class="cd-timeline__num">01</span>
+            <div>
+              <h3>Weeks 1–6 · Feasibility &amp; cell-level testing</h3>
+              <p>Chemistry down-selection, cell-level characterization against OEM drive cycles, thermal margin validation.</p>
+            </div>
+          </li>
+          <li data-reveal="up" style="--stagger: 2">
+            <span class="cd-timeline__num">02</span>
+            <div>
+              <h3>Weeks 7–16 · Module &amp; pack-level validation</h3>
+              <p>Module assembly prototypes, pack-level fit checks, BMS look-up-table re-parameterization and sign-off.</p>
+            </div>
+          </li>
+          <li data-reveal="up" style="--stagger: 3">
+            <span class="cd-timeline__num">03</span>
+            <div>
+              <h3>Weeks 17–32 · Certification &amp; safety testing</h3>
+              <p>UN 38.3, IEC 62660, ECE R100 recertification deltas. Thermal propagation, nail penetration, overcharge abuse.</p>
+            </div>
+          </li>
+          <li data-reveal="up" style="--stagger: 4">
+            <span class="cd-timeline__num">04</span>
+            <div>
+              <h3>Weeks 33–48 · Ramp &amp; start of production</h3>
+              <p>First-article inspection on SOP line. Parallel production of legacy + new SKU for 6 weeks, then switchover.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+
+    <!-- C2.6 Results + quote -->
+    <section class="section cd-results">
+      <div class="container container--xl">
+        <div class="cd-results__grid">
+          <div class="cd-results__copy" data-reveal="up">
+            <p class="text-eyebrow">Results</p>
+            <h2>The refresh shipped on time.</h2>
+            <p class="lead">
+              The updated pack delivered 620 km WLTP against a 610 km target.
+              First 18 months in production logged zero cell-level warranty
+              returns across 38,000 vehicles. Customer satisfaction on range
+              moved from the platform's historic weak point to its strongest
+              third-party review category.
+            </p>
+            <ul class="cd-results__list">
+              <li><strong>620 km</strong> WLTP (target: 610 km)</li>
+              <li><strong>0</strong> cell-level warranty returns in first 18 months</li>
+              <li><strong>38,000+</strong> vehicles shipped on upgraded platform</li>
+              <li><strong>−12%</strong> BOM cost versus legacy NMC 622</li>
+            </ul>
+          </div>
+
+          <figure class="cd-results__quote" data-reveal="up">
+            <blockquote class="prose__pullquote">
+              "The drop-in approach turned what would have been a 24-month re-
+              engineering program into an 11-month chemistry refresh. We kept
+              the refresh window, and we kept our tooling."
+            </blockquote>
+            <figcaption>
+              <strong>Program Lead</strong><br>
+              BEV Platform, Tier-1 OEM
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- C2.7 Gallery -->
+    <section class="section bg-alt cd-gallery">
+      <div class="container container--xl">
+        <header class="section-head text-center" data-reveal="up">
+          <p class="text-eyebrow">Program gallery</p>
+          <h2>Cells, modules, pack.</h2>
+        </header>
+
+        <ul class="cd-gallery__grid" role="list">
+          <li data-reveal="up" style="--stagger: 1"><div class="ph-img ph-img--case1"></div></li>
+          <li data-reveal="up" style="--stagger: 2"><div class="ph-img ph-img--power"></div></li>
+          <li data-reveal="up" style="--stagger: 3"><div class="ph-img ph-img--storage"></div></li>
+          <li data-reveal="up" style="--stagger: 4"><div class="ph-img ph-img--blog1"></div></li>
+          <li data-reveal="up" style="--stagger: 5"><div class="ph-img ph-img--case2"></div></li>
+          <li data-reveal="up" style="--stagger: 6"><div class="ph-img ph-img--blog2"></div></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Related cases -->
+    <section class="section">
+      <div class="container container--xl">
+        <header class="section-head flex justify-between items-end flex-wrap gap-4" data-reveal="up">
+          <div>
+            <p class="text-eyebrow">More case studies</p>
+            <h2>Other programs, same rigor.</h2>
+          </div>
+          <a class="btn btn--link" href="/en/cases/">Browse all →</a>
+        </header>
+
+        <div class="card-grid card-grid--3">
+          <a class="card card--hover card--elevated" href="/en/cases/" data-reveal="up" style="--stagger: 1">
+            <div class="card__media"><div class="ph-img ph-img--case2"></div></div>
+            <span class="card__badge">Energy</span>
+            <div class="card__body">
+              <p class="card__eyebrow">Utility, Australia</p>
+              <h3 class="card__title">22 MWh in 11 weeks.</h3>
+            </div>
+          </a>
+          <a class="card card--hover card--elevated" href="/en/cases/" data-reveal="up" style="--stagger: 2">
+            <div class="card__media"><div class="ph-img ph-img--blog1"></div></div>
+            <span class="card__badge">UAV</span>
+            <div class="card__body">
+              <p class="card__eyebrow">Agricultural drone maker</p>
+              <h3 class="card__title">35% more flight time.</h3>
+            </div>
+          </a>
+          <a class="card card--hover card--elevated" href="/en/cases/" data-reveal="up" style="--stagger: 3">
+            <div class="card__media"><div class="ph-img ph-img--consumer"></div></div>
+            <span class="card__badge">Robotics</span>
+            <div class="card__body">
+              <p class="card__eyebrow">Warehouse automation</p>
+              <h3 class="card__title">24/7 AMR fleet.</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Closing CTA -->
+    <section class="home-cta" data-header-bg="dark">
+      <div class="container container--xl text-center">
+        <p class="text-eyebrow" data-reveal="fade">Your platform</p>
+        <h2 class="display home-cta__title" data-reveal="up" style="--stagger: 1">
+          Same approach, your program.
+        </h2>
+        <p class="lead home-cta__sub" data-reveal="up" style="--stagger: 2">
+          If you're staring down a refresh window with too little time for a full
+          redesign, there's probably a drop-in path. Let's look at it together.
+        </p>
+        <div class="btn-group mt-8" data-reveal="up" style="--stagger: 3">
+          <a class="btn btn--invert btn--lg" href="/en/contact.html#inquiry">Request a review</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <div data-include="/partials/cookie.html"></div>
+
+  <button type="button" class="back-to-top" data-back-to-top aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path fill="currentColor" d="M8 3l5 5-1.4 1.4L9 6.8V13H7V6.8L4.4 9.4 3 8z"/>
+    </svg>
+  </button>
+
+  <script defer src="/assets/js/partials-loader.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/mobile-nav.js"></script>
+  <script defer src="/assets/js/reveal.js"></script>
+  <script defer src="/assets/js/back-to-top.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+</body>
+</html>

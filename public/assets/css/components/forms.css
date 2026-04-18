@@ -1,0 +1,422 @@
+/* =============================================================================
+   Form Component
+   -----------------------------------------------------------------------------
+   Clean, accessible, full-width forms for contact / inquiry / careers.
+
+   Usage:
+     <div class="field">
+       <label class="field__label" for="email">Email</label>
+       <input id="email" class="input" type="email" required />
+       <p class="field__help">We'll never share your address.</p>
+     </div>
+
+   Float-label variant:
+     <div class="field field--float">
+       <input id="name" class="input" placeholder=" " required />
+       <label class="field__label" for="name">Your name</label>
+     </div>
+   ============================================================================= */
+
+/* ─── Field wrapper ───────────────────────────────────────────────────── */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  position: relative;
+}
+
+.field__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  letter-spacing: var(--letter-spacing-snug);
+}
+
+.field__label .required {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+
+.field__help {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
+}
+
+.field__error {
+  display: none;
+  font-size: var(--font-size-xs);
+  color: var(--color-danger);
+  line-height: var(--line-height-normal);
+}
+
+.field.is-invalid .field__error { display: block; }
+
+
+/* ─── Core input ──────────────────────────────────────────────────────── */
+
+.input,
+.textarea,
+.select {
+  --ctrl-bg:           var(--color-bg);
+  --ctrl-border:       var(--color-border-strong);
+  --ctrl-border-hover: var(--color-text-muted);
+  --ctrl-border-focus: var(--color-accent);
+  --ctrl-fg:           var(--color-text);
+  --ctrl-placeholder:  var(--color-text-subtle);
+  --ctrl-radius:       var(--radius-md);
+  --ctrl-px:           var(--space-4);
+  --ctrl-py:           var(--space-3);
+  --ctrl-h:            48px;
+  --ctrl-fs:           var(--font-size-base);
+
+  width: 100%;
+  min-height: var(--ctrl-h);
+  padding: var(--ctrl-py) var(--ctrl-px);
+
+  font: inherit;
+  font-size: var(--ctrl-fs);
+  color: var(--ctrl-fg);
+  background-color: var(--ctrl-bg);
+  border: 1px solid var(--ctrl-border);
+  border-radius: var(--ctrl-radius);
+
+  transition:
+    border-color var(--duration-quick) var(--ease-out),
+    box-shadow   var(--duration-quick) var(--ease-out),
+    background-color var(--duration-quick) var(--ease-out);
+
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ctrl-placeholder);
+  opacity: 1;
+}
+
+.input:hover,
+.textarea:hover,
+.select:hover { border-color: var(--ctrl-border-hover); }
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: var(--ctrl-border-focus);
+  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.18);
+}
+
+.input:disabled,
+.textarea:disabled,
+.select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background-color: var(--color-surface-soft);
+}
+
+.input[readonly],
+.textarea[readonly] {
+  background-color: var(--color-surface-soft);
+  cursor: default;
+}
+
+/* Sizes */
+.input--sm, .textarea--sm, .select--sm {
+  --ctrl-h: 40px;
+  --ctrl-py: var(--space-2);
+  --ctrl-fs: var(--font-size-sm);
+}
+.input--lg, .textarea--lg, .select--lg {
+  --ctrl-h: 56px;
+  --ctrl-px: var(--space-5);
+  --ctrl-fs: var(--font-size-lg);
+}
+
+
+/* ─── Textarea ────────────────────────────────────────────────────────── */
+
+.textarea {
+  min-height: 144px;
+  resize: vertical;
+  line-height: var(--line-height-relaxed);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+}
+
+
+/* ─── Select (native) ─────────────────────────────────────────────────── */
+
+.select {
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.25rem) 50%,
+    calc(100% - 0.85rem) 50%;
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: var(--space-10);
+  cursor: pointer;
+}
+.select:focus { color: var(--ctrl-fg); }
+
+
+/* ─── Checkbox & Radio ────────────────────────────────────────────────── */
+
+.checkbox,
+.radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  user-select: none;
+}
+
+.checkbox input,
+.radio input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  flex: 0 0 auto;
+  background-color: var(--color-bg);
+  border: 1.5px solid var(--color-border-strong);
+  cursor: pointer;
+  position: relative;
+  transition:
+    background-color var(--duration-quick) var(--ease-out),
+    border-color var(--duration-quick) var(--ease-out);
+}
+
+.checkbox input { border-radius: var(--radius-sm); }
+.radio input    { border-radius: 50%; }
+
+.checkbox input:hover,
+.radio input:hover { border-color: var(--color-text-muted); }
+
+.checkbox input:checked,
+.radio input:checked {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.checkbox input:checked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='%23fff' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/></svg>")
+    center/12px no-repeat;
+}
+
+.radio input:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--color-white);
+  border-radius: 50%;
+}
+
+.checkbox input:focus-visible,
+.radio input:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.checkbox input:disabled,
+.radio input:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+
+/* ─── Switch (toggle) ─────────────────────────────────────────────────── */
+
+.switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+  font-size: var(--font-size-sm);
+}
+
+.switch input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 22px;
+  flex: 0 0 auto;
+  background-color: var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  position: relative;
+  cursor: pointer;
+  transition: background-color var(--duration-quick) var(--ease-out);
+}
+
+.switch input::before {
+  content: "";
+  position: absolute;
+  top: 2px; left: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--color-white);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-base) var(--ease-emphasis);
+}
+
+.switch input:checked { background-color: var(--color-accent); }
+.switch input:checked::before { transform: translateX(18px); }
+
+.switch input:focus-visible { box-shadow: var(--focus-ring); }
+
+
+/* ─── Float-label field ───────────────────────────────────────────────── */
+
+.field--float { position: relative; }
+
+.field--float .input,
+.field--float .textarea,
+.field--float .select {
+  padding-top: 22px;
+  padding-bottom: 10px;
+}
+
+.field--float .field__label {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  padding: 0 var(--space-1);
+  font-size: var(--font-size-base);
+  color: var(--color-text-subtle);
+  background: transparent;
+  pointer-events: none;
+  transition:
+    transform var(--duration-quick) var(--ease-out),
+    font-size var(--duration-quick) var(--ease-out),
+    color     var(--duration-quick) var(--ease-out);
+}
+
+.field--float .input:focus + .field__label,
+.field--float .textarea:focus + .field__label,
+.field--float .select:focus + .field__label,
+.field--float .input:not(:placeholder-shown) + .field__label,
+.field--float .textarea:not(:placeholder-shown) + .field__label {
+  transform: translateY(-130%);
+  font-size: var(--font-size-xs);
+  color: var(--color-accent);
+}
+
+.field--float .textarea + .field__label {
+  top: var(--space-4);
+  transform: none;
+}
+.field--float .textarea:focus + .field__label,
+.field--float .textarea:not(:placeholder-shown) + .field__label {
+  transform: translateY(-100%);
+}
+
+
+/* ─── Error state ─────────────────────────────────────────────────────── */
+
+.field.is-invalid .input,
+.field.is-invalid .textarea,
+.field.is-invalid .select {
+  --ctrl-border: var(--color-danger);
+  --ctrl-border-hover: var(--color-danger);
+  --ctrl-border-focus: var(--color-danger);
+}
+.field.is-invalid .input:focus,
+.field.is-invalid .textarea:focus,
+.field.is-invalid .select:focus {
+  box-shadow: 0 0 0 3px rgba(229, 72, 77, 0.22);
+}
+
+
+/* ─── File input ──────────────────────────────────────────────────────── */
+
+.file-input {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.file-input input[type="file"] { display: none; }
+
+.file-input__dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 120px;
+  padding: var(--space-6);
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-quick) var(--ease-out),
+    background-color var(--duration-quick) var(--ease-out);
+}
+.file-input__dropzone:hover,
+.file-input.is-dragover .file-input__dropzone {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint);
+}
+.file-input__hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+
+/* ─── Form layout helpers ─────────────────────────────────────────────── */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 100%;
+}
+
+.form-row {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+
+.form-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+
+/* ─── Reduced motion ──────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .input, .textarea, .select,
+  .checkbox input, .radio input, .switch input,
+  .switch input::before,
+  .field--float .field__label {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,46 @@
+# ─── OS / Editor ──────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-*
+
+# ─── Node (server/) ───────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json.bak
+
+# ─── Environment & secrets ────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ─── Runtime / logs / uploads ─────────────────
+server/logs/*
+!server/logs/.gitkeep
+server/uploads/*
+!server/uploads/.gitkeep
+
+# ─── Build artifacts ──────────────────────────
+dist/
+build/
+.cache/
+*.tsbuildinfo
+
+# ─── Generated images (keep sources) ──────────
+public/assets/images/**/*.webp
+public/assets/images/**/*.avif
+
+# ─── Sitemap is generated ─────────────────────
+public/sitemap.xml
+
+# ─── Misc ─────────────────────────────────────
+coverage/
+*.log
