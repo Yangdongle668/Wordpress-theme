@@ -1,0 +1,218 @@
+/* =============================================================================
+   pages/contact.css
+     .contact-hero         breadcrumbed hero
+     .contact-channels     3-up department cards
+     .contact-form         main inquiry form with status
+     .contact-offices      5 office address cards
+     .contact-map          wide map panel with overlay
+   ============================================================================= */
+
+
+.contact-hero {
+  padding-top: calc(var(--header-height) + var(--space-10));
+  padding-bottom: var(--space-12);
+  background: var(--color-bg);
+}
+.contact-hero__content { max-width: 900px; padding-top: var(--space-6); }
+.contact-hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-top: var(--space-3);
+}
+.contact-hero__sub { margin-top: var(--space-4); max-width: 62ch; }
+
+
+/* ─── Channels ──────────────────────────────────────────────────────────── */
+
+.contact-channels__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.contact-channel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-8);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  transition: transform var(--duration-base) var(--ease-emphasis),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+.contact-channel:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.contact-channel__icon {
+  color: var(--color-accent);
+  fill: none;
+  stroke: currentColor;
+  margin-bottom: var(--space-3);
+}
+.contact-channel h2 {
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.contact-channel p {
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  margin: 0 0 var(--space-2);
+}
+.contact-channel__link {
+  display: block;
+  padding: var(--space-1) 0;
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+  transition: color var(--duration-quick) var(--ease-out),
+              border-color var(--duration-quick) var(--ease-out);
+}
+.contact-channel__link:last-child { border-bottom: 0; }
+.contact-channel__link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+@media (max-width: 992px) { .contact-channels__grid { grid-template-columns: 1fr; } }
+
+
+/* ─── Main form ─────────────────────────────────────────────────────────── */
+
+.contact-form {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: clamp(var(--space-6), 4vw, var(--space-12));
+  box-shadow: var(--shadow-sm);
+}
+.contact-form .form-actions {
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-6);
+}
+.contact-form__note {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Status region rendered by form.js */
+.form-status {
+  display: none;
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+.form-status.is-success {
+  display: block;
+  background: rgba(48, 179, 106, 0.10);
+  color: #1F7A49;
+  border: 1px solid rgba(48, 179, 106, 0.24);
+}
+.form-status.is-error {
+  display: block;
+  background: rgba(229, 72, 77, 0.10);
+  color: #9C2C30;
+  border: 1px solid rgba(229, 72, 77, 0.24);
+}
+
+
+/* ─── Offices ───────────────────────────────────────────────────────────── */
+
+.contact-offices__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.contact-office {
+  padding: var(--space-6);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.contact-office h3 {
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.01em;
+  margin: var(--space-1) 0 var(--space-2);
+}
+.contact-office address {
+  font-style: normal;
+  color: var(--color-text);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-base);
+}
+.contact-office__meta {
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+.contact-office__meta a { color: var(--color-text); }
+@media (max-width: 992px) { .contact-offices__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .contact-offices__grid { grid-template-columns: 1fr; } }
+
+
+/* ─── Map panel ─────────────────────────────────────────────────────────── */
+
+.contact-map {
+  padding-block: var(--space-16);
+}
+.contact-map__frame {
+  position: relative;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.contact-map__frame > .ph-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.contact-map__overlay {
+  position: absolute;
+  bottom: var(--space-8);
+  left: var(--space-8);
+  z-index: 1;
+  max-width: 420px;
+  padding: var(--space-6);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+}
+.contact-map__overlay h3 {
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-semibold);
+  margin: var(--space-1) 0 var(--space-2);
+}
+.contact-map__overlay p {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-sm);
+}
+@media (max-width: 640px) {
+  .contact-map__frame { aspect-ratio: 4 / 3; }
+  .contact-map__overlay { position: static; margin: var(--space-4); max-width: none; box-shadow: none; }
+}
