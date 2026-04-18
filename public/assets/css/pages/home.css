@@ -186,7 +186,7 @@
 .home-apps__tile {
   position: relative;
   display: block;
-  min-height: 100svh;
+  min-height: 86svh;
   overflow: hidden;
   border-radius: 0;
 }
@@ -406,43 +406,4 @@
   .home-apps__tile .card__body { padding: var(--space-16) var(--page-gutter) var(--space-10); }
   .home-cases .section-head,
   .home-blog .section-head { align-items: flex-start; flex-direction: column; }
-}
-
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   Homepage scroll-snap (first 5 sections act as one-tick-per-section)
-
-   Snap points, top-to-bottom:
-     1. .home-hero
-     2. .home-products   (bumped to 100svh + content centered)
-     3. .home-apps__tile[ev]        (each application tile = 100svh)
-     4. .home-apps__tile[storage]
-     5. .home-apps__tile[drone]
-
-   Sections after that (home-stats, home-tech, home-cases, home-blog,
-   home-cta, footer) have no snap-align, so the scroll becomes unconstrained
-   again once the user is past tile 3. That keeps content-dense sections
-   free to scroll naturally without snap-fighting.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-body.page-home {
-  scroll-snap-type: y mandatory;
-}
-
-.page-home .home-hero,
-.page-home .home-products,
-.page-home .home-apps__tile {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-}
-
-.page-home .home-products {
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body.page-home { scroll-snap-type: none; }
 }
