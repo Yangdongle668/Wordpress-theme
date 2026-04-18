@@ -157,15 +157,61 @@
 }
 
 
-/* Industry placeholder backgrounds (replace with real imagery) */
-.apps-tile--ev::before        { background: linear-gradient(135deg, #0B1E3A 0%, #0A84FF 55%, #1E4B93 100%); }
-.apps-tile--grid::before      { background: linear-gradient(135deg, #0E1F16 0%, #2F7A4E 55%, #0B2218 100%); }
-.apps-tile--drone::before     { background: linear-gradient(135deg, #2A0F2E 0%, #7B2A8A 55%, #1B0720 100%); }
-.apps-tile--medical::before   { background: linear-gradient(135deg, #112B3A 0%, #2E8AB5 55%, #0B1C26 100%); }
-.apps-tile--consumer::before  { background: linear-gradient(135deg, #2A1F0C 0%, #B2781F 55%, #1C1308 100%); }
-.apps-tile--robotics::before  { background: linear-gradient(135deg, #1B1F24 0%, #5C6572 55%, #111317 100%); }
-.apps-tile--marine::before    { background: linear-gradient(135deg, #0A2138 0%, #1E6BA0 55%, #071729 100%); }
-.apps-tile--aerospace::before { background: linear-gradient(135deg, #12152A 0%, #3A4E8E 55%, #080A18 100%); }
+/*
+   Industry tile backgrounds. Each variant layers real imagery (when
+   present in /assets/images/applications/) on top of an industry-themed
+   gradient fallback. See deploy/README-images.md for filenames +
+   subject suggestions. Browsers silently skip a missing image-set()
+   source, so the tile looks finished with or without the photo.
+*/
+.apps-tile--ev::before {
+  background:
+    image-set(url('/assets/images/applications/ev-tile.avif') type('image/avif'),
+              url('/assets/images/applications/ev-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #0B1E3A 0%, #0A84FF 55%, #1E4B93 100%);
+}
+.apps-tile--grid::before {
+  background:
+    image-set(url('/assets/images/applications/grid-tile.avif') type('image/avif'),
+              url('/assets/images/applications/grid-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #0E1F16 0%, #2F7A4E 55%, #0B2218 100%);
+}
+.apps-tile--drone::before {
+  background:
+    image-set(url('/assets/images/applications/drone-tile.avif') type('image/avif'),
+              url('/assets/images/applications/drone-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #2A0F2E 0%, #7B2A8A 55%, #1B0720 100%);
+}
+.apps-tile--medical::before {
+  background:
+    image-set(url('/assets/images/applications/medical-tile.avif') type('image/avif'),
+              url('/assets/images/applications/medical-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #112B3A 0%, #2E8AB5 55%, #0B1C26 100%);
+}
+.apps-tile--consumer::before {
+  background:
+    image-set(url('/assets/images/applications/consumer-tile.avif') type('image/avif'),
+              url('/assets/images/applications/consumer-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #2A1F0C 0%, #B2781F 55%, #1C1308 100%);
+}
+.apps-tile--robotics::before {
+  background:
+    image-set(url('/assets/images/applications/robotics-tile.avif') type('image/avif'),
+              url('/assets/images/applications/robotics-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #1B1F24 0%, #5C6572 55%, #111317 100%);
+}
+.apps-tile--marine::before {
+  background:
+    image-set(url('/assets/images/applications/marine-tile.avif') type('image/avif'),
+              url('/assets/images/applications/marine-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #0A2138 0%, #1E6BA0 55%, #071729 100%);
+}
+.apps-tile--aerospace::before {
+  background:
+    image-set(url('/assets/images/applications/aerospace-tile.avif') type('image/avif'),
+              url('/assets/images/applications/aerospace-tile.webp') type('image/webp')) center/cover no-repeat,
+    linear-gradient(135deg, #12152A 0%, #3A4E8E 55%, #080A18 100%);
+}
 
 
 /* ─── B4.3 Trust strip ──────────────────────────────────────────────────── */

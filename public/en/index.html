@@ -359,7 +359,31 @@
 
         <div class="card-grid card-grid--3">
           <a class="card card--hover" href="/en/blog/" data-reveal="up" style="--stagger: 1">
-            <div class="card__media"><div class="ph-img ph-img--blog1" aria-hidden="true"></div></div>
+            <!--
+              <picture> pattern — reference implementation for content imagery.
+              When the real files land at these paths, this card shows real
+              photography; until then the browser falls through to the
+              ph-img gradient via CSS on the same slot class. Copy this
+              pattern for other content images site-wide.
+            -->
+            <div class="card__media">
+              <picture>
+                <source type="image/avif"
+                        srcset="/assets/images/home/blog-silicon-640.avif 640w,
+                                /assets/images/home/blog-silicon-1024.avif 1024w"
+                        sizes="(min-width: 992px) 33vw, 100vw" />
+                <source type="image/webp"
+                        srcset="/assets/images/home/blog-silicon-640.webp 640w,
+                                /assets/images/home/blog-silicon-1024.webp 1024w"
+                        sizes="(min-width: 992px) 33vw, 100vw" />
+                <img src="/assets/images/home/blog-silicon-1024.jpg"
+                     alt="Silicon anode electron-microscope image"
+                     loading="lazy"
+                     decoding="async"
+                     width="1024" height="576"
+                     onerror="this.parentElement.innerHTML='<div class=&quot;ph-img ph-img--blog1&quot; aria-hidden=&quot;true&quot;></div>'" />
+              </picture>
+            </div>
             <div class="card__body">
               <p class="card__eyebrow">Technology</p>
               <h3 class="card__title line-clamp-2">Silicon anodes: what finally made them work.</h3>

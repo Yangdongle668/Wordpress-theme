@@ -25,7 +25,10 @@
   position: absolute;
   inset: -8% 0 -8% 0;
   z-index: -2;
+  /* Drop in assets/images/careers/hero.{avif,webp} to activate real imagery. */
   background:
+    image-set(url('/assets/images/careers/hero.avif') type('image/avif'),
+              url('/assets/images/careers/hero.webp') type('image/webp')) center/cover no-repeat,
     radial-gradient(ellipse at 65% 35%, rgba(10, 132, 255, 0.20) 0%, transparent 60%),
     linear-gradient(135deg, #0B1E3A 0%, #0B0C0F 55%, #000 100%);
 }
