@@ -1,0 +1,399 @@
+/* =============================================================================
+   Navigation / Header Component
+   -----------------------------------------------------------------------------
+   Fixed top header that starts transparent over a hero and turns solid
+   (frosted glass) on scroll. Includes logo, primary links, utility actions,
+   language switcher placeholder, and a full-screen mobile drawer.
+
+   Expected structure (rendered by partials/header.html later):
+
+     <header class="site-header" data-header>
+       <div class="site-header__bar container container--fluid">
+         <a class="site-header__brand" href="/en/">Brand</a>
+         <nav class="site-nav" aria-label="Primary">
+           <ul class="site-nav__list" role="list">
+             <li class="site-nav__item"><a class="site-nav__link" href="/en/products/">Products</a></li>
+             ...
+           </ul>
+         </nav>
+         <div class="site-header__actions">
+           <a class="site-nav__link" href="/en/contact.html">Contact</a>
+           <button class="site-header__menu" data-menu-toggle aria-label="Open menu">
+             <span></span><span></span><span></span>
+           </button>
+         </div>
+       </div>
+     </header>
+
+     <aside class="mobile-nav" data-mobile-nav aria-hidden="true">...</aside>
+
+   States (toggled by JS):
+     .is-scrolled     — applied after scroll past a threshold (solid bg)
+     .is-hidden       — applied when scrolling down fast (hide-on-scroll)
+     .is-over-light   — set by scroll observer on light-bg sections (dark text)
+     .is-over-dark    — inverse (white text on hero)
+     .is-menu-open    — mobile drawer open
+   ============================================================================= */
+
+
+/* ─── Header bar ───────────────────────────────────────────────────────── */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-sticky);
+  height: var(--header-height);
+  display: flex;
+  align-items: stretch;
+  color: var(--color-white);
+  background-color: transparent;
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color            var(--duration-base) var(--ease-out),
+    height           var(--duration-base) var(--ease-out),
+    transform        var(--duration-base) var(--ease-out),
+    backdrop-filter  var(--duration-base) var(--ease-out),
+    box-shadow       var(--duration-base) var(--ease-out);
+}
+
+/* Solid / frosted state once scrolled */
+.site-header.is-scrolled {
+  height: var(--header-height-scroll);
+  background-color: rgba(255, 255, 255, 0.84);
+  color: var(--color-ink);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+/* When page starts on a light background without a hero overlay */
+.site-header.is-over-light:not(.is-scrolled) {
+  color: var(--color-ink);
+}
+
+/* Hide-on-scroll-down, show-on-scroll-up */
+.site-header.is-hidden { transform: translateY(-100%); }
+
+/* Dark-mode parity */
+:root[data-theme="dark"] .site-header.is-scrolled {
+  background-color: rgba(11, 12, 15, 0.72);
+  color: var(--color-white);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+
+/* ─── Bar layout ───────────────────────────────────────────────────────── */
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding-inline: var(--page-gutter);
+  gap: var(--space-6);
+}
+
+.site-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+  letter-spacing: var(--letter-spacing-tight);
+  color: inherit;
+  text-decoration: none;
+  flex: 0 0 auto;
+  transition: opacity var(--duration-quick) var(--ease-out);
+}
+.site-header__brand:hover { opacity: 0.85; color: inherit; }
+
+.site-header__brand img,
+.site-header__brand svg {
+  height: 24px;
+  width: auto;
+  display: block;
+}
+
+
+/* ─── Primary nav ──────────────────────────────────────────────────────── */
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  justify-content: center;
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav__item { position: relative; }
+
+.site-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--duration-quick) var(--ease-out);
+}
+
+.site-nav__link::after {
+  content: "";
+  position: absolute;
+  left: var(--space-4);
+  right: var(--space-4);
+  bottom: 4px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration-base) var(--ease-emphasis);
+}
+
+.site-nav__link:hover,
+.site-nav__link:focus-visible {
+  color: inherit;
+  opacity: 1;
+}
+.site-nav__link:hover::after,
+.site-nav__link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+
+/* ─── Dropdown (hover panel under a nav item) ─────────────────────────── */
+
+.site-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+  min-width: 240px;
+  padding: var(--space-3);
+  background: var(--color-bg-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-emphasis),
+    visibility 0s var(--duration-base);
+}
+
+.site-nav__item:hover > .site-nav__dropdown,
+.site-nav__item:focus-within > .site-nav__dropdown,
+.site-nav__item.is-open > .site-nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition-delay: 0s;
+}
+
+.site-nav__dropdown a {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+.site-nav__dropdown a:hover {
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+}
+
+
+/* ─── Utility actions ──────────────────────────────────────────────────── */
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 0 0 auto;
+}
+
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: inherit;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+.lang-switcher a {
+  color: inherit;
+  opacity: 0.6;
+  padding: 0 var(--space-1);
+  transition: opacity var(--duration-quick) var(--ease-out);
+}
+.lang-switcher a.is-active,
+.lang-switcher a:hover { opacity: 1; }
+
+
+/* ─── Mobile hamburger button ──────────────────────────────────────────── */
+
+.site-header__menu {
+  display: none;
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.site-header__menu span {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 1.5px;
+  background: currentColor;
+  transform-origin: center;
+  transition:
+    transform var(--duration-base) var(--ease-emphasis),
+    top       var(--duration-base) var(--ease-emphasis),
+    opacity   var(--duration-fast) var(--ease-out);
+}
+.site-header__menu span:nth-child(1) { top: 13px; }
+.site-header__menu span:nth-child(2) { top: 19px; }
+.site-header__menu span:nth-child(3) { top: 25px; }
+
+.site-header.is-menu-open .site-header__menu span:nth-child(1) {
+  top: 19px; transform: rotate(45deg);
+}
+.site-header.is-menu-open .site-header__menu span:nth-child(2) {
+  opacity: 0;
+}
+.site-header.is-menu-open .site-header__menu span:nth-child(3) {
+  top: 19px; transform: rotate(-45deg);
+}
+
+@media (max-width: 992px) {
+  .site-nav { display: none; }
+  .site-header__menu { display: inline-flex; align-items: center; justify-content: center; }
+}
+
+
+/* ─── Mobile drawer (full-screen) ──────────────────────────────────────── */
+
+.mobile-nav {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  z-index: var(--z-drawer);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: var(--space-8) var(--page-gutter);
+  overflow-y: auto;
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition:
+    opacity    var(--duration-base) var(--ease-out),
+    transform  var(--duration-base) var(--ease-emphasis),
+    visibility 0s var(--duration-base);
+}
+
+.mobile-nav.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.mobile-nav__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mobile-nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-2);
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  letter-spacing: var(--letter-spacing-snug);
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: color var(--duration-quick) var(--ease-out);
+}
+.mobile-nav__link:hover { color: var(--color-accent); }
+.mobile-nav__link[aria-current="page"] { color: var(--color-accent); }
+
+/* Prevent page scroll when drawer is open */
+body.is-menu-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+
+/* ─── Breadcrumb ───────────────────────────────────────────────────────── */
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-3) 0;
+}
+
+.breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-quick) var(--ease-out);
+}
+.breadcrumb a:hover { color: var(--color-text); }
+
+.breadcrumb__sep {
+  color: var(--color-border-strong);
+  user-select: none;
+}
+
+.breadcrumb__current {
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+}
+
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-nav__link::after,
+  .site-nav__dropdown,
+  .site-header__menu span,
+  .mobile-nav {
+    transition: none !important;
+  }
+}
