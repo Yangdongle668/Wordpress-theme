@@ -1,0 +1,324 @@
+/* =============================================================================
+   Button Component
+   -----------------------------------------------------------------------------
+   Minimalist, full-width-friendly buttons with cinematic motion.
+
+   Structure:
+     <a class="btn btn--primary btn--md">Order now</a>
+     <button class="btn btn--secondary btn--lg">Learn more</button>
+     <button class="btn btn--ghost btn--icon" aria-label="Menu">...</button>
+
+   Modifiers:
+     Intent    : --primary, --secondary, --ghost, --outline, --invert, --link
+     Size      : --sm, --md (default), --lg, --xl
+     Shape     : --pill (default), --square
+     State     : [disabled], .is-loading
+     Layout    : --block (full width), --icon (square icon-only)
+   ============================================================================= */
+
+.btn {
+  --btn-bg:           transparent;
+  --btn-bg-hover:     transparent;
+  --btn-bg-active:    transparent;
+  --btn-fg:           var(--color-text);
+  --btn-fg-hover:     var(--color-text);
+  --btn-border:       transparent;
+  --btn-border-hover: transparent;
+  --btn-shadow:       none;
+  --btn-shadow-hover: none;
+  --btn-px:           var(--space-6);
+  --btn-py:           var(--space-3);
+  --btn-fs:           var(--font-size-sm);
+  --btn-h:            44px;
+  --btn-radius:       var(--radius-pill);
+  --btn-gap:          var(--space-2);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+
+  min-height: var(--btn-h);
+  padding: var(--btn-py) var(--btn-px);
+
+  font-family: inherit;
+  font-size: var(--btn-fs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  color: var(--btn-fg);
+  background-color: var(--btn-bg);
+  border: 1px solid var(--btn-border);
+  border-radius: var(--btn-radius);
+  box-shadow: var(--btn-shadow);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  isolation: isolate;
+
+  transition:
+    background-color var(--duration-quick) var(--ease-out),
+    color            var(--duration-quick) var(--ease-out),
+    border-color     var(--duration-quick) var(--ease-out),
+    box-shadow       var(--duration-quick) var(--ease-out),
+    transform        var(--duration-quick) var(--ease-emphasis);
+}
+
+.btn:hover {
+  background-color: var(--btn-bg-hover);
+  color: var(--btn-fg-hover);
+  border-color: var(--btn-border-hover);
+  box-shadow: var(--btn-shadow-hover);
+}
+
+.btn:active {
+  background-color: var(--btn-bg-active);
+  transform: scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn[disabled],
+.btn.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Subtle sheen on hover — a soft light wash that traverses the button */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform var(--duration-slow) var(--ease-emphasis);
+  pointer-events: none;
+}
+.btn:hover::after { transform: translateX(100%); }
+
+
+/* ─── Intents ──────────────────────────────────────────────────────────── */
+
+.btn--primary {
+  --btn-bg:           var(--color-ink);
+  --btn-bg-hover:     var(--color-black);
+  --btn-bg-active:    #000;
+  --btn-fg:           var(--color-white);
+  --btn-fg-hover:     var(--color-white);
+  --btn-border:       var(--color-ink);
+  --btn-border-hover: var(--color-black);
+}
+
+.btn--accent {
+  --btn-bg:           var(--color-accent);
+  --btn-bg-hover:     var(--color-accent-hover);
+  --btn-bg-active:    var(--color-accent-active);
+  --btn-fg:           var(--color-white);
+  --btn-fg-hover:     var(--color-white);
+  --btn-border:       var(--color-accent);
+  --btn-border-hover: var(--color-accent-hover);
+}
+
+.btn--secondary {
+  --btn-bg:           rgba(244, 244, 244, 0.72);
+  --btn-bg-hover:     rgba(244, 244, 244, 0.92);
+  --btn-bg-active:    var(--color-mist);
+  --btn-fg:           var(--color-ink);
+  --btn-fg-hover:     var(--color-ink);
+  --btn-border:       transparent;
+  --btn-border-hover: transparent;
+}
+
+/* Invert — for use over dark hero backgrounds */
+.btn--invert {
+  --btn-bg:           rgba(255, 255, 255, 0.92);
+  --btn-bg-hover:     #fff;
+  --btn-bg-active:    rgba(255, 255, 255, 0.85);
+  --btn-fg:           var(--color-ink);
+  --btn-fg-hover:     var(--color-ink);
+  --btn-border:       transparent;
+  --btn-border-hover: transparent;
+}
+
+.btn--invert-secondary {
+  --btn-bg:           rgba(23, 26, 32, 0.56);
+  --btn-bg-hover:     rgba(23, 26, 32, 0.78);
+  --btn-bg-active:    rgba(23, 26, 32, 0.92);
+  --btn-fg:           var(--color-white);
+  --btn-fg-hover:     var(--color-white);
+  --btn-border:       transparent;
+}
+
+.btn--outline {
+  --btn-bg:           transparent;
+  --btn-bg-hover:     var(--color-ink);
+  --btn-bg-active:    var(--color-black);
+  --btn-fg:           var(--color-ink);
+  --btn-fg-hover:     var(--color-white);
+  --btn-border:       var(--color-ink);
+  --btn-border-hover: var(--color-ink);
+}
+
+.btn--ghost {
+  --btn-bg:           transparent;
+  --btn-bg-hover:     var(--color-surface-soft);
+  --btn-bg-active:    var(--color-surface-muted);
+  --btn-fg:           var(--color-text);
+  --btn-fg-hover:     var(--color-text);
+  --btn-border:       transparent;
+}
+
+.btn--link {
+  --btn-bg:           transparent;
+  --btn-bg-hover:     transparent;
+  --btn-fg:           var(--color-accent);
+  --btn-fg-hover:     var(--color-accent-hover);
+  --btn-border:       transparent;
+  --btn-px:           0;
+  --btn-py:           var(--space-1);
+  --btn-h:            auto;
+  text-transform: none;
+  letter-spacing: normal;
+}
+.btn--link::after { display: none; }
+.btn--link:hover { transform: none; }
+
+
+/* ─── Sizes ────────────────────────────────────────────────────────────── */
+
+.btn--sm {
+  --btn-h:   36px;
+  --btn-px:  var(--space-4);
+  --btn-py:  var(--space-2);
+  --btn-fs:  var(--font-size-xs);
+}
+.btn--md {
+  --btn-h:   44px;
+  --btn-px:  var(--space-6);
+  --btn-py:  var(--space-3);
+  --btn-fs:  var(--font-size-sm);
+}
+.btn--lg {
+  --btn-h:   52px;
+  --btn-px:  var(--space-8);
+  --btn-py:  var(--space-4);
+  --btn-fs:  var(--font-size-sm);
+}
+.btn--xl {
+  --btn-h:   60px;
+  --btn-px:  var(--space-10);
+  --btn-py:  var(--space-5);
+  --btn-fs:  var(--font-size-base);
+}
+
+
+/* ─── Shape ────────────────────────────────────────────────────────────── */
+
+.btn--square { --btn-radius: var(--radius-md); }
+.btn--pill   { --btn-radius: var(--radius-pill); }
+
+
+/* ─── Layout ───────────────────────────────────────────────────────────── */
+
+.btn--block { display: flex; width: 100%; }
+
+.btn--icon {
+  --btn-px: 0;
+  width: var(--btn-h);
+  flex: 0 0 auto;
+}
+
+/* Icon slot: SVGs inside buttons inherit currentColor */
+.btn svg,
+.btn .icon {
+  width: 1em;
+  height: 1em;
+  font-size: 1.125em;
+  flex: 0 0 auto;
+  fill: currentColor;
+  stroke: currentColor;
+  transition: transform var(--duration-quick) var(--ease-out);
+}
+
+/* Nudge the icon on hover for a subtle arrow-forward feel */
+.btn--link:hover svg,
+.btn--link:hover .icon { transform: translateX(3px); }
+
+
+/* ─── Button group ─────────────────────────────────────────────────────── */
+
+.btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.btn-group--stretch .btn { flex: 1; }
+
+@media (max-width: 480px) {
+  .btn-group--responsive {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .btn-group--responsive .btn { width: 100%; }
+}
+
+
+/* ─── Loading state ────────────────────────────────────────────────────── */
+
+.btn.is-loading {
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn.is-loading::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.125em;
+  height: 1.125em;
+  margin: -0.5625em 0 0 -0.5625em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  color: var(--btn-fg);
+  animation: btn-spin 720ms linear infinite;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn::after,
+  .btn svg {
+    transition: none !important;
+    animation: none !important;
+  }
+  .btn:active { transform: none; }
+}
