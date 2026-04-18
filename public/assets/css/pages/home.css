@@ -407,3 +407,59 @@
   .home-cases .section-head,
   .home-blog .section-head { align-items: flex-start; flex-direction: column; }
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Homepage scroll-snap (first 5 viewports act like slides)
+   -----------------------------------------------------------------------------
+   Snap points: hero → products → ev tile → storage tile → drone tile.
+   Each is exactly one viewport tall; scroll-snap-type: mandatory on the
+   scroll root makes one wheel tick advance one slide. After tile 3 the
+   page scrolls normally (stats, tech, cases, blog, cta, footer).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+html:has(body.page-home) {
+  scroll-snap-type: y mandatory;
+}
+
+.page-home .home-hero,
+.page-home .home-products,
+.page-home .home-apps__tile {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Section 2 — fit everything (section-head + 4-card rail) into one
+   viewport. Cards shrink to whatever height is left after the heading,
+   instead of growing to their own 560 px default and overflowing. */
+.page-home .home-products {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+.page-home .home-products__rail {
+  margin-top: var(--space-6);
+}
+@media (min-width: 992px) {
+  .page-home .home-products__card {
+    min-height: 0;
+    height: clamp(280px, 55svh, 480px);
+  }
+}
+
+/* Sections 3-5 — each application tile fills a full viewport so scroll
+   snaps cleanly onto it. Default was 86svh which left the snap tail
+   peeking at the next one. */
+.page-home .home-apps__tile {
+  min-height: 100svh;
+}
+
+/* Mobile / reduced motion fallbacks */
+@media (max-width: 900px) {
+  html:has(body.page-home) { scroll-snap-type: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:has(body.page-home) { scroll-snap-type: none; }
+}

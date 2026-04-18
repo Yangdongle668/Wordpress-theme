@@ -226,8 +226,10 @@
   margin: 0;
   padding: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-6);
+  white-space: nowrap;
 }
 .site-footer__meta a {
   color: var(--footer-fg);
