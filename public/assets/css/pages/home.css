@@ -154,6 +154,24 @@
   min-height: 520px;
 }
 
+/* Desktop: enough room for all four cards — switch from horizontal scroll
+   rail to a fixed 4-column grid so the last card isn't clipped. */
+@media (min-width: 992px) {
+  .home-products__rail {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .home-products__card {
+    flex: initial;
+    width: auto;
+    min-height: 560px;
+    scroll-snap-align: none;
+  }
+}
+
 
 /* ─── B1.3 · Application tiles (stacked full-bleed) ─────────────────────── */
 
