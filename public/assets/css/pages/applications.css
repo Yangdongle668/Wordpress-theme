@@ -1,0 +1,203 @@
+/* =============================================================================
+   pages/applications.css
+   -----------------------------------------------------------------------------
+   Applications index — industry grid.
+     .apps-hero            breadcrumbed hero
+     .apps-grid            masonry-style grid (wide tiles mix with standard)
+     .apps-tile            cinematic full-bleed tile (industry variants)
+     .apps-trust           logo wall strip
+   ============================================================================= */
+
+
+/* ─── B4.1 Hero ─────────────────────────────────────────────────────────── */
+
+.apps-hero {
+  padding-top: calc(var(--header-height) + var(--space-10));
+  padding-bottom: var(--space-16);
+  background: var(--color-bg);
+}
+.apps-hero__content {
+  max-width: 900px;
+  padding-top: var(--space-6);
+}
+.apps-hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-top: var(--space-3);
+}
+.apps-hero__sub {
+  margin-top: var(--space-5);
+  max-width: 68ch;
+}
+
+
+/* ─── B4.2 Industry grid ────────────────────────────────────────────────── */
+
+.apps-grid {
+  background: var(--color-black);
+  padding: 2px;
+}
+.apps-grid__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 420px;
+  gap: 2px;
+}
+.apps-grid__item {
+  grid-column: span 2;
+}
+/* Wide tiles occupy a full row on desktop for visual rhythm */
+.apps-grid__item--wide { grid-column: span 4; }
+
+@media (max-width: 1200px) {
+  .apps-grid__list { grid-auto-rows: 380px; }
+  .apps-grid__item--wide { grid-column: span 4; }
+}
+@media (max-width: 992px) {
+  .apps-grid__list { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 360px; }
+  .apps-grid__item,
+  .apps-grid__item--wide { grid-column: span 2; }
+}
+@media (max-width: 640px) {
+  .apps-grid__list { grid-template-columns: 1fr; grid-auto-rows: 320px; }
+  .apps-grid__item,
+  .apps-grid__item--wide { grid-column: span 1; }
+}
+
+
+/* ─── B4.2 Industry tile ────────────────────────────────────────────────── */
+
+.apps-tile {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--color-white);
+  text-decoration: none;
+  isolation: isolate;
+  background: var(--color-black);
+  transition: transform var(--duration-slower) var(--ease-emphasis);
+}
+
+.apps-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  transition: transform var(--duration-slower) var(--ease-emphasis);
+}
+.apps-tile:hover::before { transform: scale(1.06); }
+
+.apps-tile__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(11,12,15,0.78) 0%, rgba(11,12,15,0.40) 55%, transparent 85%),
+    linear-gradient(180deg, transparent 55%, rgba(11,12,15,0.72) 100%);
+  pointer-events: none;
+}
+
+.apps-tile__body {
+  align-self: flex-end;
+  padding: var(--space-8) var(--space-10);
+  max-width: 580px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.apps-tile__eyebrow {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+}
+.apps-tile__title {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--color-white);
+  text-wrap: balance;
+  margin: 0;
+}
+.apps-tile__desc {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  max-width: 46ch;
+  margin: var(--space-2) 0 0;
+}
+.apps-tile__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-4);
+  padding: var(--space-2) 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-white);
+  transition: transform var(--duration-base) var(--ease-emphasis);
+}
+.apps-tile:hover .apps-tile__cta { transform: translateX(6px); }
+
+@media (max-width: 640px) {
+  .apps-tile__body { padding: var(--space-6) var(--space-6); }
+}
+
+
+/* Industry placeholder backgrounds (replace with real imagery) */
+.apps-tile--ev::before        { background: linear-gradient(135deg, #0B1E3A 0%, #0A84FF 55%, #1E4B93 100%); }
+.apps-tile--grid::before      { background: linear-gradient(135deg, #0E1F16 0%, #2F7A4E 55%, #0B2218 100%); }
+.apps-tile--drone::before     { background: linear-gradient(135deg, #2A0F2E 0%, #7B2A8A 55%, #1B0720 100%); }
+.apps-tile--medical::before   { background: linear-gradient(135deg, #112B3A 0%, #2E8AB5 55%, #0B1C26 100%); }
+.apps-tile--consumer::before  { background: linear-gradient(135deg, #2A1F0C 0%, #B2781F 55%, #1C1308 100%); }
+.apps-tile--robotics::before  { background: linear-gradient(135deg, #1B1F24 0%, #5C6572 55%, #111317 100%); }
+.apps-tile--marine::before    { background: linear-gradient(135deg, #0A2138 0%, #1E6BA0 55%, #071729 100%); }
+.apps-tile--aerospace::before { background: linear-gradient(135deg, #12152A 0%, #3A4E8E 55%, #080A18 100%); }
+
+
+/* ─── B4.3 Trust strip ──────────────────────────────────────────────────── */
+
+.apps-trust__logos {
+  list-style: none;
+  margin: var(--space-10) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6) var(--space-10);
+  justify-items: center;
+  align-items: center;
+}
+.apps-trust__logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  opacity: 0.72;
+  transition: opacity var(--duration-quick) var(--ease-out);
+}
+.apps-trust__logo:hover { opacity: 1; color: var(--color-text); }
+
+@media (max-width: 992px) {
+  .apps-trust__logos { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .apps-trust__logos { grid-template-columns: 1fr; }
+}
