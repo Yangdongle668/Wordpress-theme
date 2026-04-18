@@ -1,0 +1,213 @@
+/* =============================================================================
+   pages/products.css
+   -----------------------------------------------------------------------------
+   Product index page layout:
+     .products-hero         short breadcrumbed hero
+     .product-band          alternating two-column "platform" bands
+     .product-grid          4-up small product cards under each band
+     .product-card          compact card with a three-column spec stack
+     .compare               spec comparison table
+   ============================================================================= */
+
+
+/* ─── B2.1 Hero ─────────────────────────────────────────────────────────── */
+
+.products-hero {
+  padding-top: calc(var(--header-height) + var(--space-10));
+  padding-bottom: var(--space-16);
+  background: var(--color-bg);
+}
+.products-hero__content {
+  max-width: 960px;
+  padding-top: var(--space-6);
+}
+.products-hero__title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin-top: var(--space-3);
+}
+.products-hero__sub {
+  margin-top: var(--space-5);
+  max-width: 68ch;
+}
+
+
+/* ─── B2.2 Platform band (text + image split, alternating) ──────────────── */
+
+.product-band {
+  padding-block: var(--space-20);
+}
+.product-band--alt {
+  background: var(--color-bg-alt);
+}
+
+.product-band__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.product-band__copy h2 {
+  font-size: var(--font-size-h2);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-top: var(--space-3);
+}
+.product-band__copy .lead {
+  margin-top: var(--space-4);
+  max-width: 52ch;
+}
+.product-band__highlights {
+  list-style: none;
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.product-band__highlights li {
+  position: relative;
+  padding-left: var(--space-6);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+}
+.product-band__highlights li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 14px;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+.product-band__media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 992px) {
+  .product-band__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  .product-band__media { max-height: 440px; }
+  /* In stacked layout, show media first always for rhythm */
+  .product-band__inner > .product-band__media { order: -1; }
+}
+
+
+/* ─── B2.3 Product grid ─────────────────────────────────────────────────── */
+
+.product-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+.product-grid > li { display: flex; }
+.product-grid .product-card { width: 100%; }
+
+@media (max-width: 992px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .product-grid { grid-template-columns: 1fr; } }
+
+
+/* ─── B2.3 Product card ─────────────────────────────────────────────────── */
+
+.product-card {
+  --card-padding: var(--space-5);
+}
+
+.product-card__media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--color-surface-soft);
+}
+
+.product-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--card-padding);
+  flex: 1 1 auto;
+}
+
+.product-card__specs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-3) 0 0;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+.product-card__specs > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.product-card__specs dt {
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.product-card__specs dd {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin: 0;
+}
+
+
+/* ─── B2.4 Compare table ────────────────────────────────────────────────── */
+
+.compare {
+  overflow-x: auto;
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.compare__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+.compare__table thead th {
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  background: var(--color-surface-soft);
+  border-bottom: 1px solid var(--color-border);
+}
+.compare__table th[scope="row"] {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-align: left;
+}
+.compare__table td,
+.compare__table tbody th {
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  font-size: var(--font-size-sm);
+}
+.compare__table tbody tr:last-child td,
+.compare__table tbody tr:last-child th { border-bottom: 0; }
+.compare__table tbody tr:hover {
+  background: var(--color-surface-soft);
+}
