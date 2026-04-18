@@ -1,0 +1,18 @@
+# robots.txt — https://www.example.com/
+# Allow full crawl; disallow only engineering surface.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /partials/
+Disallow: /_template.html
+
+# Common bad bots — optional hardening (uncomment if needed)
+# User-agent: AhrefsBot
+# Disallow: /
+# User-agent: SemrushBot
+# Disallow: /
+# User-agent: MJ12bot
+# Disallow: /
+
+Sitemap: https://www.example.com/sitemap.xml
