@@ -703,3 +703,203 @@ th {
   .parallax { transform: none !important; }
   html { scroll-behavior: auto; }
 }
+
+
+/* ─── 7. No-JS fallback ─────────────────────────────────────────────────────
+   When JS is disabled or hasn't booted yet, reveal elements must be visible,
+   and JS-driven widgets must still render their primary content.
+
+   Pattern: <html class="no-js">  →  <html class="js"> (set by inline script
+   in head before CSS loads, but we still support no-js gracefully).
+   ============================================================================= */
+
+.no-js [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.no-js .parallax { transform: none !important; }
+
+/* Mobile drawer: fall back to always-visible inline nav when JS is off */
+.no-js .mobile-nav {
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  padding: var(--space-4) var(--page-gutter);
+}
+.no-js .site-header__menu { display: none !important; }
+
+/* Skeletons never freeze the UI permanently if JS fails */
+.no-js .skeleton {
+  animation: none;
+  background-image: none;
+}
+
+
+/* ─── 8. Touch target minimums (iOS HIG 44×44, Material 48×48) ──────────── */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure interactive controls have a comfortable tap area on touch. */
+  a,
+  button,
+  [role="button"],
+  .btn,
+  .chip,
+  .pagination a,
+  .pagination button,
+  .site-nav__link,
+  .mobile-nav__link,
+  .tab,
+  .checkbox,
+  .radio,
+  .switch,
+  summary {
+    min-height: 44px;
+  }
+  /* Keep icon-only controls square. */
+  .btn--icon,
+  .site-header__menu,
+  .back-to-top,
+  .site-footer__social a {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+
+/* ─── 9. Forced-colors mode (Windows High Contrast) ─────────────────────── */
+
+@media (forced-colors: active) {
+  /* Let system colors drive; only patch elements that relied on gradients /
+     opacity / box-shadow alone to convey meaning. */
+  .btn {
+    border: 1px solid ButtonBorder;
+    forced-color-adjust: none;
+  }
+  .btn--primary,
+  .btn--accent,
+  .btn--invert {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+  .btn::after { display: none; }
+
+  .card,
+  .site-footer,
+  .alert,
+  .badge,
+  .chip,
+  .skeleton {
+    border: 1px solid CanvasText;
+  }
+
+  .site-header.is-scrolled {
+    background: Canvas;
+    color: CanvasText;
+    backdrop-filter: none;
+  }
+
+  :focus-visible { outline: 2px solid Highlight !important; outline-offset: 2px; }
+
+  a { color: LinkText; }
+  a:visited { color: VisitedText; }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+
+/* ─── 10. Print stylesheet ──────────────────────────────────────────────────
+   Goal: page-friendly product / case / policy export. Hide chrome, flatten
+   colors, expand truncated text, surface link targets.
+   ============================================================================= */
+
+@media print {
+  @page { margin: 20mm 16mm; }
+
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    line-height: 1.45;
+  }
+
+  /* Hide everything that doesn't belong on paper */
+  .site-header,
+  .site-footer,
+  .back-to-top,
+  .mobile-nav,
+  .site-header__menu,
+  .cookie-bar,
+  video,
+  audio,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Reveal full content; drop animations */
+  [data-reveal],
+  .parallax,
+  .skeleton {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    background: transparent !important;
+  }
+
+  /* Let wide sections collapse to the page measure */
+  .container,
+  .container--fluid,
+  .full-bleed {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .section { padding-block: 0 !important; }
+  .hero    { min-height: 0 !important; padding-block: var(--space-6); }
+
+  /* Expose URLs of substantive links after their text */
+  a[href^="http"]::after,
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+  a[href^="#"]::after,
+  a[href^="/"]::after { content: ""; }
+
+  /* Headings stick to their body */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid-page;
+    color: #000 !important;
+  }
+
+  /* Avoid breaking figures, tables, cards mid-page */
+  img, figure, table, pre, .card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure ::before scrims/overlays don't darken the page */
+  .card__scrim,
+  .btn::after { display: none !important; }
+
+  /* Remove truncation so paper shows full text */
+  [class*="line-clamp-"] {
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* Tables */
+  thead { display: table-header-group; }
+  tr, img { page-break-inside: avoid; }
+}
