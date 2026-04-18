@@ -21,8 +21,10 @@
 /* ─── Section heading layout ────────────────────────────────────────────── */
 
 .section-head {
-  max-width: 56rem;
-  margin: 0 auto var(--space-12) auto;
+  /* No max-width cap — heading fills its container like on the rest of
+     the site. text-wrap: balance keeps long h2s looking decent at any
+     width; the lead paragraph caps its own reading measure below. */
+  margin: 0 0 var(--space-12) 0;
 }
 .section-head h2 {
   margin-top: var(--space-2);
@@ -31,7 +33,16 @@
   letter-spacing: var(--letter-spacing-tight);
   text-wrap: balance;
 }
-.section-head .lead { margin-top: var(--space-4); }
+.section-head .lead {
+  margin-top: var(--space-4);
+  max-width: 56rem;   /* readable measure for prose */
+}
+.section-head.text-center {
+  margin-inline: auto;
+}
+.section-head.text-center .lead {
+  margin-inline: auto;
+}
 
 
 /* ─── B1.1 · Hero ───────────────────────────────────────────────────────── */
@@ -167,7 +178,11 @@
   .home-products__card {
     flex: initial;
     width: auto;
-    min-height: 560px;
+    /* Keep the whole section comfortably inside one viewport. 560 px
+       overflowed on a typical 800-900 px laptop once the heading + rail
+       gap + section padding were counted. */
+    min-height: 0;
+    height: clamp(320px, 52svh, 460px);
     scroll-snap-align: none;
   }
 }
@@ -410,15 +425,6 @@
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Homepage scroll-snap (first 5 viewports act like slides)
-   -----------------------------------------------------------------------------
-   Snap points: hero → products → ev tile → storage tile → drone tile.
-   Each is exactly one viewport tall; scroll-snap-type: mandatory on the
-   scroll root makes one wheel tick advance one slide. After tile 3 the
-   page scrolls normally (stats, tech, cases, blog, cta, footer).
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════════════════════════════════════
    Home applications — folded sticky slideshow
 
    The outer .home-apps--stack is 3× viewport tall. Inside it, .home-apps__stage
@@ -445,10 +451,17 @@
   height: 100%;
 }
 
-/* Every slide is absolute-pinned inside the stage and fades in/out. */
+/* Every slide is absolute-pinned inside the stage and fades in/out.
+   Explicitly set display/alignment here because `position: absolute`
+   on an <a class="card"> can drop the flex context that normally
+   pushes .card__body to the bottom-left. */
 .home-apps--stack .home-apps__tile {
   position: absolute;
   inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
   min-height: 0;
   opacity: 0;
   visibility: hidden;
@@ -460,6 +473,12 @@
   opacity: 1;
   visibility: visible;
   transition-delay: 0s;
+}
+/* Body keeps its natural height so the tile's justify-content can push
+   it to the bottom; max-width/left-align come from the base rule above. */
+.home-apps--stack .home-apps__tile .card__body {
+  flex: 0 0 auto;
+  width: 100%;
 }
 
 /* Dots indicator — centered under the hero copy, clickable to jump */
