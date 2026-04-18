@@ -1,4 +1,4 @@
-# robots.txt — https://www.example.com/
+# robots.txt — https://www.07691688.xyz/
 # Allow full crawl; disallow only engineering surface.
 
 User-agent: *
@@ -15,4 +15,4 @@ Disallow: /_template.html
 # User-agent: MJ12bot
 # Disallow: /
 
-Sitemap: https://www.example.com/sitemap.xml
+Sitemap: https://www.07691688.xyz/sitemap.xml

@@ -15,7 +15,7 @@ Every page of the site renders with these SEO primitives in place:
 - Per-page `<title>` (unique, under 65 chars) and `<meta name=description>`
   (140–160 chars, natural keywords)
 - `<meta name=robots content="index, follow, max-image-preview:large">`
-- `<link rel=canonical>` pointing at the `https://www.example.com/en/…`
+- `<link rel=canonical>` pointing at the `https://www.07691688.xyz/en/…`
   canonical URL
 - `<link rel=alternate hreflang>` pairs for `en` + `zh` + `x-default`
 - Full Open Graph + Twitter Card (`summary_large_image`) with 1200×630
@@ -41,12 +41,12 @@ Global site-level assets:
 
 ### 2.1 · Domain & TLS
 
-- [ ] HTTPS reachable at `https://www.example.com/`
-- [ ] HTTP redirects to HTTPS (`curl -I http://www.example.com/`)
+- [ ] HTTPS reachable at `https://www.07691688.xyz/`
+- [ ] HTTP redirects to HTTPS (`curl -I http://www.07691688.xyz/`)
 - [ ] Apex redirects to www (`curl -I https://example.com/`)
 - [ ] `www` canonical across every page (`grep -r canonical public/en/`)
 - [ ] SSL Labs grade A or A+ → https://www.ssllabs.com/ssltest/
-- [ ] HSTS header present (`curl -sI https://www.example.com/ | grep -i strict`)
+- [ ] HSTS header present (`curl -sI https://www.07691688.xyz/ | grep -i strict`)
 - [ ] HSTS preload submission after 30 days of stable headers
       → https://hstspreload.org/
 - [ ] cert auto-renewal timer active (`systemctl list-timers | grep certbot`)
@@ -54,9 +54,9 @@ Global site-level assets:
 ### 2.2 · Crawling & indexing
 
 - [ ] `robots.txt` fetchable and references sitemap
-      (`curl https://www.example.com/robots.txt`)
+      (`curl https://www.07691688.xyz/robots.txt`)
 - [ ] `sitemap.xml` fetchable and contains 13 valid URLs
-      (`curl https://www.example.com/sitemap.xml | head -30`)
+      (`curl https://www.07691688.xyz/sitemap.xml | head -30`)
 - [ ] No accidental `noindex` on production pages
       (`grep -l 'noindex' public/en/*.html public/en/**/*.html` should
       return only `privacy.html`? — actually it returns **nothing** for
@@ -124,12 +124,12 @@ Run on the live origin, mobile + desktop profiles. Targets:
 
 ```bash
 # 1. Lighthouse CLI, mobile profile
-npx lighthouse https://www.example.com/en/ --preset=desktop --view
-npx lighthouse https://www.example.com/en/ \
+npx lighthouse https://www.07691688.xyz/en/ --preset=desktop --view
+npx lighthouse https://www.07691688.xyz/en/ \
     --output=html --output-path=./lh-home.html
 
 # 2. PageSpeed Insights (runs Lighthouse + real-user data)
-https://pagespeed.web.dev/analysis?url=https://www.example.com/en/
+https://pagespeed.web.dev/analysis?url=https://www.07691688.xyz/en/
 
 # 3. WebPageTest for the full waterfall and filmstrip
 https://www.webpagetest.org/
@@ -204,7 +204,7 @@ Quick link check:
 
 ```bash
 # From the project root
-npx linkinator https://www.example.com/ --recurse --skip '(mailto|tel):'
+npx linkinator https://www.07691688.xyz/ --recurse --skip '(mailto|tel):'
 ```
 
 ---

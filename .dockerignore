@@ -1,0 +1,34 @@
+# Files / dirs that don't belong in any Docker image built from this repo.
+.git
+.github
+.gitignore
+.gitattributes
+.vscode
+.idea
+
+# Node state
+node_modules
+npm-debug.log*
+yarn-debug.log*
+
+# Local env + secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime / uploads (mounted in at runtime, not baked in)
+server/logs/*
+!server/logs/.gitkeep
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Derived image assets (regenerated on the host via scripts/img-to-webp.js)
+public/assets/images/**/*.webp
+public/assets/images/**/*.avif
+
+# Docs + runbooks — not needed inside images
+*.md
+!server/README.md
+deploy/README-*.md

@@ -67,7 +67,7 @@ mv Montserrat-Italic[wght].woff2    /path/to/public/assets/fonts/Montserrat-Vari
 ### Verify
 
 ```bash
-curl -I https://www.example.com/assets/fonts/Montserrat-Variable.woff2
+curl -I https://www.07691688.xyz/assets/fonts/Montserrat-Variable.woff2
 # HTTP/2 200 ... content-type: font/woff2
 ```
 

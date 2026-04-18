@@ -19,6 +19,7 @@ package-lock.json.bak
 .env
 .env.*
 !.env.example
+!.env.docker.example
 *.pem
 *.key
 
