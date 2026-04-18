@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>BatteryCo — Polymer Lithium Batteries Engineered for Every Application</title>
+  <meta name="description" content="Advanced polymer lithium-ion batteries for electric vehicles, energy storage, drones, medical devices, and more. Engineered for safety, energy density, and cycle life." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0B0C0F" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0B0C0F" media="(prefers-color-scheme: dark)" />
+
+  <link rel="canonical" href="https://www.example.com/en/" />
+  <link rel="alternate" hreflang="en" href="https://www.example.com/en/" />
+  <link rel="alternate" hreflang="zh" href="https://www.example.com/zh/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.example.com/en/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="BatteryCo" />
+  <meta property="og:title" content="BatteryCo — Polymer Lithium Batteries" />
+  <meta property="og:description" content="Advanced polymer lithium-ion batteries engineered for the world's most demanding applications." />
+  <meta property="og:url" content="https://www.example.com/en/" />
+  <meta property="og:image" content="https://www.example.com/assets/images/og/home.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/base/prose.css" />
+  <link rel="stylesheet" href="/assets/css/base/loading.css" />
+  <link rel="stylesheet" href="/assets/css/components/buttons.css" />
+  <link rel="stylesheet" href="/assets/css/components/cards.css" />
+  <link rel="stylesheet" href="/assets/css/components/forms.css" />
+  <link rel="stylesheet" href="/assets/css/components/nav.css" />
+  <link rel="stylesheet" href="/assets/css/components/footer.css" />
+  <link rel="stylesheet" href="/assets/css/components/misc.css" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css" />
+
+  <script>
+    document.documentElement.classList.replace('no-js', 'js');
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "BatteryCo",
+    "url": "https://www.example.com/",
+    "logo": "https://www.example.com/assets/images/logo.png",
+    "sameAs": [
+      "https://www.linkedin.com/company/example",
+      "https://twitter.com/example"
+    ],
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "contact@example.com",
+      "telephone": "+86-000-0000-0000",
+      "areaServed": "Worldwide",
+      "availableLanguage": ["en", "zh"]
+    }]
+  }
+  </script>
+</head>
+
+<body>
+  <div data-include="/partials/header.html"></div>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.1 · Hero — full-bleed dark, centered display headline
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="home-hero" data-header-bg="dark" aria-label="Introduction">
+      <div class="home-hero__bg parallax" aria-hidden="true"></div>
+      <div class="home-hero__scrim" aria-hidden="true"></div>
+
+      <div class="home-hero__content container container--xl text-center">
+        <p class="text-eyebrow home-hero__eyebrow" data-reveal="fade">
+          Polymer Lithium Technology
+        </p>
+        <h1 class="display home-hero__title" data-reveal="up" style="--stagger: 1">
+          Power that moves industries forward.
+        </h1>
+        <p class="lead home-hero__sub" data-reveal="up" style="--stagger: 2">
+          From electric mobility to grid-scale storage, our polymer lithium cells
+          deliver the energy density, safety, and cycle life that modern engineering
+          demands.
+        </p>
+        <div class="btn-group home-hero__cta" data-reveal="up" style="--stagger: 3">
+          <a class="btn btn--invert btn--lg" href="/en/products/">Explore products</a>
+          <a class="btn btn--invert-secondary btn--lg" href="/en/contact.html#inquiry">Request a sample</a>
+        </div>
+      </div>
+
+      <a class="home-hero__scroll" href="#highlights" aria-label="Scroll to content">
+        <span></span>
+      </a>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.2 · Product highlights — horizontal scroll rail
+         ════════════════════════════════════════════════════════════════ -->
+    <section id="highlights" class="section home-products" data-header-bg="light">
+      <div class="container container--3xl">
+        <header class="section-head" data-reveal="up">
+          <p class="text-eyebrow">Product Lines</p>
+          <h2>Built for every energy profile.</h2>
+          <p class="lead">
+            Four core platforms cover the full spectrum from high-rate power cells to
+            long-duration storage.
+          </p>
+        </header>
+
+        <div class="scroll-x snap-x home-products__rail" role="list">
+          <a class="card card--fullbleed card--hover card--tall snap-center home-products__card" href="/en/products/#power" role="listitem">
+            <div class="card__media"><div class="ph-img ph-img--power" aria-hidden="true"></div></div>
+            <div class="card__scrim"></div>
+            <div class="card__body">
+              <p class="card__eyebrow">High-rate</p>
+              <h3 class="card__title">Power Cells</h3>
+              <p class="card__desc">Up to 15C continuous discharge for motive, UAV, and tooling applications.</p>
+            </div>
+          </a>
+
+          <a class="card card--fullbleed card--hover card--tall snap-center home-products__card" href="/en/products/#storage" role="listitem">
+            <div class="card__media"><div class="ph-img ph-img--storage" aria-hidden="true"></div></div>
+            <div class="card__scrim"></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Long-duration</p>
+              <h3 class="card__title">Energy Storage</h3>
+              <p class="card__desc">4,000+ cycle service life for residential, commercial, and grid systems.</p>
+            </div>
+          </a>
+
+          <a class="card card--fullbleed card--hover card--tall snap-center home-products__card" href="/en/products/#consumer" role="listitem">
+            <div class="card__media"><div class="ph-img ph-img--consumer" aria-hidden="true"></div></div>
+            <div class="card__scrim"></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Ultra-slim</p>
+              <h3 class="card__title">Consumer Electronics</h3>
+              <p class="card__desc">Form factors from 1.5 mm pouches for wearables to tablet-grade cells.</p>
+            </div>
+          </a>
+
+          <a class="card card--fullbleed card--hover card--tall snap-center home-products__card" href="/en/products/#custom" role="listitem">
+            <div class="card__media"><div class="ph-img ph-img--custom" aria-hidden="true"></div></div>
+            <div class="card__scrim"></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Bespoke</p>
+              <h3 class="card__title">Custom Cells</h3>
+              <p class="card__desc">Geometry, chemistry, and BMS tuned to your design envelope.</p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.3 · Applications — 3 cinematic full-bleed tiles
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="home-apps" aria-label="Applications">
+      <div class="home-apps__grid">
+        <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--ev" href="/en/applications/ev.html" data-header-bg="dark">
+          <div class="card__scrim"></div>
+          <div class="card__body container container--xl">
+            <p class="card__eyebrow">Transportation</p>
+            <h2 class="card__title">Electric mobility at scale.</h2>
+            <p class="card__desc">
+              Automotive-grade packs certified to IEC 62660 and UN 38.3.
+            </p>
+            <span class="btn btn--invert btn--md mt-4">Learn more →</span>
+          </div>
+        </a>
+
+        <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--grid" href="/en/applications/energy-storage.html" data-header-bg="dark">
+          <div class="card__scrim"></div>
+          <div class="card__body container container--xl">
+            <p class="card__eyebrow">Energy</p>
+            <h2 class="card__title">Storage that stays online.</h2>
+            <p class="card__desc">
+              Modular racks from 5 kWh residential to megawatt-scale deployments.
+            </p>
+            <span class="btn btn--invert btn--md mt-4">Learn more →</span>
+          </div>
+        </a>
+
+        <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--drone" href="/en/applications/drone.html" data-header-bg="dark">
+          <div class="card__scrim"></div>
+          <div class="card__body container container--xl">
+            <p class="card__eyebrow">Robotics &amp; UAV</p>
+            <h2 class="card__title">Flight, extended.</h2>
+            <p class="card__desc">
+              High-rate cells engineered for payload endurance and thermal stability.
+            </p>
+            <span class="btn btn--invert btn--md mt-4">Learn more →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.4 · Numbers strip
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section section--tight home-stats bg-inverse" data-header-bg="dark">
+      <div class="container container--3xl">
+        <ul class="home-stats__grid" role="list">
+          <li data-reveal="up" style="--stagger: 1">
+            <span class="home-stats__value">280<span class="home-stats__unit">Wh/kg</span></span>
+            <span class="home-stats__label">Peak energy density</span>
+          </li>
+          <li data-reveal="up" style="--stagger: 2">
+            <span class="home-stats__value">4,000<span class="home-stats__unit">cycles</span></span>
+            <span class="home-stats__label">Service life at 80% DoD</span>
+          </li>
+          <li data-reveal="up" style="--stagger: 3">
+            <span class="home-stats__value">15<span class="home-stats__unit">C</span></span>
+            <span class="home-stats__label">Continuous discharge</span>
+          </li>
+          <li data-reveal="up" style="--stagger: 4">
+            <span class="home-stats__value">42<span class="home-stats__unit">countries</span></span>
+            <span class="home-stats__label">Shipping worldwide</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.5 · Technology advantages — 3-col feature grid
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section home-tech">
+      <div class="container container--xl">
+        <header class="section-head text-center" data-reveal="up">
+          <p class="text-eyebrow">Engineering</p>
+          <h2>Three advantages, engineered in.</h2>
+          <p class="lead mx-auto" style="max-width: 60ch;">
+            Every cell leaves our line having passed the same three gates — the
+            reason field failures stay vanishingly rare.
+          </p>
+        </header>
+
+        <ul class="home-tech__grid" role="list">
+          <li class="home-tech__item" data-reveal="up" style="--stagger: 1">
+            <svg class="home-tech__icon" width="40" height="40" aria-hidden="true">
+              <use href="/assets/icons/icons.svg#shield"/>
+            </svg>
+            <h3>Safety by design</h3>
+            <p>
+              Aluminum-laminate pouch, ceramic-coated separator, and flame-retardant
+              electrolyte — layered protection against thermal runaway.
+            </p>
+          </li>
+          <li class="home-tech__item" data-reveal="up" style="--stagger: 2">
+            <svg class="home-tech__icon" width="40" height="40" aria-hidden="true">
+              <use href="/assets/icons/icons.svg#bolt"/>
+            </svg>
+            <h3>Energy density</h3>
+            <p>
+              High-nickel cathodes paired with silicon-doped anodes push volumetric
+              density 18% above the NMC industry benchmark.
+            </p>
+          </li>
+          <li class="home-tech__item" data-reveal="up" style="--stagger: 3">
+            <svg class="home-tech__icon" width="40" height="40" aria-hidden="true">
+              <use href="/assets/icons/icons.svg#leaf"/>
+            </svg>
+            <h3>Built to last</h3>
+            <p>
+              Electrode coating uniformity under ±1% tolerance — the foundation of
+              4,000-cycle service life across real-world duty profiles.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.6 · Case study preview
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section bg-alt home-cases">
+      <div class="container container--xl">
+        <header class="section-head flex justify-between items-end flex-wrap gap-4" data-reveal="up">
+          <div>
+            <p class="text-eyebrow">Case Studies</p>
+            <h2>In production, in the field.</h2>
+          </div>
+          <a class="btn btn--link" href="/en/cases/">Browse all →</a>
+        </header>
+
+        <div class="card-grid card-grid--2">
+          <a class="card card--hover card--elevated" href="/en/cases/" data-reveal="up" style="--stagger: 1">
+            <div class="card__media" style="aspect-ratio: 3/2;">
+              <div class="ph-img ph-img--case1" aria-hidden="true"></div>
+            </div>
+            <span class="card__badge">Automotive</span>
+            <div class="card__body">
+              <p class="card__eyebrow">Tier-1 OEM, Germany</p>
+              <h3 class="card__title">Doubling range without redesigning the pack.</h3>
+              <p class="card__desc">
+                A high-nickel upgrade lifted a production EV platform from 380 to
+                620 km WLTP — without touching the chassis.
+              </p>
+              <div class="card__meta">
+                <span>2024</span>
+                <span>EV, 120 kWh pack</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="card card--hover card--elevated" href="/en/cases/" data-reveal="up" style="--stagger: 2">
+            <div class="card__media" style="aspect-ratio: 3/2;">
+              <div class="ph-img ph-img--case2" aria-hidden="true"></div>
+            </div>
+            <span class="card__badge">Energy</span>
+            <div class="card__body">
+              <p class="card__eyebrow">Utility, Australia</p>
+              <h3 class="card__title">A 22 MWh grid asset, delivered in 11 weeks.</h3>
+              <p class="card__desc">
+                Pre-configured rack system shaved procurement-to-commissioning
+                timeline by 40% over the previous vendor.
+              </p>
+              <div class="card__meta">
+                <span>2023</span>
+                <span>22 MWh / 11 MW</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.7 · Blog preview
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="section home-blog">
+      <div class="container container--xl">
+        <header class="section-head flex justify-between items-end flex-wrap gap-4" data-reveal="up">
+          <div>
+            <p class="text-eyebrow">Insights</p>
+            <h2>From our engineers.</h2>
+          </div>
+          <a class="btn btn--link" href="/en/blog/">Read the blog →</a>
+        </header>
+
+        <div class="card-grid card-grid--3">
+          <a class="card card--hover" href="/en/blog/" data-reveal="up" style="--stagger: 1">
+            <div class="card__media"><div class="ph-img ph-img--blog1" aria-hidden="true"></div></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Technology</p>
+              <h3 class="card__title line-clamp-2">Silicon anodes: what finally made them work.</h3>
+              <div class="card__meta">
+                <span>Dr. Lin Wei</span><span>6 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="card card--hover" href="/en/blog/" data-reveal="up" style="--stagger: 2">
+            <div class="card__media"><div class="ph-img ph-img--blog2" aria-hidden="true"></div></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Manufacturing</p>
+              <h3 class="card__title line-clamp-2">Why coating tolerance dominates cycle life.</h3>
+              <div class="card__meta">
+                <span>Sara Chen</span><span>4 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="card card--hover" href="/en/blog/" data-reveal="up" style="--stagger: 3">
+            <div class="card__media"><div class="ph-img ph-img--blog3" aria-hidden="true"></div></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Industry</p>
+              <h3 class="card__title line-clamp-2">A field guide to thermal runaway prevention.</h3>
+              <div class="card__meta">
+                <span>M. Álvarez</span><span>9 min read</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ════════════════════════════════════════════════════════════════
+         B1.8 · End CTA — dark full-bleed
+         ════════════════════════════════════════════════════════════════ -->
+    <section class="home-cta" data-header-bg="dark">
+      <div class="container container--xl text-center">
+        <p class="text-eyebrow" data-reveal="fade">Start the conversation</p>
+        <h2 class="display home-cta__title" data-reveal="up" style="--stagger: 1">
+          Tell us about your design.
+        </h2>
+        <p class="lead home-cta__sub" data-reveal="up" style="--stagger: 2">
+          Our application engineers respond within one business day — with specs,
+          samples, and a path to production.
+        </p>
+        <div class="btn-group mt-8" data-reveal="up" style="--stagger: 3">
+          <a class="btn btn--invert btn--lg" href="/en/contact.html">Contact sales</a>
+          <a class="btn btn--invert-secondary btn--lg" href="/en/contact.html#datasheet">Download datasheets</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <div data-include="/partials/cookie.html"></div>
+
+  <button type="button" class="back-to-top" data-back-to-top aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path fill="currentColor" d="M8 3l5 5-1.4 1.4L9 6.8V13H7V6.8L4.4 9.4 3 8z"/>
+    </svg>
+  </button>
+
+  <script defer src="/assets/js/partials-loader.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/mobile-nav.js"></script>
+  <script defer src="/assets/js/reveal.js"></script>
+  <script defer src="/assets/js/back-to-top.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+</body>
+</html>
