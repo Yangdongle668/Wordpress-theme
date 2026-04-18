@@ -186,7 +186,7 @@
 .home-apps__tile {
   position: relative;
   display: block;
-  min-height: 100svh;
+  min-height: 86svh;
   overflow: hidden;
   border-radius: 0;
 }
@@ -410,22 +410,15 @@
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Homepage scroll-snap (first 5 sections act as one-tick-per-section)
-
-   Snap points, top-to-bottom:
-     1. .home-hero
-     2. .home-products   (bumped to 100svh + content centered)
-     3. .home-apps__tile[ev]        (each application tile = 100svh)
-     4. .home-apps__tile[storage]
-     5. .home-apps__tile[drone]
-
-   Sections after that (home-stats, home-tech, home-cases, home-blog,
-   home-cta, footer) have no snap-align, so the scroll becomes unconstrained
-   again once the user is past tile 3. That keeps content-dense sections
-   free to scroll naturally without snap-fighting.
+   Homepage scroll-snap (first 5 viewports act like slides)
+   -----------------------------------------------------------------------------
+   Snap points: hero → products → ev tile → storage tile → drone tile.
+   Each is exactly one viewport tall; scroll-snap-type: mandatory on the
+   scroll root makes one wheel tick advance one slide. After tile 3 the
+   page scrolls normally (stats, tech, cases, blog, cta, footer).
    ═══════════════════════════════════════════════════════════════════════════ */
 
-body.page-home {
+html:has(body.page-home) {
   scroll-snap-type: y mandatory;
 }
 
@@ -436,13 +429,37 @@ body.page-home {
   scroll-snap-stop: always;
 }
 
+/* Section 2 — fit everything (section-head + 4-card rail) into one
+   viewport. Cards shrink to whatever height is left after the heading,
+   instead of growing to their own 560 px default and overflowing. */
 .page-home .home-products {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
+}
+.page-home .home-products__rail {
+  margin-top: var(--space-6);
+}
+@media (min-width: 992px) {
+  .page-home .home-products__card {
+    min-height: 0;
+    height: clamp(280px, 55svh, 480px);
+  }
 }
 
+/* Sections 3-5 — each application tile fills a full viewport so scroll
+   snaps cleanly onto it. Default was 86svh which left the snap tail
+   peeking at the next one. */
+.page-home .home-apps__tile {
+  min-height: 100svh;
+}
+
+/* Mobile / reduced motion fallbacks */
+@media (max-width: 900px) {
+  html:has(body.page-home) { scroll-snap-type: none; }
+}
 @media (prefers-reduced-motion: reduce) {
-  body.page-home { scroll-snap-type: none; }
+  html:has(body.page-home) { scroll-snap-type: none; }
 }
