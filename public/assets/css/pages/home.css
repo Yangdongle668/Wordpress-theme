@@ -418,44 +418,94 @@
    page scrolls normally (stats, tech, cases, blog, cta, footer).
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* The actual one-wheel-per-section snap is driven by home-snap.js.
-   CSS `scroll-snap-type: mandatory` had two real-world failure modes
-   on this layout: (a) a low-momentum wheel tick didn't cross the snap
-   threshold so scroll rested between sections, and (b) past the last
-   snap point the scroll was trapped, so sections 6+ (stats/tech/cases
-   /blog/cta/footer) became unreachable. JS handles the wheel intercept
-   on sections 1-5; CSS just makes each snap section exactly one
-   viewport tall. */
+/* ═══════════════════════════════════════════════════════════════════════════
+   Home applications — folded sticky slideshow
 
-.page-home .home-hero,
-.page-home .home-products,
-.page-home .home-apps__tile {
-  height: 100svh;
+   The outer .home-apps--stack is 3× viewport tall. Inside it, .home-apps__stage
+   is position:sticky and 100svh tall, so it pins as the user scrolls through
+   the stack. home-apps-stack.js watches the stack's bounding-rect progress and
+   cross-fades the three tiles so one viewport's worth of scroll shows one
+   application, giving "fold three sections into one" with no wheel-hijacking.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.home-apps--stack {
+  position: relative;
+  height: 300svh;                  /* 3 slides × 100svh of scroll travel */
+  background: var(--color-black);
 }
-
-/* Section 2 — keep section-head + 4-card rail inside one viewport.
-   Cards shrink to fit the remaining height instead of growing to their
-   560 px default and pushing the rail past the bottom. */
-.page-home .home-products {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.home-apps__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
   overflow: hidden;
 }
-.page-home .home-products__rail {
-  margin-top: var(--space-6);
-}
-@media (min-width: 992px) {
-  .page-home .home-products__card {
-    min-height: 0;
-    height: clamp(280px, 55svh, 480px);
-  }
+.home-apps__slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-/* Narrow screens: drop the fixed viewport heights — address-bar
-   resize + short content in a 100svh frame looks cramped on phones. */
+/* Every slide is absolute-pinned inside the stage and fades in/out. */
+.home-apps--stack .home-apps__tile {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity    var(--duration-base) var(--ease-out),
+    visibility 0s linear var(--duration-base);
+}
+.home-apps--stack .home-apps__tile.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+/* Dots indicator — centered under the hero copy, clickable to jump */
+.home-apps__dots {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-10);
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-3);
+  z-index: 3;
+}
+.home-apps__dots button {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.38);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-quick) var(--ease-out),
+    transform        var(--duration-quick) var(--ease-emphasis);
+}
+.home-apps__dots button:hover { background: rgba(255, 255, 255, 0.7); }
+.home-apps__dots button.is-active {
+  background: var(--color-white);
+  transform: scale(1.35);
+}
+
+/* Narrow screens: flatten the stack back into 3 stacked tiles (no
+   sticky progression) so phones scroll through them normally. */
 @media (max-width: 900px) {
-  .page-home .home-products,
-  .page-home .home-apps__tile { height: auto; }
-  .page-home .home-apps__tile { min-height: 72svh; }
+  .home-apps--stack { height: auto; }
+  .home-apps__stage { position: static; height: auto; }
+  .home-apps__slides { display: block; }
+  .home-apps--stack .home-apps__tile {
+    position: relative;
+    inset: auto;
+    opacity: 1;
+    visibility: visible;
+    min-height: 72svh;
+  }
+  .home-apps__dots { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-apps--stack .home-apps__tile { transition: none; }
 }
