@@ -1,0 +1,366 @@
+/* =============================================================================
+   .prose — Long-form typography class
+   -----------------------------------------------------------------------------
+   Applied to a wrapping container for rich text (blog articles, privacy
+   policy, case study body). Provides polished vertical rhythm, readable
+   measure, and refined defaults for inline elements.
+
+   Usage:
+     <article class="prose">
+       <h1>Article title</h1>
+       <p class="prose__lead">...</p>
+       <h2>Section</h2>
+       <p>...</p>
+       <figure>...</figure>
+     </article>
+
+   Size modifiers: .prose--sm / .prose--lg
+   Width  modifiers: .prose--wide (wider measure) / .prose--full (no cap)
+   Theme  modifier:  .prose--invert (for dark backgrounds)
+   ============================================================================= */
+
+
+.prose {
+  --prose-measure:        68ch;
+  --prose-fg:             var(--color-text);
+  --prose-fg-muted:       var(--color-text-muted);
+  --prose-heading:        var(--color-text);
+  --prose-link:           var(--color-accent);
+  --prose-link-hover:     var(--color-accent-hover);
+  --prose-border:         var(--color-border);
+  --prose-code-bg:        var(--color-surface-soft);
+  --prose-blockquote-bar: var(--color-border-strong);
+
+  color: var(--prose-fg);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+  max-width: var(--prose-measure);
+  /* Use a flow-level vertical rhythm so child margins compose predictably. */
+  --flow-space: var(--space-6);
+}
+
+/* ─── Base flow: every direct child gets top-margin from the previous ──── */
+
+.prose > * + * {
+  margin-top: var(--flow-space);
+}
+
+/* ─── Headings ─────────────────────────────────────────────────────────── */
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--prose-heading);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  text-wrap: balance;
+  scroll-margin-top: calc(var(--header-height) + var(--space-6));
+}
+
+.prose h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-tight);
+  --flow-space: var(--space-12);
+}
+.prose h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-tight);
+  --flow-space: var(--space-12);
+  padding-top: var(--space-2);
+}
+.prose h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-snug);
+  --flow-space: var(--space-10);
+}
+.prose h4 {
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-snug);
+  --flow-space: var(--space-8);
+}
+.prose h5 {
+  font-size: var(--font-size-h5);
+  --flow-space: var(--space-6);
+}
+.prose h6 {
+  font-size: var(--font-size-h6);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--prose-fg-muted);
+  --flow-space: var(--space-6);
+}
+
+/* First heading after a heading sits tighter */
+.prose :is(h1, h2, h3, h4) + :is(h2, h3, h4) {
+  --flow-space: var(--space-4);
+}
+
+/* ─── Paragraph + lead ─────────────────────────────────────────────────── */
+
+.prose p {
+  color: inherit;
+  line-height: var(--line-height-relaxed);
+  max-width: none;
+}
+
+.prose__lead,
+.prose > p:first-of-type {
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--prose-fg-muted);
+}
+
+/* Drop-cap modifier for editorial flair */
+.prose--dropcap > p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.5em;
+  line-height: 0.9;
+  font-weight: var(--font-weight-semibold);
+  padding: 0.05em 0.12em 0 0;
+  color: var(--prose-heading);
+}
+
+/* ─── Inline elements ──────────────────────────────────────────────────── */
+
+.prose a {
+  color: var(--prose-link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--prose-link) 40%, transparent);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+  transition: var(--transition-colors);
+}
+.prose a:hover {
+  color: var(--prose-link-hover);
+  text-decoration-color: var(--prose-link-hover);
+}
+
+.prose strong { font-weight: var(--font-weight-semibold); color: var(--prose-heading); }
+.prose em     { font-style: italic; }
+.prose small  { font-size: var(--font-size-sm); color: var(--prose-fg-muted); }
+.prose mark {
+  background: var(--color-accent-tint);
+  color: var(--color-accent-active);
+  padding: 0 0.2em;
+  border-radius: var(--radius-xs);
+}
+.prose abbr[title] {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+.prose kbd {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.1em 0.4em;
+  border: 1px solid var(--color-border-strong);
+  border-bottom-width: 2px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg);
+}
+
+/* ─── Lists ────────────────────────────────────────────────────────────── */
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+}
+.prose ul { list-style: disc; }
+.prose ol { list-style: decimal; }
+
+.prose li {
+  padding-left: 0.3em;
+  line-height: var(--line-height-relaxed);
+}
+.prose li::marker {
+  color: var(--color-text-subtle);
+}
+.prose li + li {
+  margin-top: var(--space-2);
+}
+.prose li > :is(ul, ol) {
+  margin-top: var(--space-2);
+}
+.prose li > p {
+  margin-top: var(--space-2);
+}
+
+/* Definition list */
+.prose dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--space-3) var(--space-6);
+}
+.prose dt {
+  font-weight: var(--font-weight-semibold);
+  color: var(--prose-heading);
+}
+.prose dd {
+  color: var(--prose-fg-muted);
+  margin: 0;
+}
+
+/* ─── Blockquote ───────────────────────────────────────────────────────── */
+
+.prose blockquote {
+  position: relative;
+  border-left: 3px solid var(--prose-blockquote-bar);
+  padding: var(--space-2) 0 var(--space-2) var(--space-6);
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  font-style: italic;
+  color: var(--prose-fg-muted);
+}
+.prose blockquote p { max-width: none; }
+.prose blockquote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-style: normal;
+  font-size: var(--font-size-sm);
+  color: var(--prose-fg-muted);
+  letter-spacing: var(--letter-spacing-wide);
+}
+.prose blockquote cite::before { content: "— "; }
+
+/* Pull-quote variant (HTML: <blockquote class="prose__pullquote">) */
+.prose__pullquote {
+  border: 0;
+  padding: var(--space-6) 0;
+  margin-block: var(--space-10);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-snug);
+  color: var(--prose-heading);
+  font-style: normal;
+  text-wrap: balance;
+  border-top: 1px solid var(--prose-border);
+  border-bottom: 1px solid var(--prose-border);
+}
+
+/* ─── Code ─────────────────────────────────────────────────────────────── */
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  background: var(--prose-code-bg);
+  color: var(--prose-heading);
+  border-radius: var(--radius-sm);
+}
+
+.prose pre {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  padding: var(--space-5) var(--space-6);
+  background: var(--prose-code-bg);
+  color: var(--prose-heading);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  border: 1px solid var(--prose-border);
+}
+.prose pre code {
+  padding: 0;
+  background: transparent;
+  font-size: 1em;
+  border-radius: 0;
+}
+
+/* ─── Figures / images / video ─────────────────────────────────────────── */
+
+.prose figure {
+  margin: 0;
+  --flow-space: var(--space-10);
+}
+.prose img,
+.prose video,
+.prose picture {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+.prose figcaption {
+  margin-top: var(--space-3);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--prose-fg-muted);
+  line-height: var(--line-height-normal);
+}
+
+/* Wide figures bleed out past the measure */
+.prose figure.prose__wide {
+  max-width: none;
+  width: min(100%, 960px);
+  margin-inline: calc(50% - min(50%, 480px));
+}
+
+/* ─── Horizontal rule ──────────────────────────────────────────────────── */
+
+.prose hr {
+  height: 1px;
+  background: var(--prose-border);
+  border: 0;
+  margin: var(--space-12) auto;
+  max-width: 120px;
+}
+
+/* ─── Tables ───────────────────────────────────────────────────────────── */
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  --flow-space: var(--space-8);
+}
+.prose th,
+.prose td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--prose-border);
+  vertical-align: top;
+}
+.prose th {
+  font-weight: var(--font-weight-semibold);
+  color: var(--prose-heading);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+.prose tbody tr:hover {
+  background: var(--color-surface-soft);
+}
+
+/* ─── Size / width / theme modifiers ───────────────────────────────────── */
+
+.prose--sm {
+  font-size: var(--font-size-sm);
+  --prose-measure: 64ch;
+  --flow-space: var(--space-5);
+}
+.prose--sm h1 { font-size: var(--font-size-h2); }
+.prose--sm h2 { font-size: var(--font-size-h3); }
+.prose--sm h3 { font-size: var(--font-size-h4); }
+
+.prose--lg {
+  font-size: var(--font-size-lg);
+  --prose-measure: 72ch;
+  --flow-space: var(--space-7);
+}
+
+.prose--wide { --prose-measure: 84ch; }
+.prose--full { --prose-measure: none; max-width: none; }
+
+.prose--invert {
+  --prose-fg:             rgba(255, 255, 255, 0.82);
+  --prose-fg-muted:       rgba(255, 255, 255, 0.64);
+  --prose-heading:        var(--color-white);
+  --prose-link:           #75B7FF;
+  --prose-link-hover:     var(--color-white);
+  --prose-border:         rgba(255, 255, 255, 0.12);
+  --prose-code-bg:        rgba(255, 255, 255, 0.08);
+  --prose-blockquote-bar: rgba(255, 255, 255, 0.24);
+}
