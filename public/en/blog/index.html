@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Blog — Engineering Notes from BatteryCo</title>
+  <meta name="description" content="Technology, manufacturing, safety, and standards — engineering notes from the BatteryCo team on polymer lithium battery design and production." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#171A20" />
+
+  <link rel="canonical" href="https://www.example.com/en/blog/" />
+  <link rel="alternate" hreflang="en" href="https://www.example.com/en/blog/" />
+  <link rel="alternate" hreflang="zh" href="https://www.example.com/zh/blog/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.example.com/en/blog/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="BatteryCo" />
+  <meta property="og:title" content="Blog — BatteryCo" />
+  <meta property="og:description" content="Engineering notes from the BatteryCo team." />
+  <meta property="og:url" content="https://www.example.com/en/blog/" />
+  <meta property="og:image" content="https://www.example.com/assets/images/og/blog.jpg" />
+
+  <link rel="alternate" type="application/rss+xml" title="BatteryCo Blog RSS" href="/en/blog/rss.xml" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/base/prose.css" />
+  <link rel="stylesheet" href="/assets/css/base/loading.css" />
+  <link rel="stylesheet" href="/assets/css/components/buttons.css" />
+  <link rel="stylesheet" href="/assets/css/components/cards.css" />
+  <link rel="stylesheet" href="/assets/css/components/forms.css" />
+  <link rel="stylesheet" href="/assets/css/components/nav.css" />
+  <link rel="stylesheet" href="/assets/css/components/footer.css" />
+  <link rel="stylesheet" href="/assets/css/components/misc.css" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css" />
+  <link rel="stylesheet" href="/assets/css/pages/blog.css" />
+
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "BatteryCo Blog",
+    "description": "Engineering notes on polymer lithium battery design and production.",
+    "url": "https://www.example.com/en/blog/",
+    "publisher": { "@type": "Organization", "name": "BatteryCo" }
+  }
+  </script>
+</head>
+
+<body>
+  <div data-include="/partials/header.html"></div>
+
+  <main id="main" tabindex="-1">
+
+    <!-- C3.1 Hero -->
+    <section class="blog-hero" data-header-bg="light">
+      <div class="container container--xl">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/en/">Home</a>
+          <span class="breadcrumb__sep" aria-hidden="true">/</span>
+          <span class="breadcrumb__current">Blog</span>
+        </nav>
+        <div class="blog-hero__content">
+          <p class="text-eyebrow" data-reveal="fade">Engineering notes</p>
+          <h1 class="blog-hero__title" data-reveal="up" style="--stagger: 1">
+            How we think about batteries.
+          </h1>
+          <p class="lead blog-hero__sub" data-reveal="up" style="--stagger: 2">
+            Chemistry, process, safety, standards — written by the engineers who
+            own the outcome.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- C3.2 Featured post -->
+    <section class="section blog-featured">
+      <div class="container container--xl">
+        <a class="blog-featured__card card card--hover" href="/en/blog/silicon-anodes.html" data-reveal="up">
+          <div class="blog-featured__media">
+            <div class="ph-img ph-img--blog1" aria-hidden="true"></div>
+            <span class="card__badge">Featured</span>
+          </div>
+          <div class="blog-featured__body">
+            <p class="card__eyebrow">Technology</p>
+            <h2 class="blog-featured__title">
+              Silicon anodes: what finally made them work.
+            </h2>
+            <p class="blog-featured__desc">
+              Fifteen years of failed commercialization, and then three specific
+              process improvements unlocked it. A walk through what changed —
+              and why the industry is about to feel it.
+            </p>
+            <div class="blog-featured__meta">
+              <span>Dr. Lin Wei</span>
+              <span>6 min read</span>
+              <span>Jul 18, 2024</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+
+    <!-- C3.3 Category tabs -->
+    <section class="blog-filter" aria-label="Filter articles">
+      <div class="container container--xl">
+        <div class="tabs blog-filter__tabs scroll-x" role="tablist">
+          <button type="button" class="tab is-active" data-filter="all" aria-selected="true">All</button>
+          <button type="button" class="tab" data-filter="technology" aria-selected="false">Technology</button>
+          <button type="button" class="tab" data-filter="manufacturing" aria-selected="false">Manufacturing</button>
+          <button type="button" class="tab" data-filter="safety" aria-selected="false">Safety</button>
+          <button type="button" class="tab" data-filter="standards" aria-selected="false">Standards</button>
+          <button type="button" class="tab" data-filter="industry" aria-selected="false">Industry</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- C3.4 Posts grid -->
+    <section class="section">
+      <div class="container container--xl">
+        <ul class="blog-grid" role="list">
+
+          <li data-category="manufacturing" data-reveal="up" style="--stagger: 1">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--blog2"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Manufacturing</p>
+                <h3 class="card__title line-clamp-2">Why coating tolerance dominates cycle life.</h3>
+                <p class="card__desc line-clamp-2">Electrode uniformity under ±1% is the single biggest lever on cycle count — and the hardest one to achieve in production.</p>
+                <div class="card__meta"><span>Sara Chen</span><span>4 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="safety" data-reveal="up" style="--stagger: 2">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--blog3"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Safety</p>
+                <h3 class="card__title line-clamp-2">A field guide to thermal runaway prevention.</h3>
+                <p class="card__desc line-clamp-2">Separator, electrolyte, vent design — the three lines of defense, and how to think about them as a system.</p>
+                <div class="card__meta"><span>M. Álvarez</span><span>9 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="standards" data-reveal="up" style="--stagger: 3">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--blog1"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Standards</p>
+                <h3 class="card__title line-clamp-2">IEC 62660 vs ISO 26262: what's required, and when.</h3>
+                <p class="card__desc line-clamp-2">A readable walkthrough of the two certifications that matter most for automotive programs.</p>
+                <div class="card__meta"><span>Sara Chen</span><span>7 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="technology" data-reveal="up" style="--stagger: 4">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--power"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Technology</p>
+                <h3 class="card__title line-clamp-2">High-rate pouch cells: beyond the headline C-rate.</h3>
+                <p class="card__desc line-clamp-2">What peak discharge actually looks like across a real duty cycle — and why the datasheet number often misleads.</p>
+                <div class="card__meta"><span>Dr. Lin Wei</span><span>8 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="industry" data-reveal="up" style="--stagger: 5">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--storage"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Industry</p>
+                <h3 class="card__title line-clamp-2">The economics of second-life storage.</h3>
+                <p class="card__desc line-clamp-2">When retired EV packs make sense for grid-scale applications — and when they don't.</p>
+                <div class="card__meta"><span>Priya Natarajan</span><span>5 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="manufacturing" data-reveal="up" style="--stagger: 6">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--consumer"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Manufacturing</p>
+                <h3 class="card__title line-clamp-2">Dry-room humidity: why 0.5% matters.</h3>
+                <p class="card__desc line-clamp-2">A tour through the dry-room specs that separate pilot-line quality from mass-production yields.</p>
+                <div class="card__meta"><span>Sara Chen</span><span>6 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="safety" data-reveal="up" style="--stagger: 7">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--case1"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Safety</p>
+                <h3 class="card__title line-clamp-2">BMS balancing strategies for long-string packs.</h3>
+                <p class="card__desc line-clamp-2">Passive vs. active balancing across 100+ cells in series: when the extra hardware pays back.</p>
+                <div class="card__meta"><span>M. Álvarez</span><span>10 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="technology" data-reveal="up" style="--stagger: 8">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--blog2"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Technology</p>
+                <h3 class="card__title line-clamp-2">LFP's quiet resurgence.</h3>
+                <p class="card__desc line-clamp-2">Why the chemistry everyone wrote off in 2015 is back on more BOMs than NMC this year.</p>
+                <div class="card__meta"><span>Dr. Lin Wei</span><span>7 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+          <li data-category="industry" data-reveal="up" style="--stagger: 9">
+            <a class="card card--hover" href="/en/blog/silicon-anodes.html">
+              <div class="card__media"><div class="ph-img ph-img--case2"></div></div>
+              <div class="card__body">
+                <p class="card__eyebrow">Industry</p>
+                <h3 class="card__title line-clamp-2">What the new EU Battery Regulation means for you.</h3>
+                <p class="card__desc line-clamp-2">Passport data, recycled content minimums, CFPR — a practical summary for design teams.</p>
+                <div class="card__meta"><span>Priya Natarajan</span><span>11 min read</span></div>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+
+        <!-- Pagination -->
+        <nav class="pagination" aria-label="Pagination">
+          <a href="#" class="is-disabled" aria-disabled="true" aria-label="Previous page">←</a>
+          <a href="#" aria-current="page">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+          <a href="#" aria-label="Next page">→</a>
+        </nav>
+      </div>
+    </section>
+
+
+    <!-- C3.5 Newsletter -->
+    <section class="section bg-alt blog-newsletter">
+      <div class="container container--md text-center" data-reveal="up">
+        <p class="text-eyebrow">Newsletter</p>
+        <h2>New piece, first Monday of every month.</h2>
+        <p class="lead">
+          One long-form article on battery engineering, plus a short reading list.
+          No product spam. Unsubscribe anytime.
+        </p>
+
+        <form class="blog-newsletter__form form-row mx-auto" action="/api/contact" method="post" style="max-width: 480px; margin-top: var(--space-6);">
+          <input type="email" name="email" class="input" placeholder="you@company.com" required aria-label="Email address" />
+          <button type="submit" class="btn btn--primary">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <div data-include="/partials/cookie.html"></div>
+
+  <button type="button" class="back-to-top" data-back-to-top aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path fill="currentColor" d="M8 3l5 5-1.4 1.4L9 6.8V13H7V6.8L4.4 9.4 3 8z"/>
+    </svg>
+  </button>
+
+  <script>
+    (() => {
+      const tabs = document.querySelectorAll('.blog-filter__tabs .tab');
+      const items = document.querySelectorAll('[data-category]');
+      if (!tabs.length) return;
+
+      document.querySelector('.blog-filter__tabs').addEventListener('click', (e) => {
+        const tab = e.target.closest('.tab');
+        if (!tab) return;
+        const filter = tab.dataset.filter;
+
+        tabs.forEach((t) => {
+          const on = t === tab;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', String(on));
+        });
+
+        items.forEach((el) => {
+          const show = filter === 'all' || el.dataset.category === filter;
+          el.style.display = show ? '' : 'none';
+        });
+      });
+    })();
+  </script>
+
+  <script defer src="/assets/js/partials-loader.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/mobile-nav.js"></script>
+  <script defer src="/assets/js/reveal.js"></script>
+  <script defer src="/assets/js/back-to-top.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+</body>
+</html>
