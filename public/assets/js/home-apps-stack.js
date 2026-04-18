@@ -12,11 +12,6 @@
  *         <a class="home-apps__tile"           data-index="1">…</a>
  *         <a class="home-apps__tile"           data-index="2">…</a>
  *       </div>
- *       <nav class="home-apps__dots">
- *         <button data-jump="0" class="is-active"></button>
- *         <button data-jump="1"></button>
- *         <button data-jump="2"></button>
- *       </nav>
  *     </div>
  *   </section>
  *
@@ -25,7 +20,7 @@
  * range (0–1). Each 1/N of the range activates the matching tile.
  *
  * No wheel hijacking — native scroll carries the user in and out of the
- * stack. Dots are clickable shortcuts.
+ * stack. Transitions (fade + slide + background lift) live in CSS.
  */
 
 (() => {
@@ -35,7 +30,6 @@
   if (!stack) return;
 
   const tiles = Array.from(stack.querySelectorAll('.home-apps__tile'));
-  const dots  = Array.from(stack.querySelectorAll('.home-apps__dots button'));
   const N     = tiles.length;
   if (N === 0) return;
 
@@ -46,7 +40,6 @@
     if (idx === currentIdx) return;
     currentIdx = idx;
     tiles.forEach((t, i) => t.classList.toggle('is-active', i === idx));
-    dots.forEach((d, i)  => d.classList.toggle('is-active', i === idx));
   };
 
   const update = () => {
@@ -80,22 +73,6 @@
 
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
-
-  // Dot click: smooth-scroll to the midpoint of the target slide.
-  dots.forEach((dot) => {
-    dot.addEventListener('click', (e) => {
-      e.preventDefault();
-      const i = parseInt(dot.dataset.jump || '0', 10);
-      const range = stack.offsetHeight - window.innerHeight;
-      const stackTopAbs = stack.getBoundingClientRect().top + window.scrollY;
-      // Place us a little past the slide boundary so progress lands in
-      // the middle of slot i, not on the knife-edge where rounding may
-      // still register i-1.
-      const target = stackTopAbs + range * ((i + 0.5) / N);
-      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.scrollTo({ top: target, behavior: reduced ? 'auto' : 'smooth' });
-    });
-  });
 
   update();
 })();
