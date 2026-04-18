@@ -101,11 +101,13 @@
   position: sticky;
   top: var(--header-height);
   z-index: var(--z-sticky);
-  background: color-mix(in srgb, var(--color-bg) 86%, transparent);
-  backdrop-filter: var(--backdrop-frosted);
-  -webkit-backdrop-filter: var(--backdrop-frosted);
+  background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
+  /* Drop sticky offset to 0 while the site header is hidden, animate back
+     up when the header reappears. See header.js → .header-hidden toggle. */
+  transition: top var(--duration-base) var(--ease-out);
 }
+html.header-hidden .blog-filter { top: 0; }
 .blog-filter__tabs {
   border-bottom: 0;
   margin-bottom: 0;
