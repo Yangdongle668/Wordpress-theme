@@ -1,0 +1,310 @@
+/* =============================================================================
+   Footer Component
+   -----------------------------------------------------------------------------
+   Multi-column site footer with brand column, link groups, newsletter CTA,
+   social icons, and a bottom meta row.
+
+   Expected structure (rendered by partials/footer.html later):
+
+     <footer class="site-footer" role="contentinfo">
+       <div class="site-footer__top container container--fluid">
+         <div class="site-footer__brand">...</div>
+         <nav class="site-footer__groups" aria-label="Footer">
+           <div class="site-footer__group">
+             <h4 class="site-footer__heading">Products</h4>
+             <ul class="site-footer__list" role="list">
+               <li><a href="/en/products/">All products</a></li>
+               ...
+             </ul>
+           </div>
+           ...
+         </nav>
+       </div>
+       <div class="site-footer__bottom container container--fluid">
+         <p class="site-footer__copy">© 2025 Company Ltd.</p>
+         <ul class="site-footer__meta" role="list">...</ul>
+         <ul class="site-footer__social" role="list">...</ul>
+       </div>
+     </footer>
+   ============================================================================= */
+
+
+.site-footer {
+  --footer-bg:     var(--color-ink);
+  --footer-fg:     rgba(255, 255, 255, 0.76);
+  --footer-heading:var(--color-white);
+  --footer-border: rgba(255, 255, 255, 0.08);
+  --footer-link-hover: var(--color-white);
+
+  background-color: var(--footer-bg);
+  color: var(--footer-fg);
+  padding-block: var(--footer-padding-y) var(--space-8);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Light footer variant */
+.site-footer--light {
+  --footer-bg:     var(--color-snow);
+  --footer-fg:     var(--color-text-muted);
+  --footer-heading:var(--color-ink);
+  --footer-border: var(--color-border);
+  --footer-link-hover: var(--color-ink);
+}
+
+
+/* ─── Top section: brand + link groups ─────────────────────────────────── */
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: minmax(240px, 1.2fr) 3fr;
+  gap: var(--space-12);
+  padding-block: var(--space-4) var(--space-12);
+  border-bottom: 1px solid var(--footer-border);
+}
+
+@media (max-width: 992px) {
+  .site-footer__top {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+}
+
+
+/* ─── Brand column ─────────────────────────────────────────────────────── */
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 360px;
+}
+
+.site-footer__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+  color: var(--footer-heading);
+  text-decoration: none;
+}
+.site-footer__logo img,
+.site-footer__logo svg { height: 24px; width: auto; display: block; }
+
+.site-footer__tagline {
+  color: var(--footer-fg);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+.site-footer__address {
+  font-style: normal;
+  color: var(--footer-fg);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+.site-footer__address a {
+  color: inherit;
+  text-decoration: none;
+}
+.site-footer__address a:hover { color: var(--footer-link-hover); }
+
+
+/* ─── Link groups ─────────────────────────────────────────────────────── */
+
+.site-footer__groups {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .site-footer__groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8) var(--space-6);
+  }
+}
+@media (max-width: 480px) {
+  .site-footer__groups {
+    grid-template-columns: 1fr;
+  }
+  .site-footer__group {
+    border-bottom: 1px solid var(--footer-border);
+    padding-bottom: var(--space-4);
+  }
+  .site-footer__group:last-child { border-bottom: 0; }
+}
+
+.site-footer__heading {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+  color: var(--footer-heading);
+  margin-bottom: var(--space-4);
+}
+
+.site-footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.site-footer__list a {
+  display: inline-block;
+  color: var(--footer-fg);
+  text-decoration: none;
+  padding: var(--space-0-5) 0;
+  transition: color var(--duration-quick) var(--ease-out);
+}
+.site-footer__list a:hover,
+.site-footer__list a:focus-visible {
+  color: var(--footer-link-hover);
+}
+
+
+/* ─── Newsletter block (optional, lives inside a group) ────────────────── */
+
+.site-footer__newsletter {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.site-footer__newsletter input {
+  flex: 1;
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--footer-heading);
+  background: transparent;
+  border: 1px solid var(--footer-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-quick) var(--ease-out);
+}
+.site-footer__newsletter input::placeholder { color: rgba(255,255,255,0.4); }
+.site-footer__newsletter input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.site-footer--light .site-footer__newsletter input {
+  color: var(--color-ink);
+}
+.site-footer--light .site-footer__newsletter input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+
+/* ─── Bottom section: copy, meta links, social ─────────────────────────── */
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  font-size: var(--font-size-xs);
+  color: var(--footer-fg);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.site-footer__copy {
+  margin: 0;
+  color: var(--footer-fg);
+  font-size: var(--font-size-xs);
+}
+
+.site-footer__meta {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+}
+.site-footer__meta a {
+  color: var(--footer-fg);
+  text-decoration: none;
+  transition: color var(--duration-quick) var(--ease-out);
+}
+.site-footer__meta a:hover { color: var(--footer-link-hover); }
+
+
+/* ─── Social icons row ────────────────────────────────────────────────── */
+
+.site-footer__social {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: var(--space-2);
+}
+
+.site-footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--footer-fg);
+  border: 1px solid var(--footer-border);
+  transition:
+    color            var(--duration-quick) var(--ease-out),
+    background-color var(--duration-quick) var(--ease-out),
+    border-color     var(--duration-quick) var(--ease-out),
+    transform        var(--duration-quick) var(--ease-emphasis);
+}
+
+.site-footer__social a:hover {
+  color: var(--color-ink);
+  background: var(--color-white);
+  border-color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.site-footer__social svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+
+/* ─── Bottom language toggle (optional) ───────────────────────────────── */
+
+.site-footer__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+.site-footer__lang a {
+  color: var(--footer-fg);
+  padding: 0 var(--space-1);
+  text-decoration: none;
+  transition: color var(--duration-quick) var(--ease-out);
+}
+.site-footer__lang a:hover,
+.site-footer__lang a.is-active { color: var(--footer-link-hover); }
+
+
+/* ─── Reduced motion ──────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .site-footer__list a,
+  .site-footer__meta a,
+  .site-footer__social a,
+  .site-footer__newsletter input {
+    transition: none !important;
+    transform: none !important;
+  }
+}
