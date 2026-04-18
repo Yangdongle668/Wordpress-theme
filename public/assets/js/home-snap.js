@@ -72,10 +72,13 @@
   const onWheel = (e) => {
     if (e.ctrlKey || e.metaKey) return;      // pinch-zoom, don't interfere
 
-    const goingDown = e.deltaY > 0;
-
-    // Below section 5: let native scroll run the whole rest of the page.
-    if (pastLastSnap() && goingDown) return;
+    // Once the user is past the last snap section, let native scroll
+    // handle *both* directions. Releasing only the down-scroll made any
+    // upward wheel tick yank the user back to tile 3; user expectation
+    // is that free scroll stays free until the snap zone is back in
+    // view (sections are re-entered naturally, then next wheel hits
+    // the snap logic below).
+    if (pastLastSnap()) return;
 
     const now = Date.now();
     if (now - lastScroll < COOLDOWN_MS) {
@@ -84,11 +87,11 @@
     }
     if (Math.abs(e.deltaY) < DELTA_MIN) return;
 
+    const goingDown = e.deltaY > 0;
     const idx = currentIdx();
 
-    // At the last snap section, scrolling down should release into native
-    // scroll so sections 6+ are reachable — this is the fix for the
-    // "stuck at section 5" bug.
+    // At the last snap section, scrolling down should release into
+    // native scroll so sections 6+ are reachable.
     if (goingDown && idx >= sections.length - 1) return;
 
     // Above the first section going up: no-op.
