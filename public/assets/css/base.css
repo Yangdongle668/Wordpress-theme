@@ -480,6 +480,132 @@ th {
 .pointer-none { pointer-events: none; }
 
 
+/* ─── 4b. Extra utilities ──────────────────────────────────────────────────── */
+
+/* Line-clamp — truncate to N lines with ellipsis */
+.line-clamp-1,
+.line-clamp-2,
+.line-clamp-3,
+.line-clamp-4,
+.line-clamp-5 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
+}
+.line-clamp-1 { -webkit-line-clamp: 1; line-clamp: 1; }
+.line-clamp-2 { -webkit-line-clamp: 2; line-clamp: 2; }
+.line-clamp-3 { -webkit-line-clamp: 3; line-clamp: 3; }
+.line-clamp-4 { -webkit-line-clamp: 4; line-clamp: 4; }
+.line-clamp-5 { -webkit-line-clamp: 5; line-clamp: 5; }
+
+/* Directional padding */
+.pt-0 { padding-top: 0; }
+.pt-2 { padding-top: var(--space-2); }
+.pt-4 { padding-top: var(--space-4); }
+.pt-8 { padding-top: var(--space-8); }
+.pt-12 { padding-top: var(--space-12); }
+.pt-16 { padding-top: var(--space-16); }
+.pb-0 { padding-bottom: 0; }
+.pb-2 { padding-bottom: var(--space-2); }
+.pb-4 { padding-bottom: var(--space-4); }
+.pb-8 { padding-bottom: var(--space-8); }
+.pb-12 { padding-bottom: var(--space-12); }
+.pb-16 { padding-bottom: var(--space-16); }
+.pl-4 { padding-left: var(--space-4); }
+.pr-4 { padding-right: var(--space-4); }
+
+/* Directional gap */
+.gap-x-2 { column-gap: var(--space-2); }
+.gap-x-4 { column-gap: var(--space-4); }
+.gap-x-6 { column-gap: var(--space-6); }
+.gap-y-2 { row-gap: var(--space-2); }
+.gap-y-4 { row-gap: var(--space-4); }
+.gap-y-6 { row-gap: var(--space-6); }
+
+/* Overflow / overscroll */
+.overflow-hidden  { overflow: hidden; }
+.overflow-auto    { overflow: auto; }
+.overflow-x-auto  { overflow-x: auto; }
+.overflow-y-auto  { overflow-y: auto; }
+.overflow-x-hidden { overflow-x: hidden; }
+.overflow-visible { overflow: visible; }
+.overscroll-none     { overscroll-behavior: none; }
+.overscroll-contain  { overscroll-behavior: contain; }
+
+/* Z-index */
+.z-0       { z-index: var(--z-base); }
+.z-raised  { z-index: var(--z-raised); }
+.z-sticky  { z-index: var(--z-sticky); }
+.z-modal   { z-index: var(--z-modal); }
+.z-top     { z-index: var(--z-top); }
+
+/* Flex item helpers */
+.flex-1 { flex: 1 1 0%; }
+.flex-auto { flex: 1 1 auto; }
+.flex-none { flex: 0 0 auto; }
+.order-first { order: -1; }
+.order-last  { order: 999; }
+
+/* Cursor */
+.cursor-pointer    { cursor: pointer; }
+.cursor-not-allowed { cursor: not-allowed; }
+.cursor-help       { cursor: help; }
+
+/* Select */
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+
+/* Snap scroll (horizontal product galleries, case carousels) */
+.snap-x          { scroll-snap-type: x mandatory; }
+.snap-x-prox     { scroll-snap-type: x proximity; }
+.snap-y          { scroll-snap-type: y mandatory; }
+.snap-item       { scroll-snap-align: center; scroll-snap-stop: always; flex: 0 0 auto; }
+.snap-start      { scroll-snap-align: start; }
+.snap-center     { scroll-snap-align: center; }
+.snap-end        { scroll-snap-align: end; }
+
+/* Smooth horizontal scroller (hide scrollbar, hardware-accel scroll) */
+.scroll-x {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-2);
+}
+.scroll-x::-webkit-scrollbar { display: none; }
+
+/* Responsive visibility utilities (hide / show at breakpoints)
+   Mobile-first: name describes "hide AT OR BELOW" for .hide-N
+   and "show FROM N UP" for .show-N */
+.hide-sm,
+.hide-md,
+.hide-lg,
+.hide-xl { /* default visible */ }
+
+@media (max-width: 640px)  { .hide-sm { display: none !important; } }
+@media (max-width: 768px)  { .hide-md { display: none !important; } }
+@media (max-width: 992px)  { .hide-lg { display: none !important; } }
+@media (max-width: 1200px) { .hide-xl { display: none !important; } }
+
+/* Inverse — hidden on small, shown on larger */
+.show-sm, .show-md, .show-lg, .show-xl { display: none !important; }
+@media (min-width: 640.01px)   { .show-sm { display: revert !important; } }
+@media (min-width: 768.01px)   { .show-md { display: revert !important; } }
+@media (min-width: 992.01px)   { .show-lg { display: revert !important; } }
+@media (min-width: 1200.01px)  { .show-xl { display: revert !important; } }
+
+/* Desktop-only / mobile-only shorthands (992px breakpoint) */
+.desktop-only { display: none !important; }
+.mobile-only  { display: revert !important; }
+@media (min-width: 992.01px) {
+  .desktop-only { display: revert !important; }
+  .mobile-only  { display: none !important; }
+}
+
+
 /* ─── 5. Global behavior: focus, selection, scrollbar ──────────────────────── */
 
 /* Keyboard focus ring — only when tabbing, not on mouse click */
