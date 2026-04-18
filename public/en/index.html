@@ -72,7 +72,7 @@
   </script>
 </head>
 
-<body class="page-home">
+<body>
   <div data-include="/partials/header.html"></div>
 
   <main id="main" tabindex="-1">
@@ -168,45 +168,55 @@
 
 
     <!-- ════════════════════════════════════════════════════════════════
-         B1.3 · Applications — 3 cinematic full-bleed tiles
+         B1.3 · Applications — 3 tiles folded into one sticky stage.
+         The outer stack is 3× viewport tall; as the user scrolls through
+         it, the pinned stage cross-fades between the three tiles.
          ════════════════════════════════════════════════════════════════ -->
-    <section class="home-apps" aria-label="Applications">
-      <div class="home-apps__grid">
-        <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--ev" href="/en/applications/ev.html" data-header-bg="dark">
-          <div class="card__scrim"></div>
-          <div class="card__body container container--xl">
-            <p class="card__eyebrow">Transportation</p>
-            <h2 class="card__title">Electric mobility at scale.</h2>
-            <p class="card__desc">
-              Automotive-grade packs certified to IEC 62660 and UN 38.3.
-            </p>
-            <span class="btn btn--invert btn--md mt-4">Learn more →</span>
-          </div>
-        </a>
+    <section class="home-apps home-apps--stack" aria-label="Applications" data-header-bg="dark">
+      <div class="home-apps__stage">
+        <div class="home-apps__slides">
+          <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--ev is-active" href="/en/applications/ev.html" data-index="0">
+            <div class="card__scrim"></div>
+            <div class="card__body container container--xl">
+              <p class="card__eyebrow">Transportation</p>
+              <h2 class="card__title">Electric mobility at scale.</h2>
+              <p class="card__desc">
+                Automotive-grade packs certified to IEC 62660 and UN 38.3.
+              </p>
+              <span class="btn btn--invert btn--md mt-4">Learn more →</span>
+            </div>
+          </a>
 
-        <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--grid" href="/en/applications/energy-storage.html" data-header-bg="dark">
-          <div class="card__scrim"></div>
-          <div class="card__body container container--xl">
-            <p class="card__eyebrow">Energy</p>
-            <h2 class="card__title">Storage that stays online.</h2>
-            <p class="card__desc">
-              Modular racks from 5 kWh residential to megawatt-scale deployments.
-            </p>
-            <span class="btn btn--invert btn--md mt-4">Learn more →</span>
-          </div>
-        </a>
+          <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--grid" href="/en/applications/energy-storage.html" data-index="1">
+            <div class="card__scrim"></div>
+            <div class="card__body container container--xl">
+              <p class="card__eyebrow">Energy</p>
+              <h2 class="card__title">Storage that stays online.</h2>
+              <p class="card__desc">
+                Modular racks from 5 kWh residential to megawatt-scale deployments.
+              </p>
+              <span class="btn btn--invert btn--md mt-4">Learn more →</span>
+            </div>
+          </a>
 
-        <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--drone" href="/en/applications/drone.html" data-header-bg="dark">
-          <div class="card__scrim"></div>
-          <div class="card__body container container--xl">
-            <p class="card__eyebrow">Robotics &amp; UAV</p>
-            <h2 class="card__title">Flight, extended.</h2>
-            <p class="card__desc">
-              High-rate cells engineered for payload endurance and thermal stability.
-            </p>
-            <span class="btn btn--invert btn--md mt-4">Learn more →</span>
-          </div>
-        </a>
+          <a class="card card--fullbleed card--hover card--xtall home-apps__tile home-apps__tile--drone" href="/en/applications/drone.html" data-index="2">
+            <div class="card__scrim"></div>
+            <div class="card__body container container--xl">
+              <p class="card__eyebrow">Robotics &amp; UAV</p>
+              <h2 class="card__title">Flight, extended.</h2>
+              <p class="card__desc">
+                High-rate cells engineered for payload endurance and thermal stability.
+              </p>
+              <span class="btn btn--invert btn--md mt-4">Learn more →</span>
+            </div>
+          </a>
+        </div>
+
+        <nav class="home-apps__dots" aria-label="Applications slideshow">
+          <button type="button" class="is-active" data-jump="0" aria-label="Electric mobility"></button>
+          <button type="button" data-jump="1" aria-label="Energy storage"></button>
+          <button type="button" data-jump="2" aria-label="Drones and UAV"></button>
+        </nav>
       </div>
     </section>
 
@@ -455,7 +465,7 @@
   <script defer src="/assets/js/mobile-nav.js"></script>
   <script defer src="/assets/js/reveal.js"></script>
   <script defer src="/assets/js/back-to-top.js"></script>
-  <script defer src="/assets/js/home-snap.js"></script>
+  <script defer src="/assets/js/home-apps-stack.js"></script>
   <script defer src="/assets/js/main.js"></script>
 </body>
 </html>
