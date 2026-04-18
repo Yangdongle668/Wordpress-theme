@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Service temporarily unavailable — BatteryCo</title>
+  <meta name="description" content="We're briefly offline for maintenance. Please try again in a moment." />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#171A20" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/components/buttons.css" />
+  <link rel="stylesheet" href="/assets/css/components/nav.css" />
+  <link rel="stylesheet" href="/assets/css/components/footer.css" />
+
+  <script>
+    document.documentElement.classList.replace('no-js', 'js');
+    // Retry once after a short delay in case the outage was transient.
+    setTimeout(() => { if (!document.hidden) location.reload(); }, 30_000);
+  </script>
+</head>
+<body>
+  <div data-include="/partials/header.html"></div>
+
+  <main id="main" tabindex="-1" class="section">
+    <div class="container container--md text-center">
+      <p class="text-eyebrow">Error 5xx</p>
+      <h1 class="display" style="font-size: clamp(3.5rem, 8vw, 6rem);">We'll be right back.</h1>
+      <p class="lead mt-4">
+        The site is temporarily unavailable — usually a brief maintenance
+        window. It'll retry automatically in 30 seconds, or you can reload
+        now.
+      </p>
+
+      <div class="btn-group mt-8 justify-center">
+        <button type="button" class="btn btn--primary btn--lg" onclick="location.reload()">Reload</button>
+        <a class="btn btn--outline btn--lg" href="/en/">Go home</a>
+        <a class="btn btn--ghost btn--lg" href="mailto:support@example.com">Contact support</a>
+      </div>
+    </div>
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+
+  <script defer src="/assets/js/partials-loader.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/mobile-nav.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+</body>
+</html>
