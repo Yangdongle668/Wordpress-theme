@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en" class="no-js" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+  <title>Silicon Anodes: What Finally Made Them Work | BatteryCo Blog</title>
+  <meta name="description" content="Fifteen years of failed commercialization, and then three process improvements unlocked silicon anodes. A technical walk-through of what changed." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#171A20" />
+
+  <link rel="canonical" href="https://www.example.com/en/blog/silicon-anodes.html" />
+  <link rel="alternate" hreflang="en" href="https://www.example.com/en/blog/silicon-anodes.html" />
+  <link rel="alternate" hreflang="zh" href="https://www.example.com/zh/blog/silicon-anodes.html" />
+  <link rel="alternate" hreflang="x-default" href="https://www.example.com/en/blog/silicon-anodes.html" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="BatteryCo" />
+  <meta property="og:title" content="Silicon anodes: what finally made them work" />
+  <meta property="og:description" content="Three process improvements unlocked commercial silicon anodes." />
+  <meta property="og:url" content="https://www.example.com/en/blog/silicon-anodes.html" />
+  <meta property="og:image" content="https://www.example.com/assets/images/og/post-silicon.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/base/prose.css" />
+  <link rel="stylesheet" href="/assets/css/base/loading.css" />
+  <link rel="stylesheet" href="/assets/css/components/buttons.css" />
+  <link rel="stylesheet" href="/assets/css/components/cards.css" />
+  <link rel="stylesheet" href="/assets/css/components/forms.css" />
+  <link rel="stylesheet" href="/assets/css/components/nav.css" />
+  <link rel="stylesheet" href="/assets/css/components/footer.css" />
+  <link rel="stylesheet" href="/assets/css/components/misc.css" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css" />
+  <link rel="stylesheet" href="/assets/css/pages/blog.css" />
+  <link rel="stylesheet" href="/assets/css/pages/post.css" />
+
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Silicon anodes: what finally made them work",
+    "description": "Three process improvements unlocked commercial silicon anodes after fifteen years of failed attempts.",
+    "author": {
+      "@type": "Person",
+      "name": "Dr. Lin Wei",
+      "jobTitle": "Principal Electrochemist",
+      "worksFor": { "@type": "Organization", "name": "BatteryCo" }
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "BatteryCo",
+      "logo": { "@type": "ImageObject", "url": "https://www.example.com/assets/images/logo.png" }
+    },
+    "datePublished": "2024-07-18",
+    "dateModified": "2024-07-18",
+    "image": "https://www.example.com/assets/images/og/post-silicon.jpg",
+    "wordCount": 1250,
+    "mainEntityOfPage": "https://www.example.com/en/blog/silicon-anodes.html",
+    "articleSection": "Technology"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.example.com/en/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.example.com/en/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "Silicon anodes", "item": "https://www.example.com/en/blog/silicon-anodes.html" }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <div data-include="/partials/header.html"></div>
+
+  <main id="main" tabindex="-1">
+
+    <!-- C4.1 Article header -->
+    <article class="post">
+      <header class="post-header" data-header-bg="light">
+        <div class="container container--xl">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/en/">Home</a>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <a href="/en/blog/">Blog</a>
+            <span class="breadcrumb__sep" aria-hidden="true">/</span>
+            <span class="breadcrumb__current">Silicon anodes</span>
+          </nav>
+
+          <div class="post-header__content">
+            <p class="text-eyebrow">Technology · 6 min read</p>
+            <h1 class="post-header__title" data-reveal="up">
+              Silicon anodes: what finally made them work.
+            </h1>
+            <p class="lead post-header__sub" data-reveal="up" style="--stagger: 1">
+              Fifteen years of failed commercialization, and then three specific
+              process improvements unlocked it. A walk through what changed — and
+              why the industry is about to feel it.
+            </p>
+
+            <div class="post-header__meta" data-reveal="up" style="--stagger: 2">
+              <div class="post-author">
+                <div class="post-author__avatar ph-img ph-img--blog1" aria-hidden="true"></div>
+                <div class="post-author__info">
+                  <span class="post-author__name">Dr. Lin Wei</span>
+                  <span class="post-author__role">Principal Electrochemist</span>
+                </div>
+              </div>
+              <div class="post-header__published">
+                <time datetime="2024-07-18">July 18, 2024</time>
+              </div>
+            </div>
+          </div>
+
+          <figure class="post-header__cover" data-reveal="up" style="--stagger: 3">
+            <div class="ph-img ph-img--blog1" aria-hidden="true"></div>
+          </figure>
+        </div>
+      </header>
+
+
+      <!-- C4.2 + C4.3 Body layout (sticky TOC + prose) -->
+      <div class="post-body">
+        <div class="container container--xl">
+          <div class="post-body__grid">
+
+            <!-- Sticky TOC -->
+            <aside class="post-toc" aria-label="Table of contents">
+              <div class="post-toc__sticky">
+                <p class="post-toc__eyebrow">On this page</p>
+                <ul>
+                  <li><a href="#intro">The puzzle</a></li>
+                  <li><a href="#history">Fifteen years of failures</a></li>
+                  <li><a href="#breakthroughs">Three breakthroughs</a></li>
+                  <li><a href="#particle">1. Particle morphology</a></li>
+                  <li><a href="#binder">2. Binder chemistry</a></li>
+                  <li><a href="#electrolyte">3. Electrolyte additives</a></li>
+                  <li><a href="#impact">What it means</a></li>
+                </ul>
+                <a class="post-toc__cta btn btn--outline btn--sm" href="/en/contact.html#inquiry">Talk to an engineer</a>
+              </div>
+            </aside>
+
+            <!-- Prose body -->
+            <article class="prose prose--lg post-prose">
+
+              <h2 id="intro">The puzzle</h2>
+              <p class="prose__lead">
+                Silicon's theoretical specific capacity is about <strong>ten times</strong> that
+                of graphite. If you built an anode entirely from silicon, you'd
+                get a cell with dramatically more energy density — enough to
+                reshape what's possible in a battery-bound product.
+              </p>
+              <p>
+                The industry has known this since the late 1990s. So why has
+                silicon stayed a research topic while graphite kept winning?
+                Because silicon expands roughly 300% on lithiation — and
+                contracts back — and no one could build an electrode that
+                survived the mechanical insult for more than a few hundred
+                cycles.
+              </p>
+
+              <h2 id="history">Fifteen years of failures</h2>
+              <p>
+                Early silicon anodes failed three ways, in roughly this order
+                as the field progressed:
+              </p>
+              <ol>
+                <li><strong>Particle fracture.</strong> Solid silicon particles simply shattered after a handful of expansion cycles.</li>
+                <li><strong>SEI thickening.</strong> The solid-electrolyte interphase rebuilt itself every cycle as the surface tore open, consuming lithium and electrolyte.</li>
+                <li><strong>Electrode delamination.</strong> Even when the particles held, the electrode sheet separated from the copper current collector.</li>
+              </ol>
+              <p>
+                Every few years a paper claimed a breakthrough. Every few years
+                the results failed to reproduce at scale. The industry settled
+                into a compromise — adding 5–10% silicon to graphite anodes —
+                and waited for something to change.
+              </p>
+
+              <h2 id="breakthroughs">Three breakthroughs, all at once</h2>
+              <p>
+                Between roughly 2021 and 2023, three independent process
+                improvements matured simultaneously. Individually, any one of
+                them might not have moved the needle. Together, they unlocked
+                commercial viability.
+              </p>
+
+              <h3 id="particle">1. Particle morphology</h3>
+              <p>
+                The first fix was geometric. Instead of solid silicon particles,
+                modern silicon anodes use either:
+              </p>
+              <ul>
+                <li><strong>Nano-porous silicon</strong> — particles internally structured like a sponge, so expansion happens into void space rather than outward.</li>
+                <li><strong>Yolk-shell composites</strong> — silicon cores inside carbon shells that accommodate the expansion without the silicon ever touching the electrolyte directly.</li>
+              </ul>
+              <p>
+                Both approaches cut particle fracture rates by <em>more than an
+                order of magnitude</em>. The SEM images of the failed vs. modern
+                particles after 500 cycles are striking — the old ones look
+                like shattered glass; the new ones look almost unchanged.
+              </p>
+
+              <blockquote>
+                <p>
+                  You can't out-chemistry a mechanical problem. You have to
+                  solve it as a mechanical problem first, and then the chemistry
+                  becomes tractable.
+                </p>
+              </blockquote>
+
+              <h3 id="binder">2. Binder chemistry</h3>
+              <p>
+                The second fix was in the polymer that holds the electrode
+                together. Traditional PVDF binder is stiff and brittle — it
+                cracks when the electrode breathes. Modern silicon anodes use
+                either:
+              </p>
+              <ul>
+                <li><strong>PAA</strong> (polyacrylic acid) — forms hydrogen bonds with silicon surfaces and self-heals when cracks form.</li>
+                <li><strong>CMC + SBR</strong> water-based binder systems that remain elastic across the expansion range.</li>
+              </ul>
+
+              <h3 id="electrolyte">3. Electrolyte additives</h3>
+              <p>
+                The third was a family of electrolyte additives — primarily
+                <strong>fluoroethylene carbonate (FEC)</strong> and vinylene carbonate
+                (VC) — that form a more flexible SEI on silicon. FEC in
+                particular stops the runaway SEI-thickening loop that plagued
+                earlier attempts.
+              </p>
+              <p>
+                FEC isn't free — it's expensive, and it's sensitive to
+                temperature. But with the right dose (roughly 5–10 wt% of the
+                electrolyte), it turns a 200-cycle anode into a 1,500-cycle
+                one without touching the active materials.
+              </p>
+
+              <h2 id="impact">What it means for production</h2>
+              <p>
+                Silicon-composite anodes at 15–25% silicon content are now
+                shipping in production at several major cell makers, including
+                our PC-5800 consumer cell line. Energy density gains in the
+                real world hit <strong>15–20%</strong> — not the theoretical 10×,
+                because we're still blending silicon with graphite, but enough
+                that it's showing up on every refreshed product datasheet.
+              </p>
+              <p>
+                The next step — full silicon anodes at 80%+ content — is still
+                research. But the path is visible now. And when that lands,
+                we'll look back at the 2021–2023 period as the hinge.
+              </p>
+
+              <p class="text-muted text-small">
+                <em>This piece was originally drafted for our internal engineering
+                review and adapted for public reading. Comments or questions?
+                Email <a href="mailto:engineering@example.com">engineering@example.com</a>.</em>
+              </p>
+
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- C4.4 Author card -->
+      <section class="section bg-alt post-author-card">
+        <div class="container container--md">
+          <div class="post-author-card__inner" data-reveal="up">
+            <div class="post-author-card__avatar ph-img ph-img--blog1" aria-hidden="true"></div>
+            <div class="post-author-card__copy">
+              <p class="text-eyebrow">About the author</p>
+              <h3>Dr. Lin Wei</h3>
+              <p>
+                Principal Electrochemist at BatteryCo. Fifteen years in lithium
+                electrochemistry, split between academia and industrial R&amp;D.
+                Writes about the boundary between chemistry and process at
+                scale.
+              </p>
+              <div class="post-author-card__links">
+                <a href="#">More articles by Lin →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </article>
+
+
+    <!-- C4.5 Related posts -->
+    <section class="section">
+      <div class="container container--xl">
+        <header class="section-head flex justify-between items-end flex-wrap gap-4" data-reveal="up">
+          <div>
+            <p class="text-eyebrow">Keep reading</p>
+            <h2>Related articles.</h2>
+          </div>
+          <a class="btn btn--link" href="/en/blog/">All articles →</a>
+        </header>
+
+        <div class="card-grid card-grid--3">
+          <a class="card card--hover" href="/en/blog/silicon-anodes.html" data-reveal="up" style="--stagger: 1">
+            <div class="card__media"><div class="ph-img ph-img--blog2"></div></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Manufacturing</p>
+              <h3 class="card__title line-clamp-2">Why coating tolerance dominates cycle life.</h3>
+              <div class="card__meta"><span>Sara Chen</span><span>4 min read</span></div>
+            </div>
+          </a>
+          <a class="card card--hover" href="/en/blog/silicon-anodes.html" data-reveal="up" style="--stagger: 2">
+            <div class="card__media"><div class="ph-img ph-img--blog3"></div></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Technology</p>
+              <h3 class="card__title line-clamp-2">High-rate pouch cells: beyond the headline C-rate.</h3>
+              <div class="card__meta"><span>Dr. Lin Wei</span><span>8 min read</span></div>
+            </div>
+          </a>
+          <a class="card card--hover" href="/en/blog/silicon-anodes.html" data-reveal="up" style="--stagger: 3">
+            <div class="card__media"><div class="ph-img ph-img--storage"></div></div>
+            <div class="card__body">
+              <p class="card__eyebrow">Industry</p>
+              <h3 class="card__title line-clamp-2">LFP's quiet resurgence.</h3>
+              <div class="card__meta"><span>Dr. Lin Wei</span><span>7 min read</span></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- C4.6 CTA -->
+    <section class="home-cta" data-header-bg="dark">
+      <div class="container container--xl text-center">
+        <p class="text-eyebrow" data-reveal="fade">Engineering conversations</p>
+        <h2 class="display home-cta__title" data-reveal="up" style="--stagger: 1">
+          Got a silicon-anode question?
+        </h2>
+        <p class="lead home-cta__sub" data-reveal="up" style="--stagger: 2">
+          Our electrochemistry team is unreasonably happy to talk shop. Send a
+          question — we answer every one.
+        </p>
+        <div class="btn-group mt-8" data-reveal="up" style="--stagger: 3">
+          <a class="btn btn--invert btn--lg" href="/en/contact.html">Contact engineering</a>
+          <a class="btn btn--invert-secondary btn--lg" href="/en/blog/">More from the blog</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <div data-include="/partials/cookie.html"></div>
+
+  <button type="button" class="back-to-top" data-back-to-top aria-label="Back to top">
+    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+      <path fill="currentColor" d="M8 3l5 5-1.4 1.4L9 6.8V13H7V6.8L4.4 9.4 3 8z"/>
+    </svg>
+  </button>
+
+  <!-- TOC active-section highlighting -->
+  <script>
+    (() => {
+      const links = document.querySelectorAll('.post-toc a[href^="#"]');
+      const targets = Array.from(links)
+        .map((a) => document.getElementById(a.getAttribute('href').slice(1)))
+        .filter(Boolean);
+      if (!targets.length) return;
+
+      const map = new Map();
+      links.forEach((a) => map.set(a.getAttribute('href').slice(1), a));
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          const a = map.get(e.target.id);
+          if (!a) return;
+          if (e.isIntersecting) {
+            links.forEach((l) => l.classList.remove('is-active'));
+            a.classList.add('is-active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+      targets.forEach((t) => io.observe(t));
+    })();
+  </script>
+
+  <script defer src="/assets/js/partials-loader.js"></script>
+  <script defer src="/assets/js/header.js"></script>
+  <script defer src="/assets/js/mobile-nav.js"></script>
+  <script defer src="/assets/js/reveal.js"></script>
+  <script defer src="/assets/js/back-to-top.js"></script>
+  <script defer src="/assets/js/main.js"></script>
+</body>
+</html>
