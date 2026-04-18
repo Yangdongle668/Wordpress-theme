@@ -178,13 +178,25 @@
   .home-products__card {
     flex: initial;
     width: auto;
-    /* Keep the whole section comfortably inside one viewport. 560 px
-       overflowed on a typical 800-900 px laptop once the heading + rail
-       gap + section padding were counted. */
+    /* Keep the whole section + header + cards inside one viewport on
+       typical laptops. We budget ~240 px for section padding + heading
+       + gap, so cards cap around 40svh (≈ 360 px at 900 px tall). */
     min-height: 0;
-    height: clamp(320px, 52svh, 460px);
+    height: clamp(240px, 40svh, 360px);
     scroll-snap-align: none;
   }
+}
+
+/* Tighter vertical rhythm for the whole Product Lines section so the
+   4-card rail doesn't push past the fold. */
+.home-products {
+  padding-block: clamp(3rem, 6vw, 5.5rem);
+}
+.home-products .section-head {
+  margin-bottom: var(--space-8);
+}
+.home-products__rail {
+  margin-top: var(--space-4);
 }
 
 

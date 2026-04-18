@@ -1,25 +1,28 @@
 /* =============================================================================
    fonts.css — self-hosted typography
    -----------------------------------------------------------------------------
-   Registers the site's primary typeface (Inter Variable) via @font-face.
+   Registers the site's primary typeface (Mona Sans Variable) via @font-face.
    Falls back to the system sans stack while the woff2 is downloading, and
    keeps working entirely on the system stack if the file isn't present.
 
-   Inter is SIL OFL 1.1 by Rasmus Andersson. Self-hosted from the official
-   rsms/inter release (https://github.com/rsms/inter/releases). OFL license
-   text shipped next to the font files at /assets/fonts/Inter-OFL.txt.
+   Mona Sans is GitHub's in-house geometric sans — tall x-height, confident
+   geometry, five-axis variable font (weight 200-900, width 75-125, italic,
+   optical size). A single 518 KB woff2 covers every style.
+   Distributed under SIL Open Font License 1.1.
+   Source: https://github.com/github/mona-sans
    ============================================================================= */
 
 
-/* ─── Inter Variable — single file covers weight 100–900 ────────────────── */
+/* ─── Mona Sans — five-axis variable font (wght, wdth, opsz, ital) ────── */
 
 @font-face {
-  font-family: "Inter";
+  font-family: "Mona Sans";
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
   font-display: swap;
-  src: url("/assets/fonts/InterVariable.woff2") format("woff2-variations"),
-       url("/assets/fonts/InterVariable.woff2") format("woff2");
+  src: url("/assets/fonts/MonaSans-Variable.woff2") format("woff2-variations"),
+       url("/assets/fonts/MonaSans-Variable.woff2") format("woff2");
   /* Latin + Latin-Extended covers English, Spanish, French, German,
      Portuguese and most European languages. */
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
@@ -30,13 +33,17 @@
                  U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* The variable font has an ital axis; expose it as a second @font-face so
+   italic declarations don't need to set font-variation-settings manually. */
 @font-face {
-  font-family: "Inter";
+  font-family: "Mona Sans";
   font-style: italic;
-  font-weight: 100 900;
+  font-weight: 200 900;
+  font-stretch: 75% 125%;
   font-display: swap;
-  src: url("/assets/fonts/InterVariable-Italic.woff2") format("woff2-variations"),
-       url("/assets/fonts/InterVariable-Italic.woff2") format("woff2");
+  src: url("/assets/fonts/MonaSans-Variable.woff2") format("woff2-variations"),
+       url("/assets/fonts/MonaSans-Variable.woff2") format("woff2");
+  font-variation-settings: "ital" 1;
 }
 
 
@@ -44,8 +51,6 @@
 
 html {
   font-optical-sizing: auto;
-  /* Kerning + standard ligatures + contextual alternates — Inter ships
-     with a bunch of useful alts (disambiguated 1/I/l, zero, etc.). */
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   text-rendering: optimizeLegibility;
 }

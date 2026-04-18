@@ -60,12 +60,12 @@
   --overlay-light-72:      rgba(255, 255, 255, 0.72);
 
   /* ─── Typography ──────────────────────────────────────────────────────── */
-  /* Inter first (loaded by base/fonts.css); falls back to the system stack
-     while the font is downloading and if the woff2 file isn't present.
-     The system fonts also handle CJK via PingFang / Hiragino / Microsoft
-     YaHei. */
+  /* Mona Sans first (loaded by base/fonts.css); falls back to the system
+     stack while the font is downloading and if the woff2 file isn't
+     present. System fonts also handle CJK via PingFang / Hiragino /
+     Microsoft YaHei. */
   --font-sans:
-    "Inter",
+    "Mona Sans",
     -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
     Helvetica, Arial, "PingFang SC", "Hiragino Sans GB",
     "Microsoft YaHei", "Source Han Sans CN", sans-serif;
