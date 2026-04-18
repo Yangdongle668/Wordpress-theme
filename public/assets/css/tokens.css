@@ -1,0 +1,287 @@
+/* =============================================================================
+   Design Tokens
+   -----------------------------------------------------------------------------
+   Single source of truth for the visual language: color, typography, spacing,
+   breakpoints, motion, elevation, radius, and z-index.
+
+   Usage:  var(--color-bg), var(--space-6), var(--font-size-h1) ...
+   Dark mode: <html data-theme="dark">  OR  prefers-color-scheme: dark
+   ============================================================================= */
+
+:root {
+  /* ─── Brand & Neutral Palette ─────────────────────────────────────────── */
+  --color-black:           #0B0C0F;   /* primary dark */
+  --color-ink:             #171A20;   /* text on light bg */
+  --color-graphite:        #393C41;   /* secondary text */
+  --color-slate:           #5C5E62;   /* muted text */
+  --color-silver:          #8E9196;   /* disabled / hint */
+  --color-fog:             #C4C6CA;   /* border */
+  --color-mist:            #E4E6E8;   /* subtle divider */
+  --color-cloud:           #F4F4F4;   /* soft surface */
+  --color-snow:            #FAFAFA;   /* app background alt */
+  --color-white:           #FFFFFF;   /* surface */
+
+  /* ─── Accent (electric blue) ──────────────────────────────────────────── */
+  --color-accent:          #0A84FF;   /* CTA / links */
+  --color-accent-hover:    #006EDC;
+  --color-accent-active:   #0059B3;
+  --color-accent-tint:     #E6F1FF;
+
+  /* ─── Semantic ────────────────────────────────────────────────────────── */
+  --color-success:         #30B36A;
+  --color-warning:         #F5A524;
+  --color-danger:          #E5484D;
+  --color-info:            #0A84FF;
+
+  /* ─── Surfaces (light theme, default) ─────────────────────────────────── */
+  --color-bg:              var(--color-white);
+  --color-bg-alt:          var(--color-snow);
+  --color-bg-elevated:     var(--color-white);
+  --color-bg-inverse:      var(--color-black);
+  --color-surface-soft:    var(--color-cloud);
+  --color-surface-muted:   var(--color-mist);
+
+  --color-text:            var(--color-ink);
+  --color-text-muted:      var(--color-slate);
+  --color-text-subtle:     var(--color-silver);
+  --color-text-inverse:    var(--color-white);
+
+  --color-border:          var(--color-mist);
+  --color-border-strong:   var(--color-fog);
+
+  /* overlay tints for image scrims / modal backdrops */
+  --overlay-dark-08:       rgba(11, 12, 15, 0.08);
+  --overlay-dark-24:       rgba(11, 12, 15, 0.24);
+  --overlay-dark-48:       rgba(11, 12, 15, 0.48);
+  --overlay-dark-72:       rgba(11, 12, 15, 0.72);
+  --overlay-light-08:      rgba(255, 255, 255, 0.08);
+  --overlay-light-24:      rgba(255, 255, 255, 0.24);
+  --overlay-light-48:      rgba(255, 255, 255, 0.48);
+  --overlay-light-72:      rgba(255, 255, 255, 0.72);
+
+  /* ─── Typography ──────────────────────────────────────────────────────── */
+  /* System font stack — fast, native, no FOUT. Replace with Inter later if needed. */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    Helvetica, Arial, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Source Han Sans CN", sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+
+  --font-weight-regular:   400;
+  --font-weight-medium:    500;
+  --font-weight-semibold:  600;
+  --font-weight-bold:      700;
+
+  /* Fluid type scale — clamp(min, preferred, max)  */
+  --font-size-xs:          clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);   /* 12 → 13 */
+  --font-size-sm:          clamp(0.875rem, 0.84rem + 0.15vw, 0.9375rem); /* 14 → 15 */
+  --font-size-base:        clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);      /* 16 → 17 */
+  --font-size-lg:          clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);    /* 18 → 20 */
+  --font-size-xl:          clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem);      /* 20 → 24 */
+  --font-size-h6:          clamp(1rem, 0.9rem + 0.4vw, 1.125rem);        /* 16 → 18 */
+  --font-size-h5:          clamp(1.125rem, 1rem + 0.5vw, 1.375rem);      /* 18 → 22 */
+  --font-size-h4:          clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);     /* 22 → 28 */
+  --font-size-h3:          clamp(1.75rem, 1.5rem + 1vw, 2.25rem);        /* 28 → 36 */
+  --font-size-h2:          clamp(2.25rem, 1.9rem + 1.4vw, 3rem);         /* 36 → 48 */
+  --font-size-h1:          clamp(3rem, 2.4rem + 2.4vw, 4.5rem);          /* 48 → 72 */
+  --font-size-display:     clamp(3.5rem, 2.6rem + 4vw, 6rem);            /* 56 → 96 */
+
+  --line-height-tight:     1.1;
+  --line-height-snug:      1.25;
+  --line-height-normal:    1.5;
+  --line-height-relaxed:   1.65;
+  --line-height-loose:     1.8;
+
+  --letter-spacing-tight:  -0.02em;
+  --letter-spacing-snug:   -0.01em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide:   0.02em;
+  --letter-spacing-wider:  0.06em;
+  --letter-spacing-widest: 0.12em;
+
+  /* ─── Spacing scale (8px base) ────────────────────────────────────────── */
+  --space-0:    0;
+  --space-0-5:  0.125rem;  /* 2  */
+  --space-1:    0.25rem;   /* 4  */
+  --space-1-5:  0.375rem;  /* 6  */
+  --space-2:    0.5rem;    /* 8  */
+  --space-3:    0.75rem;   /* 12 */
+  --space-4:    1rem;      /* 16 */
+  --space-5:    1.25rem;   /* 20 */
+  --space-6:    1.5rem;    /* 24 */
+  --space-7:    1.75rem;   /* 28 */
+  --space-8:    2rem;      /* 32 */
+  --space-10:   2.5rem;    /* 40 */
+  --space-12:   3rem;      /* 48 */
+  --space-14:   3.5rem;    /* 56 */
+  --space-16:   4rem;      /* 64 */
+  --space-20:   5rem;      /* 80 */
+  --space-24:   6rem;      /* 96 */
+  --space-28:   7rem;      /* 112 */
+  --space-32:   8rem;      /* 128 */
+  --space-40:  10rem;      /* 160 */
+  --space-48:  12rem;      /* 192 */
+  --space-56:  14rem;      /* 224 */
+  --space-64:  16rem;      /* 256 */
+
+  /* ─── Layout ──────────────────────────────────────────────────────────── */
+  --container-sm:     640px;
+  --container-md:     768px;
+  --container-lg:     992px;
+  --container-xl:     1200px;
+  --container-2xl:    1440px;
+  --container-3xl:    1600px;
+  --container-fluid:  100%;
+
+  --content-max:      72ch;   /* ideal reading measure for long-form text */
+
+  --page-gutter:          clamp(1rem, 4vw, 3rem);   /* horizontal page padding */
+  --section-padding-y:    clamp(3rem, 8vw, 8rem);   /* vertical section rhythm */
+
+  /* ─── Breakpoints (reference only; use in media queries) ──────────────── */
+  --bp-xs: 480px;
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 992px;
+  --bp-xl: 1200px;
+  --bp-2xl: 1440px;
+
+  /* ─── Radius ──────────────────────────────────────────────────────────── */
+  --radius-none:    0;
+  --radius-xs:      2px;
+  --radius-sm:      4px;
+  --radius-md:      8px;
+  --radius-lg:      12px;
+  --radius-xl:      16px;
+  --radius-2xl:     24px;
+  --radius-3xl:     32px;
+  --radius-pill:    999px;
+  --radius-circle:  50%;
+
+  /* ─── Elevation / Shadow ──────────────────────────────────────────────── */
+  --shadow-xs:  0 1px 2px rgba(11, 12, 15, 0.04);
+  --shadow-sm:  0 1px 3px rgba(11, 12, 15, 0.06), 0 1px 2px rgba(11, 12, 15, 0.04);
+  --shadow-md:  0 4px 12px rgba(11, 12, 15, 0.08), 0 2px 4px rgba(11, 12, 15, 0.04);
+  --shadow-lg:  0 12px 32px rgba(11, 12, 15, 0.12), 0 4px 8px rgba(11, 12, 15, 0.06);
+  --shadow-xl:  0 24px 64px rgba(11, 12, 15, 0.18), 0 8px 16px rgba(11, 12, 15, 0.08);
+  --shadow-2xl: 0 48px 96px rgba(11, 12, 15, 0.22), 0 12px 24px rgba(11, 12, 15, 0.10);
+  --shadow-focus: 0 0 0 3px rgba(10, 132, 255, 0.35);
+
+  /* ─── Motion (duration + easing) ──────────────────────────────────────── */
+  --duration-instant:  60ms;
+  --duration-fast:     120ms;
+  --duration-quick:    200ms;
+  --duration-base:     300ms;
+  --duration-slow:     500ms;
+  --duration-slower:   800ms;
+  --duration-slowest:  1200ms;
+
+  /* Cinematic easing curves */
+  --ease-standard:  cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:       cubic-bezier(0, 0, 0.2, 1);
+  --ease-in:        cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasis:  cubic-bezier(0.22, 1, 0.36, 1);   /* smooth hero reveal */
+  --ease-spring:    cubic-bezier(0.34, 1.56, 0.64, 1); /* subtle bounce */
+
+  /* ─── Z-index scale ───────────────────────────────────────────────────── */
+  --z-hide:         -1;
+  --z-base:          0;
+  --z-raised:        10;
+  --z-dropdown:      100;
+  --z-sticky:        200;
+  --z-overlay:       300;
+  --z-drawer:        400;
+  --z-modal:         500;
+  --z-popover:       600;
+  --z-toast:         700;
+  --z-tooltip:       800;
+  --z-top:           9999;
+
+  /* ─── Component defaults ──────────────────────────────────────────────── */
+  --header-height:         64px;
+  --header-height-scroll:  56px;
+  --footer-padding-y:      var(--space-16);
+
+  /* ─── Focus ring ──────────────────────────────────────────────────────── */
+  --focus-ring:            var(--shadow-focus);
+  --focus-ring-offset:     2px;
+
+  /* ─── Scrollbar ───────────────────────────────────────────────────────── */
+  --scrollbar-thumb:       var(--color-fog);
+  --scrollbar-track:       transparent;
+}
+
+/* =============================================================================
+   Dark theme (manual toggle OR system preference)
+   ============================================================================= */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg:              var(--color-black);
+    --color-bg-alt:          #101114;
+    --color-bg-elevated:     #15171B;
+    --color-bg-inverse:      var(--color-white);
+    --color-surface-soft:    #1A1C21;
+    --color-surface-muted:   #22252B;
+
+    --color-text:            var(--color-white);
+    --color-text-muted:      #B3B6BB;
+    --color-text-subtle:     #8E9196;
+    --color-text-inverse:    var(--color-ink);
+
+    --color-border:          #2A2D33;
+    --color-border-strong:   #3A3D44;
+
+    --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.40);
+    --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.30);
+    --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.50), 0 2px 4px rgba(0, 0, 0, 0.35);
+    --shadow-lg:  0 12px 32px rgba(0, 0, 0, 0.55), 0 4px 8px rgba(0, 0, 0, 0.40);
+    --shadow-xl:  0 24px 64px rgba(0, 0, 0, 0.60), 0 8px 16px rgba(0, 0, 0, 0.45);
+    --shadow-2xl: 0 48px 96px rgba(0, 0, 0, 0.65), 0 12px 24px rgba(0, 0, 0, 0.50);
+
+    --scrollbar-thumb:       #2A2D33;
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-bg:              var(--color-black);
+  --color-bg-alt:          #101114;
+  --color-bg-elevated:     #15171B;
+  --color-bg-inverse:      var(--color-white);
+  --color-surface-soft:    #1A1C21;
+  --color-surface-muted:   #22252B;
+
+  --color-text:            var(--color-white);
+  --color-text-muted:      #B3B6BB;
+  --color-text-subtle:     #8E9196;
+  --color-text-inverse:    var(--color-ink);
+
+  --color-border:          #2A2D33;
+  --color-border-strong:   #3A3D44;
+
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.30);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.50), 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-lg:  0 12px 32px rgba(0, 0, 0, 0.55), 0 4px 8px rgba(0, 0, 0, 0.40);
+  --shadow-xl:  0 24px 64px rgba(0, 0, 0, 0.60), 0 8px 16px rgba(0, 0, 0, 0.45);
+  --shadow-2xl: 0 48px 96px rgba(0, 0, 0, 0.65), 0 12px 24px rgba(0, 0, 0, 0.50);
+
+  --scrollbar-thumb:       #2A2D33;
+}
+
+/* =============================================================================
+   Reduced motion — honor user preference for accessibility
+   ============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant:  0ms;
+    --duration-fast:     0ms;
+    --duration-quick:    0ms;
+    --duration-base:     0ms;
+    --duration-slow:     0ms;
+    --duration-slower:   0ms;
+    --duration-slowest:  0ms;
+  }
+}
