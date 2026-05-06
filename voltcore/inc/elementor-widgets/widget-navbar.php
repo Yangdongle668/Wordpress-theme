@@ -83,7 +83,7 @@ class VoltCore_Navbar extends \Elementor\Widget_Base {
 		) );
 
 		$panel = new \Elementor\Repeater();
-		$panel->add_control( 'pitem_image', array( 'label' => __( 'Card image', 'voltcore' ), 'type' => \Elementor\Controls_Manager::MEDIA, 'default' => array( 'url' => VOLTCORE_URI . '/assets/images/product-1.jpg' ) ) );
+		$panel->add_control( 'pitem_image', array( 'label' => __( 'Card image', 'voltcore' ), 'type' => \Elementor\Controls_Manager::MEDIA, 'default' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-s.svg' ) ) );
 		$panel->add_control( 'pitem_title', array( 'label' => __( 'Title', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Model S' ) );
 		$panel->add_control( 'pitem_sub',   array( 'label' => __( 'Sub-label', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => '' ) );
 		$panel->add_control( 'pitem_cta1',  array( 'label' => __( 'Button 1 label', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Custom Order' ) );

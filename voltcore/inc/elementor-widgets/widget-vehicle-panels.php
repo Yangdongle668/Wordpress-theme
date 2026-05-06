@@ -40,8 +40,20 @@ class VoltCore_Vehicle_Panels extends \Elementor\Widget_Base {
 		$rep->add_control( 'image', array(
 			'label'     => __( 'Image', 'voltcore' ),
 			'type'      => \Elementor\Controls_Manager::MEDIA,
-			'default'   => array( 'url' => VOLTCORE_URI . '/assets/images/hero-1.jpg' ),
+			'default'   => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-s.svg' ),
 			'condition' => array( 'media_type' => 'image' ),
+		) );
+
+		$rep->add_control( 'preset', array(
+			'label'   => __( 'Layout preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'centered',
+			'options' => array(
+				'centered'    => __( 'Centered (default)', 'voltcore' ),
+				'bottom-left' => __( 'Bottom-left', 'voltcore' ),
+				'cinematic'   => __( 'Cinematic (large title, dim overlay)', 'voltcore' ),
+				'minimal'     => __( 'Minimal (no overlay, no eyebrow)', 'voltcore' ),
+			),
 		) );
 		$rep->add_control( 'video_url', array(
 			'label'     => __( 'Video URL (mp4/webm)', 'voltcore' ),
@@ -85,9 +97,14 @@ class VoltCore_Vehicle_Panels extends \Elementor\Widget_Base {
 			'fields'      => $rep->get_controls(),
 			'title_field' => '{{{ title }}}',
 			'default'     => array(
-				array( 'title' => 'Model S', 'subtitle' => 'Plaid · 1,020 hp', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/hero-1.jpg' ) ),
-				array( 'title' => 'Model 3', 'subtitle' => 'Lease starting at $349/mo', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/hero-2.jpg' ) ),
-				array( 'title' => 'Model X', 'subtitle' => 'Up to 348 mi range', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/hero-3.jpg' ) ),
+				array( 'title' => 'Model S',     'subtitle' => 'Plaid · 1,020 hp',          'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-s.svg' ),    'theme' => 'light' ),
+				array( 'title' => 'Model 3',     'subtitle' => 'Lease starting at $349/mo', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-3.svg' ),    'theme' => 'light' ),
+				array( 'title' => 'Model X',     'subtitle' => 'Up to 348 mi range',         'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-x.svg' ),    'theme' => 'light' ),
+				array( 'title' => 'Model Y',     'subtitle' => 'Most popular SUV',           'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-y.svg' ),    'theme' => 'light' ),
+				array( 'title' => 'Cybertruck',  'subtitle' => 'Built for any planet',       'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/cybertruck.svg' ), 'theme' => 'dark', 'preset' => 'cinematic' ),
+				array( 'title' => 'Solar Panels','subtitle' => 'Power your home with the sun','image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/solar-panels.svg' ), 'theme' => 'light' ),
+				array( 'title' => 'Powerwall',   'subtitle' => 'Energy storage for the home', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/powerwall.svg' ),  'theme' => 'light' ),
+				array( 'title' => 'Accessories', 'subtitle' => 'For Tesla owners',            'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/wallconnector.svg' ), 'theme' => 'light' ),
 			),
 		) );
 
@@ -109,8 +126,9 @@ class VoltCore_Vehicle_Panels extends \Elementor\Widget_Base {
 		<?php foreach ( $panels as $p ) :
 			$theme  = $p['theme'] === 'light' ? 'vc-vpanel--white' : 'vc-vpanel--dark';
 			$type   = $p['media_type'];
+			$preset = ! empty( $p['preset'] ) ? 'vc-vpanel--' . sanitize_html_class( $p['preset'] ) : 'vc-vpanel--centered';
 		?>
-			<section class="vc-vpanel <?php echo esc_attr( $theme ); ?>">
+			<section class="vc-vpanel <?php echo esc_attr( $theme . ' ' . $preset ); ?>">
 				<div class="vc-vpanel__media">
 					<?php if ( $type === 'video' && ! empty( $p['video_url'] ) ) : ?>
 						<video autoplay muted loop playsinline preload="metadata"

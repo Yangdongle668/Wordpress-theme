@@ -42,7 +42,7 @@ class VoltCore_Inventory extends \Elementor\Widget_Base {
 		$this->start_controls_section( 'section_cards', array( 'label' => __( 'Vehicle cards', 'voltcore' ) ) );
 
 		$rep = new \Elementor\Repeater();
-		$rep->add_control( 'image', array( 'label' => __( 'Image', 'voltcore' ), 'type' => \Elementor\Controls_Manager::MEDIA, 'default' => array( 'url' => VOLTCORE_URI . '/assets/images/product-1.jpg' ) ) );
+		$rep->add_control( 'image', array( 'label' => __( 'Image', 'voltcore' ), 'type' => \Elementor\Controls_Manager::MEDIA, 'default' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-pearl.svg' ) ) );
 		$rep->add_control( 'model', array( 'label' => __( 'Model', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Model S' ) );
 		$rep->add_control( 'trim',  array( 'label' => __( 'Trim', 'voltcore' ),  'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Long Range' ) );
 		$rep->add_control( 'color', array( 'label' => __( 'Color', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'White' ) );
@@ -57,12 +57,24 @@ class VoltCore_Inventory extends \Elementor\Widget_Base {
 			'fields'      => $rep->get_controls(),
 			'title_field' => '{{{ model }}} — {{{ trim }}}',
 			'default'     => array(
-				array( 'model' => 'Model S', 'trim' => 'Long Range', 'color' => 'White', 'price' => 79990, 'range' => '405 mi', 'zip' => '94025' ),
-				array( 'model' => 'Model S', 'trim' => 'Plaid',      'color' => 'Black', 'price' => 89990, 'range' => '396 mi', 'zip' => '90001' ),
-				array( 'model' => 'Model 3', 'trim' => 'Performance', 'color' => 'Red',   'price' => 52990, 'range' => '296 mi', 'zip' => '94025' ),
-				array( 'model' => 'Model 3', 'trim' => 'Long Range', 'color' => 'Blue',  'price' => 47990, 'range' => '358 mi', 'zip' => '94025' ),
-				array( 'model' => 'Model X', 'trim' => 'Long Range', 'color' => 'Grey',  'price' => 89990, 'range' => '348 mi', 'zip' => '85001' ),
-				array( 'model' => 'Model Y', 'trim' => 'Performance', 'color' => 'White', 'price' => 53990, 'range' => '303 mi', 'zip' => '94025' ),
+				array( 'model' => 'Model S', 'trim' => 'Long Range',  'color' => 'White', 'price' => 79990, 'range' => '405 mi', 'zip' => '94025', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-pearl.svg' ) ),
+				array( 'model' => 'Model S', 'trim' => 'Plaid',       'color' => 'Black', 'price' => 89990, 'range' => '396 mi', 'zip' => '90001', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-black.svg' ) ),
+				array( 'model' => 'Model 3', 'trim' => 'Performance', 'color' => 'Red',   'price' => 52990, 'range' => '296 mi', 'zip' => '94025', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-red.svg' ) ),
+				array( 'model' => 'Model 3', 'trim' => 'Long Range',  'color' => 'Blue',  'price' => 47990, 'range' => '358 mi', 'zip' => '94025', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-blue.svg' ) ),
+				array( 'model' => 'Model X', 'trim' => 'Long Range',  'color' => 'Grey',  'price' => 89990, 'range' => '348 mi', 'zip' => '85001', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-x.svg' ) ),
+				array( 'model' => 'Model Y', 'trim' => 'Performance', 'color' => 'White', 'price' => 53990, 'range' => '303 mi', 'zip' => '94025', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-y.svg' ) ),
+			),
+		) );
+
+		$this->add_control( 'preset', array(
+			'label'   => __( 'Style preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'grid',
+			'options' => array(
+				'grid'    => __( 'Grid (3 columns)', 'voltcore' ),
+				'compact' => __( 'Compact grid (4 columns)', 'voltcore' ),
+				'list'    => __( 'List (image + details row)', 'voltcore' ),
+				'cards'   => __( 'Soft cards (shadowed, rounded)', 'voltcore' ),
 			),
 		) );
 
@@ -87,7 +99,7 @@ class VoltCore_Inventory extends \Elementor\Widget_Base {
 		$colors = $this->lines( $s['colors'] );
 		$cards  = is_array( $s['cards'] ?? null ) ? $s['cards'] : array();
 		?>
-		<section class="vc-inv" data-vc-inv>
+		<section class="vc-inv vc-inv--<?php echo esc_attr( $s['preset'] ?? 'grid' ); ?>" data-vc-inv>
 			<div class="vc-inv__filters">
 				<div><label><?php esc_html_e( 'Model', 'voltcore' ); ?></label>
 				<select data-inv-filter="model">

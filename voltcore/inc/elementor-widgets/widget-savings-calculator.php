@@ -27,13 +27,25 @@ class VoltCore_Savings_Calculator extends \Elementor\Widget_Base {
 		$this->add_control( 'sun_default',   array( 'label' => __( 'Default sun hours/day', 'voltcore' ), 'type' => \Elementor\Controls_Manager::NUMBER, 'default' => 5 ) );
 		$this->add_control( 'system_default', array( 'label' => __( 'Default system price ($)', 'voltcore' ), 'type' => \Elementor\Controls_Manager::NUMBER, 'default' => 12000 ) );
 
+		$this->add_control( 'preset', array(
+			'label'   => __( 'Style preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'split',
+			'options' => array(
+				'split'   => __( 'Split (inputs left, readout right)', 'voltcore' ),
+				'mirror'  => __( 'Mirror (inputs right, readout left)', 'voltcore' ),
+				'stacked' => __( 'Stacked (inputs top, readout bottom)', 'voltcore' ),
+				'card'    => __( 'Single card (everything on a surface)', 'voltcore' ),
+			),
+		) );
+
 		$this->end_controls_section();
 	}
 
 	protected function render() {
 		$s = $this->get_settings_for_display();
 		?>
-		<section class="vc-calc" data-vc-calc>
+		<section class="vc-calc vc-calc--<?php echo esc_attr( $s['preset'] ?? 'split' ); ?>" data-vc-calc>
 			<div class="vc-calc__inputs">
 				<?php if ( ! empty( $s['heading'] ) ) : ?><h2 style="margin-bottom:24px;"><?php echo esc_html( $s['heading'] ); ?></h2><?php endif; ?>
 				<div class="row">

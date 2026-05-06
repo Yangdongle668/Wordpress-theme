@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Dark panel background">
+	<defs>
+		<linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+			<stop offset="0" stop-color="#0d1014"/>
+			<stop offset="0.6" stop-color="#171a20"/>
+			<stop offset="1" stop-color="#23272d"/>
+		</linearGradient>
+		<radialGradient id="halo" cx="50%" cy="80%" r="60%">
+			<stop offset="0" stop-color="rgba(60,80,140,0.35)"/>
+			<stop offset="1" stop-color="rgba(60,80,140,0)"/>
+		</radialGradient>
+	</defs>
+	<rect width="1920" height="1080" fill="url(#g)"/>
+	<rect width="1920" height="1080" fill="url(#halo)"/>
+</svg>

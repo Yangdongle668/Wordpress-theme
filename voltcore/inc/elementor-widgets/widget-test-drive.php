@@ -23,7 +23,7 @@ class VoltCore_Test_Drive extends \Elementor\Widget_Base {
 
 		$rep = new \Elementor\Repeater();
 		$rep->add_control( 'name',  array( 'label' => __( 'Model', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Model S' ) );
-		$rep->add_control( 'image', array( 'label' => __( 'Image', 'voltcore' ), 'type' => \Elementor\Controls_Manager::MEDIA, 'default' => array( 'url' => VOLTCORE_URI . '/assets/images/product-1.jpg' ) ) );
+		$rep->add_control( 'image', array( 'label' => __( 'Image', 'voltcore' ), 'type' => \Elementor\Controls_Manager::MEDIA, 'default' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-s.svg' ) ) );
 
 		$this->add_control( 'models', array(
 			'label' => __( 'Models', 'voltcore' ),
@@ -31,8 +31,22 @@ class VoltCore_Test_Drive extends \Elementor\Widget_Base {
 			'fields' => $rep->get_controls(),
 			'title_field' => '{{{ name }}}',
 			'default' => array(
-				array( 'name' => 'Model S' ), array( 'name' => 'Model 3' ),
-				array( 'name' => 'Model X' ), array( 'name' => 'Model Y' ),
+				array( 'name' => 'Model S', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-s.svg' ) ),
+				array( 'name' => 'Model 3', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-3.svg' ) ),
+				array( 'name' => 'Model X', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-x.svg' ) ),
+				array( 'name' => 'Model Y', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/model-y.svg' ) ),
+			),
+		) );
+
+		$this->add_control( 'preset', array(
+			'label'   => __( 'Style preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'bar',
+			'options' => array(
+				'bar'      => __( 'Underline step bar (default)', 'voltcore' ),
+				'numbers'  => __( 'Numbered circles', 'voltcore' ),
+				'sidebar'  => __( 'Vertical sidebar steps', 'voltcore' ),
+				'minimal'  => __( 'Minimal (no step indicator)', 'voltcore' ),
 			),
 		) );
 
@@ -60,7 +74,7 @@ class VoltCore_Test_Drive extends \Elementor\Widget_Base {
 			if ( $ln !== '' ) $locations[] = $ln;
 		}
 		?>
-		<section class="vc-td" data-vc-td>
+		<section class="vc-td vc-td--<?php echo esc_attr( $s['preset'] ?? 'bar' ); ?>" data-vc-td>
 			<form>
 				<div class="vc-td__steps">
 					<div class="vc-td__step is-active">1 · <?php esc_html_e( 'Vehicle', 'voltcore' ); ?></div>

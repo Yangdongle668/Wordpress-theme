@@ -31,6 +31,18 @@ class VoltCore_Configurator extends \Elementor\Widget_Base {
 		$this->add_control( 'cta_label',  array( 'label' => __( 'CTA label', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Continue to Order' ) );
 		$this->add_control( 'cta_url',    array( 'label' => __( 'CTA URL', 'voltcore' ), 'type' => \Elementor\Controls_Manager::URL, 'default' => array( 'url' => '#order' ) ) );
 
+		$this->add_control( 'preset', array(
+			'label'   => __( 'Layout preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'split',
+			'options' => array(
+				'split'    => __( 'Stage left + panel right (default)', 'voltcore' ),
+				'mirror'   => __( 'Mirror — panel left + stage right', 'voltcore' ),
+				'stacked'  => __( 'Stacked — stage on top', 'voltcore' ),
+				'centered' => __( 'Centered hero — panel below', 'voltcore' ),
+			),
+		) );
+
 		$this->end_controls_section();
 
 		/* Paint */
@@ -48,11 +60,11 @@ class VoltCore_Configurator extends \Elementor\Widget_Base {
 			'fields'      => $paint->get_controls(),
 			'title_field' => '{{{ name }}}',
 			'default'     => array(
-				array( 'id' => 'pearl', 'name' => 'Pearl White Multi-Coat', 'color' => '#f4f4f4', 'price' => 0,    'image' => array( 'url' => VOLTCORE_URI . '/assets/images/product-1.jpg' ) ),
-				array( 'id' => 'solid', 'name' => 'Solid Black',            'color' => '#0b0b0b', 'price' => 1500, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/product-2.jpg' ) ),
-				array( 'id' => 'red',   'name' => 'Ultra Red',              'color' => '#a31621', 'price' => 2500, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/product-3.jpg' ) ),
-				array( 'id' => 'blue',  'name' => 'Deep Blue Metallic',     'color' => '#1f3263', 'price' => 1500, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/hero-1.jpg' ) ),
-				array( 'id' => 'gray',  'name' => 'Stealth Grey',           'color' => '#3b3d40', 'price' => 1000, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/hero-2.jpg' ) ),
+				array( 'id' => 'pearl', 'name' => 'Pearl White Multi-Coat', 'color' => '#f4f4f4', 'price' => 0,    'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-pearl.svg' ) ),
+				array( 'id' => 'solid', 'name' => 'Solid Black',            'color' => '#0b0b0b', 'price' => 1500, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-black.svg' ) ),
+				array( 'id' => 'red',   'name' => 'Ultra Red',              'color' => '#a31621', 'price' => 2500, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-red.svg' ) ),
+				array( 'id' => 'blue',  'name' => 'Deep Blue Metallic',     'color' => '#1f3263', 'price' => 1500, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-blue.svg' ) ),
+				array( 'id' => 'gray',  'name' => 'Stealth Grey',           'color' => '#3b3d40', 'price' => 1000, 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-grey.svg' ) ),
 			),
 		) );
 		$this->end_controls_section();
@@ -140,7 +152,7 @@ class VoltCore_Configurator extends \Elementor\Widget_Base {
 			'autopilots' => array_map( function( $p ) { return array( 'id' => $p['id'], 'name' => $p['name'], 'price' => intval( $p['price'] ) ); }, $aps ),
 		);
 		?>
-		<section class="vc-config" data-vc-config>
+		<section class="vc-config vc-config--<?php echo esc_attr( $s['preset'] ?? 'split' ); ?>" data-vc-config>
 			<div class="vc-config__stage">
 				<div class="vc-config__stage-stack">
 				<?php foreach ( $paints as $i => $p ) : if ( empty( $p['image']['url'] ) ) continue; ?>

@@ -1815,3 +1815,91 @@ body.page-blank .site-main { padding: 0; }
 .vc-modal__list a { display: block; padding: 12px 4px; font-size: 14px; color: var(--vc-ink); }
 .vc-modal__list a:hover { color: var(--vc-accent); }
 
+/* ================================================================
+ *  Phase-3b · Style presets (modifier classes)
+ *    Lightweight visual variants per widget so editors can re-skin
+ *    without leaving Elementor.
+ * ================================================================ */
+
+/* Vehicle Panels — text alignment / overlay variants */
+.vc-vpanel.vc-vpanel--centered .vc-vpanel__content { text-align: center; padding-top: 14vh; }
+.vc-vpanel.vc-vpanel--bottom-left { align-items: flex-end; justify-items: start; }
+.vc-vpanel.vc-vpanel--bottom-left .vc-vpanel__content { text-align: left; max-width: 720px; margin: 0; padding: 0 56px 22vh; }
+.vc-vpanel.vc-vpanel--bottom-left .vc-vpanel__actions { justify-content: flex-start; padding: 0 56px; }
+.vc-vpanel.vc-vpanel--cinematic .vc-vpanel__media::after { background: linear-gradient(to bottom, rgba(0,0,0,.45) 0%, rgba(0,0,0,.10) 35%, rgba(0,0,0,0) 60%, rgba(0,0,0,.55) 100%); }
+.vc-vpanel.vc-vpanel--cinematic .vc-vpanel__title { font-size: clamp(2.75rem, 6vw, 5rem); }
+.vc-vpanel.vc-vpanel--cinematic .vc-vpanel__subtitle { font-size: 16px; }
+.vc-vpanel.vc-vpanel--minimal .vc-vpanel__media::after { background: none; }
+.vc-vpanel.vc-vpanel--minimal .vc-vpanel__eyebrow { display: none; }
+.vc-vpanel.vc-vpanel--minimal .vc-vpanel__title { font-size: clamp(2rem, 4.2vw, 3.25rem); }
+.vc-vpanel.vc-vpanel--minimal .vc-vpanel__subtitle { display: none; }
+
+/* Model Gallery — left/right/compact/editorial */
+.vc-modelgal--image-right .vc-modelgal__inner { direction: rtl; }
+.vc-modelgal--image-right .vc-modelgal__inner > * { direction: ltr; }
+.vc-modelgal--compact .vc-modelgal__media { height: 80vh; }
+.vc-modelgal--compact .vc-modelgal__feature { min-height: 60vh; padding: 36px 0; }
+.vc-modelgal--editorial .vc-modelgal__inner { grid-template-columns: 1fr; }
+.vc-modelgal--editorial .vc-modelgal__media { position: relative; top: auto; height: 100vh; }
+.vc-modelgal--editorial .vc-modelgal__features { margin-top: -40vh; padding: 0 56px; position: relative; z-index: 2; }
+.vc-modelgal--editorial .vc-modelgal__feature { background: rgba(255,255,255,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 32px 36px; border-radius: var(--vc-radius-card); margin-bottom: 16px; min-height: auto; }
+
+/* Model Specs — tab styles */
+.vc-mspecs--underline .vc-mspecs__tab { border-radius: 0; padding: 10px 16px; border-bottom: 2px solid transparent; }
+.vc-mspecs--underline .vc-mspecs__tab.is-active { background: transparent; color: var(--vc-ink); border-bottom-color: var(--vc-ink); }
+.vc-mspecs--boxed .vc-mspecs__tab { border-radius: 6px; border: 1px solid var(--vc-line); padding: 10px 18px; }
+.vc-mspecs--boxed .vc-mspecs__tab.is-active { background: var(--vc-ink); color: #fff; border-color: var(--vc-ink); }
+.vc-mspecs--boxed .vc-mspecs__cell { background: #fff; border: 1px solid var(--vc-line); }
+.vc-mspecs--minimal .vc-mspecs__cell { background: transparent; padding: 16px 4px; border-top: 1px solid var(--vc-line); border-radius: 0; }
+.vc-mspecs--minimal .vc-mspecs__grid { gap: 0; }
+
+/* Configurator — layout presets */
+.vc-config--mirror { grid-template-columns: 420px 1fr; }
+.vc-config--mirror .vc-config__panel { border-left: 0; border-right: 1px solid var(--vc-line); order: 0; }
+.vc-config--mirror .vc-config__stage { order: 1; }
+.vc-config--stacked { grid-template-columns: 1fr; }
+.vc-config--stacked .vc-config__stage { position: relative; top: auto; height: 70vh; }
+.vc-config--stacked .vc-config__panel { border-left: 0; border-top: 1px solid var(--vc-line); }
+.vc-config--centered { grid-template-columns: 1fr; }
+.vc-config--centered .vc-config__stage { position: relative; top: auto; height: 60vh; }
+.vc-config--centered .vc-config__panel { border-left: 0; max-width: 720px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+
+/* Savings Calculator — layout presets */
+.vc-calc--mirror { direction: rtl; }
+.vc-calc--mirror > * { direction: ltr; }
+.vc-calc--stacked { grid-template-columns: 1fr; }
+.vc-calc--card { grid-template-columns: 1fr; background: var(--vc-surface); border-radius: var(--vc-radius-card); padding: 40px 32px; max-width: 640px; }
+.vc-calc--card .vc-calc__readout { background: #fff; }
+
+/* Inventory — grid / list / cards / compact */
+.vc-inv--compact .vc-inv__grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1100px) { .vc-inv--compact .vc-inv__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px)  { .vc-inv--compact .vc-inv__grid { grid-template-columns: repeat(2, 1fr); } }
+.vc-inv--list .vc-inv__grid { grid-template-columns: 1fr; gap: 12px; }
+.vc-inv--list .vc-inv__card { display: grid; grid-template-columns: 240px 1fr; align-items: stretch; }
+.vc-inv--list .vc-inv__card-img { height: auto; min-height: 160px; }
+.vc-inv--list .vc-inv__card-body { padding: 22px 24px; }
+.vc-inv--cards .vc-inv__card { border: 0; box-shadow: 0 4px 14px rgba(0,0,0,.06); }
+.vc-inv--cards .vc-inv__card:hover { box-shadow: 0 14px 36px rgba(0,0,0,.12); }
+
+/* Test Drive — step indicator presets */
+.vc-td--numbers .vc-td__steps { gap: 24px; }
+.vc-td--numbers .vc-td__step {
+	flex: 0 0 auto; padding: 0; border: 0;
+	width: 36px; height: 36px; border-radius: 50%;
+	display: grid; place-items: center;
+	background: var(--vc-line); color: var(--vc-ink);
+	font-size: 13px; font-weight: 500;
+}
+.vc-td--numbers .vc-td__step.is-active { background: var(--vc-ink); color: #fff; }
+.vc-td--numbers .vc-td__step.is-done { background: var(--vc-accent); color: #fff; }
+.vc-td--sidebar form { display: grid; grid-template-columns: 200px 1fr; gap: 32px; }
+.vc-td--sidebar .vc-td__steps { flex-direction: column; gap: 0; align-self: start; }
+.vc-td--sidebar .vc-td__step { text-align: left; padding: 12px 0; border-bottom: 0; border-left: 2px solid var(--vc-line); padding-left: 14px; }
+.vc-td--sidebar .vc-td__step.is-active { border-left-color: var(--vc-ink); }
+.vc-td--sidebar .vc-td__step.is-done { border-left-color: var(--vc-accent); }
+.vc-td--sidebar .vc-td__nav { grid-column: 2; }
+@media (max-width: 720px) { .vc-td--sidebar form { grid-template-columns: 1fr; } .vc-td--sidebar .vc-td__nav { grid-column: 1; } }
+.vc-td--minimal .vc-td__steps { display: none; }
+
+

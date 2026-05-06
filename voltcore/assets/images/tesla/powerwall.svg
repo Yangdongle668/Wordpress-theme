@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Powerwall placeholder">
+	<defs>
+		<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fafafa"/><stop offset="1" stop-color="#e6e7e8"/></linearGradient>
+		<linearGradient id="unit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dcdfe2"/></linearGradient>
+	</defs>
+	<rect width="1200" height="600" fill="url(#bg)"/>
+	<rect x="495" y="120" width="210" height="380" rx="20" fill="url(#unit)" stroke="#cfd2d4" stroke-width="2"/>
+	<rect x="525" y="158" width="150" height="3" fill="#cfd2d4"/>
+	<rect x="525" y="172" width="150" height="3" fill="#cfd2d4"/>
+	<g fill="#171a20">
+		<path d="M610 245 L 568 320 L 600 320 L 590 380 L 638 295 L 606 295 Z"/>
+	</g>
+	<text x="600" y="555" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#5c5e62">POWERWALL</text>
+</svg>

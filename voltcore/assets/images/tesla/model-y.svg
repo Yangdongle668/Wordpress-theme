@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Model Y placeholder">
+	<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f8"/><stop offset="1" stop-color="#e6e7e8"/></linearGradient></defs>
+	<rect width="1200" height="600" fill="url(#bg)"/>
+	<g fill="#171a20">
+		<path d="M170 425 L 220 380 C 270 330 360 290 510 282 C 700 272 830 282 935 320 C 985 338 1015 365 1040 410 L 1075 425 L 1095 442 L 1095 460 L 1055 464 L 140 464 L 100 460 L 90 446 L 95 432 Z"/>
+		<path d="M340 305 L 490 220 C 530 200 580 192 635 192 L 760 192 C 810 195 855 210 885 250 L 930 305 Z" fill="#23272d"/>
+	</g>
+	<g fill="#fff" stroke="#171a20" stroke-width="3">
+		<circle cx="315" cy="460" r="58"/><circle cx="315" cy="460" r="22" fill="#171a20"/>
+		<circle cx="895" cy="460" r="58"/><circle cx="895" cy="460" r="22" fill="#171a20"/>
+	</g>
+	<text x="600" y="555" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#5c5e62">MODEL Y</text>
+</svg>

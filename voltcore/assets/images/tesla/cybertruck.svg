@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cybertruck placeholder">
+	<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f8"/><stop offset="1" stop-color="#e6e7e8"/></linearGradient></defs>
+	<rect width="1200" height="600" fill="url(#bg)"/>
+	<g fill="#3b3d40">
+		<polygon points="120,460 220,260 600,180 1080,360 1100,460"/>
+		<polygon points="240,260 410,160 760,160 1010,330" fill="#23272d"/>
+		<polygon points="430,160 580,160 700,160 760,160 1000,325 1000,330 240,260" opacity="0.05" fill="#fff"/>
+	</g>
+	<g fill="#fff" stroke="#171a20" stroke-width="3">
+		<circle cx="320" cy="475" r="62"/><circle cx="320" cy="475" r="22" fill="#171a20"/>
+		<circle cx="900" cy="475" r="62"/><circle cx="900" cy="475" r="22" fill="#171a20"/>
+	</g>
+	<text x="600" y="555" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#5c5e62">CYBERTRUCK</text>
+</svg>

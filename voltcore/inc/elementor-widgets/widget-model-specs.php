@@ -45,6 +45,18 @@ class VoltCore_Model_Specs extends \Elementor\Widget_Base {
 			'type'  => \Elementor\Controls_Manager::TEXT,
 		) );
 
+		$this->add_control( 'preset', array(
+			'label'   => __( 'Style preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'pills',
+			'options' => array(
+				'pills'     => __( 'Pill tabs (default)', 'voltcore' ),
+				'underline' => __( 'Underline tabs', 'voltcore' ),
+				'boxed'     => __( 'Boxed cards (no fill)', 'voltcore' ),
+				'minimal'   => __( 'Minimal (transparent cells)', 'voltcore' ),
+			),
+		) );
+
 		$this->end_controls_section();
 	}
 
@@ -52,7 +64,7 @@ class VoltCore_Model_Specs extends \Elementor\Widget_Base {
 		$s = $this->get_settings_for_display();
 		$tabs = is_array( $s['tabs'] ?? null ) ? $s['tabs'] : array();
 		?>
-		<section class="vc-mspecs" data-vc-mspecs>
+		<section class="vc-mspecs vc-mspecs--<?php echo esc_attr( $s['preset'] ?? 'pills' ); ?>" data-vc-mspecs>
 			<?php if ( ! empty( $s['heading'] ) ) : ?><h2 style="text-align:center;margin-bottom:32px;"><?php echo esc_html( $s['heading'] ); ?></h2><?php endif; ?>
 			<div class="vc-mspecs__tabs">
 			<?php foreach ( $tabs as $i => $t ) : ?>

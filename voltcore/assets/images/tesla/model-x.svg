@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Model X placeholder">
+	<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f8"/><stop offset="1" stop-color="#e6e7e8"/></linearGradient></defs>
+	<rect width="1200" height="600" fill="url(#bg)"/>
+	<g fill="#171a20">
+		<path d="M150 420 L 200 360 C 240 320 320 280 460 268 C 660 254 820 270 940 310 C 1000 330 1040 360 1060 410 L 1090 425 L 1100 445 L 1095 462 L 1055 466 L 130 466 L 95 462 L 88 450 L 92 432 Z"/>
+		<path d="M310 290 L 460 200 C 510 170 560 160 620 160 L 760 160 C 820 162 870 175 905 220 L 950 285 Z" fill="#23272d"/>
+		<path d="M530 220 L 600 140 L 670 215 Z" fill="#171a20" opacity="0.55"/>
+	</g>
+	<g fill="#fff" stroke="#171a20" stroke-width="3">
+		<circle cx="305" cy="465" r="60"/><circle cx="305" cy="465" r="22" fill="#171a20"/>
+		<circle cx="900" cy="465" r="60"/><circle cx="900" cy="465" r="22" fill="#171a20"/>
+	</g>
+	<text x="600" y="555" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#5c5e62">MODEL X</text>
+</svg>

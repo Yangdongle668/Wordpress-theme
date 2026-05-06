@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Model 3 placeholder">
+	<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6f7f8"/><stop offset="1" stop-color="#e6e7e8"/></linearGradient></defs>
+	<rect width="1200" height="600" fill="url(#bg)"/>
+	<g fill="#171a20">
+		<path d="M170 420 C 250 380 360 340 520 338 C 700 336 830 344 940 370 C 990 384 1020 400 1050 420 L 1080 430 L 1095 440 L 1095 460 L 1055 462 L 140 462 L 105 458 L 95 448 L 100 438 Z"/>
+		<path d="M360 340 L 510 245 C 545 220 595 210 650 210 L 760 210 C 805 210 840 225 870 260 L 920 340 Z" fill="#23272d"/>
+	</g>
+	<g fill="#fff" stroke="#171a20" stroke-width="3">
+		<circle cx="310" cy="460" r="56"/><circle cx="310" cy="460" r="20" fill="#171a20"/>
+		<circle cx="890" cy="460" r="56"/><circle cx="890" cy="460" r="20" fill="#171a20"/>
+	</g>
+	<text x="600" y="555" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="500" letter-spacing="6" fill="#5c5e62">MODEL 3</text>
+</svg>

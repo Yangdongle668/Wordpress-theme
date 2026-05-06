@@ -25,7 +25,7 @@ class VoltCore_Model_Gallery extends \Elementor\Widget_Base {
 		$rep->add_control( 'image', array(
 			'label'   => __( 'Image', 'voltcore' ),
 			'type'    => \Elementor\Controls_Manager::MEDIA,
-			'default' => array( 'url' => VOLTCORE_URI . '/assets/images/product-1.jpg' ),
+			'default' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-pearl.svg' ),
 		) );
 		$rep->add_control( 'title', array( 'label' => __( 'Title', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXT, 'default' => 'Acceleration' ) );
 		$rep->add_control( 'desc',  array( 'label' => __( 'Description', 'voltcore' ), 'type' => \Elementor\Controls_Manager::TEXTAREA, 'default' => '0–60 mph in 1.99 sec with Plaid drive system. The fastest production car ever built.' ) );
@@ -41,9 +41,21 @@ class VoltCore_Model_Gallery extends \Elementor\Widget_Base {
 			'fields'      => $rep->get_controls(),
 			'title_field' => '{{{ title }}}',
 			'default'     => array(
-				array( 'title' => 'Acceleration', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/product-1.jpg' ) ),
-				array( 'title' => 'Range',        'image' => array( 'url' => VOLTCORE_URI . '/assets/images/product-2.jpg' ) ),
-				array( 'title' => 'Interior',     'image' => array( 'url' => VOLTCORE_URI . '/assets/images/product-3.jpg' ) ),
+				array( 'title' => 'Acceleration', 'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-red.svg' ) ),
+				array( 'title' => 'Range',        'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-blue.svg' ) ),
+				array( 'title' => 'Interior',     'image' => array( 'url' => VOLTCORE_URI . '/assets/images/tesla/paint-pearl.svg' ) ),
+			),
+		) );
+
+		$this->add_control( 'preset', array(
+			'label'   => __( 'Layout preset', 'voltcore' ),
+			'type'    => \Elementor\Controls_Manager::SELECT,
+			'default' => 'image-left',
+			'options' => array(
+				'image-left'  => __( 'Image left, features right', 'voltcore' ),
+				'image-right' => __( 'Image right, features left (mirror)', 'voltcore' ),
+				'compact'     => __( 'Compact (smaller image, tighter blocks)', 'voltcore' ),
+				'editorial'   => __( 'Editorial (full-bleed image, features over)', 'voltcore' ),
 			),
 		) );
 
@@ -54,7 +66,7 @@ class VoltCore_Model_Gallery extends \Elementor\Widget_Base {
 		$s = $this->get_settings_for_display();
 		$features = is_array( $s['features'] ?? null ) ? $s['features'] : array();
 		?>
-		<section class="vc-modelgal" data-vc-modelgal>
+		<section class="vc-modelgal vc-modelgal--<?php echo esc_attr( $s['preset'] ?? 'image-left' ); ?>" data-vc-modelgal>
 			<div class="vc-modelgal__inner">
 				<div class="vc-modelgal__media">
 					<div class="vc-modelgal__media-stack">
