@@ -53,6 +53,17 @@ function voltcore_register_elementor_widgets( $widgets_manager ) {
 		'widget-product-hero.php'  => 'VoltCore_Product_Hero',
 		'widget-product-specs.php' => 'VoltCore_Product_Specs',
 		'widget-breadcrumbs.php'   => 'VoltCore_Breadcrumbs',
+
+		// Phase 3 (Tesla-clone interactive widgets — v3.0.0)
+		'widget-vehicle-panels.php'      => 'VoltCore_Vehicle_Panels',
+		'widget-model-gallery.php'       => 'VoltCore_Model_Gallery',
+		'widget-model-specs.php'         => 'VoltCore_Model_Specs',
+		'widget-configurator.php'        => 'VoltCore_Configurator',
+		'widget-savings-calculator.php'  => 'VoltCore_Savings_Calculator',
+		'widget-supercharger-map.php'    => 'VoltCore_Supercharger_Map',
+		'widget-inventory.php'           => 'VoltCore_Inventory',
+		'widget-test-drive.php'          => 'VoltCore_Test_Drive',
+		'widget-modals.php'              => 'VoltCore_Modals',
 	);
 
 	foreach ( $files as $file => $class ) {

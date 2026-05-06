@@ -137,6 +137,24 @@ Works out of the box. Create posts normally with `Posts → Add New`:
 * Assign categories — they appear as accent-colored kickers on cards and hero.
 * Tags appear below the article body.
 
+## 10. Tesla-clone widgets (v3.0.0)
+
+VoltCore 3.0 adds a Tesla.com-style interactive widget set under the
+**VoltCore** Elementor category:
+
+| Widget | What it does |
+| --- | --- |
+| **VoltCore Navbar** | Transparent → frosted nav with hover mega-panels (image cards + side-links per primary item), Shop/Account/Region icons, full-height drawer with grouped sections. |
+| **VoltCore Vehicle Panels** | Full-viewport panels for the homepage with image **or** looping video, eyebrow/title/subtitle/price, dual CTAs. Scroll-snap on; videos autoplay only when in view. |
+| **VoltCore Model Gallery** | Pinned image left, scrolling feature blocks right. Active image swaps as each block enters the viewport. |
+| **VoltCore Model Specs** | Tabbed spec matrix (e.g. Plaid / Long Range). Each tab is a grid of value + label cells. |
+| **VoltCore Design Studio** | Configurator. Paint swatches swap the vehicle image; wheel/interior/autopilot picks update a live total. The CTA URL carries the chosen IDs as query params. |
+| **VoltCore Savings Calculator** | Powerwall/Solar readout. Sliders → annual savings, 25-year savings, CO₂ offset, payback. |
+| **VoltCore Supercharger Map** | Leaflet + OpenStreetMap with V2/V3 pins, search, chips, and clickable list. Leaflet is loaded only when this widget is on the page. |
+| **VoltCore Inventory** | Client-side searchable grid. Filters: model, trim, color, max-price, ZIP. Result counter and empty state. |
+| **VoltCore Test Drive** | Four-step booking: vehicle → when/where → contact → confirmation. Animated transitions, guarded navigation. |
+| **VoltCore Modals** | Drop once in the footer template. Provides Account + Region modals. Buttons open via `data-vc-modal-open="account"` / `"region"`. |
+
 ## Folder map
 
 ```

@@ -2,7 +2,7 @@
 
 Contributors: voltcore
 Tested up to: 6.5
-Stable tag: 2.0.0
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -69,6 +69,24 @@ Default filenames:
 * logo.svg — fallback logo when no custom logo is uploaded
 
 == Changelog ==
+
+= 3.0.0 =
+* Tesla.com-clone interactive widget set (Phase 3): hover mega-menu navbar,
+  full-viewport vehicle panels with looping video + scroll-snap,
+  pinned-image Model Gallery, tabbed Model Specs, Design Studio configurator
+  with live price (paint, wheels, interior, autopilot), Powerwall/Solar
+  Savings Calculator, Leaflet-based Supercharger Map with search and
+  V2/V3 chips, client-side Inventory Search, multi-step Test Drive
+  booking flow, and Account/Region modals.
+* Navbar gains hover mega-panels with image cards and side-link list,
+  plus right-side Shop/Account/Region icons and a full-height drawer
+  with grouped sections.
+* Leaflet (1.9.4) registered as an optional dependency, only loaded
+  on pages that include the Supercharger Map widget.
+* JS expanded with modules: bindMegaMenu, bindVehiclePanels (video
+  autoplay on intersect), bindModelGallery (sticky-image swap),
+  bindModelSpecs, bindConfigurator, bindSavingsCalc,
+  bindSuperchargerMap, bindInventory, bindTestDrive, bindModals.
 
 = 2.0.0 =
 * Full Elementor-native rearchitecture.

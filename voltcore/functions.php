@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'VOLTCORE_VERSION', '2.0.0' );
+define( 'VOLTCORE_VERSION', '3.0.0' );
 define( 'VOLTCORE_DIR', get_template_directory() );
 define( 'VOLTCORE_URI', get_template_directory_uri() );
 
@@ -87,6 +87,21 @@ function voltcore_assets() {
 		VOLTCORE_URI . '/assets/js/main.js',
 		array(),
 		VOLTCORE_VERSION,
+		true
+	);
+
+	// Leaflet (registered, only enqueued by widgets that depend on it).
+	wp_register_style(
+		'voltcore-leaflet',
+		'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
+		array(),
+		'1.9.4'
+	);
+	wp_register_script(
+		'voltcore-leaflet',
+		'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+		array(),
+		'1.9.4',
 		true
 	);
 
